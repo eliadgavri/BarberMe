@@ -18,6 +18,7 @@ public class SignInUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signinup);
         getSupportFragmentManager().beginTransaction().add(R.id.container, new SignInFragment(), TAG).commit();
 
+/*
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,6 +33,7 @@ public class SignInUpActivity extends AppCompatActivity {
             }
         });
 
+*/
 
     }
 }

@@ -48,8 +48,7 @@
         android:paddingHorizontal="50dp"
         android:paddingVertical="20dp"
         android:text="Login"
-        android:id="@+id/login_bt"
-        android:onClick="loginClick"/>
+        android:id="@+id/login_bt"/>
 
     <Button
         android:layout_width="wrap_content"

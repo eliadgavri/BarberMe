@@ -61,7 +61,7 @@ public class SignInUpActivity extends AppCompatActivity
             });
         }
         else
-            Toast.makeText(SignInUpActivity.this, "email and password can't be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInUpActivity.this, "email and password can't be empty!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

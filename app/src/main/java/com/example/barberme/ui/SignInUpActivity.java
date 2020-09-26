@@ -22,21 +22,21 @@ public class SignInUpActivity extends AppCompatActivity
     implements SignInFragment.SignInListener, SignUpFragment.SignUpListener{
 
     final String TAG = "MainActivity";
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseAuth.AuthStateListener firebaseListener;
+    FirebaseAuth firebaseAuth;
     String fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signinup);
+        firebaseAuth = FirebaseAuth.getInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.container, new SignInFragment(), TAG).commit();
 
-        firebaseListener = firebaseAuth -> {
+/*        firebaseListener = firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if(user != null)
             {
-                if(fullName != null) { //signup
+                if(fullName == null) { //signup
                     user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullName).build()).addOnCompleteListener(task -> {
                         fullName = null;
                         if(task.isSuccessful())
@@ -44,7 +44,7 @@ public class SignInUpActivity extends AppCompatActivity
                     });
                 }
             }
-        };
+        };*/
     }
 
     @Override
@@ -77,13 +77,20 @@ public class SignInUpActivity extends AppCompatActivity
     @Override
     public void onSignUpFragmentRegisterClick(String fullname, String email, String password, String repeatPassword) {
         if(!fullname.isEmpty() && !email.isEmpty() && !password.isEmpty() && !repeatPassword.isEmpty() && password.equals(repeatPassword)) {
+/*
+            fullName = fullname;
+*/
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    fullName = fullname;
-                    Toast.makeText(SignInUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(SignInUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
                 }
                 else
                     Toast.makeText(SignInUpActivity.this, "Signup failed", Toast.LENGTH_SHORT).show();
@@ -91,17 +98,5 @@ public class SignInUpActivity extends AppCompatActivity
         }
         else
             Toast.makeText(SignInUpActivity.this, "Passwords not equal or something empty", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(firebaseListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        firebaseAuth.removeAuthStateListener(firebaseListener);
     }
 }

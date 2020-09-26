@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group android:checkableBehavior="single">
 
         <item android:id="@+id/all_barbershops"
             android:checked="true"
             android:title="All Barber Shops"/>
-
     </group>
 
+    <item android:title="Personal Submenu">
+        <menu>
+            <item android:id="@+id/my_barbershops"
+                android:title="My Barber Shops"/>
+            <item android:id="@+id/add_barbershop"
+                android:title="Add Barber Shop"/>
+        </menu>
+    </item>
 
+    <item android:title="Settings Submenu">
+        <menu>
+            <item android:id="@+id/settings"
+                android:title="Settings"/>
+            <item android:id="@+id/Logout"
+                android:title="Logout"/>
+        </menu>
+    </item>
 </menu>

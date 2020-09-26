@@ -2,7 +2,8 @@
 <androidx.drawerlayout.widget.DrawerLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,6 +26,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:id="@+id/navigation_view"
-        app:headerLayout=""
-        app:menu=""/>
+        app:headerLayout="@layout/header_layout"
+        app:menu="@menu/drawer_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>

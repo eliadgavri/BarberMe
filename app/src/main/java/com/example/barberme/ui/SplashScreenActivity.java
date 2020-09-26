@@ -27,11 +27,10 @@ public class SplashScreenActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         handler.postDelayed(() -> {
-            /*if(auth.getCurrentUser() != null)
+            if(auth.getCurrentUser() != null)
                 startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
             else
-                startActivity(new Intent(SplashScreenActivity.this, SignInUpActivity.class));*/
-            startActivity(new Intent(SplashScreenActivity.this, SignInUpActivity.class));
+                startActivity(new Intent(SplashScreenActivity.this, SignInUpActivity.class));
             finish();
         }, 3000);
     }

@@ -11,8 +11,6 @@
         <menu>
             <item android:id="@+id/my_barbershops"
                 android:title="My Barber Shops"/>
-            <item android:id="@+id/add_barbershop"
-                android:title="Add Barber Shop"/>
         </menu>
     </item>
 

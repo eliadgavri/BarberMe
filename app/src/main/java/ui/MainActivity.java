@@ -1,4 +1,4 @@
-package com.example.barberme.ui;
+package ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;

@@ -1,4 +1,4 @@
-package com.example.barberme.ui;
+package ui;
 
 import android.content.Context;
 import android.os.Bundle;

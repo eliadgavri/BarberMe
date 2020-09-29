@@ -26,20 +26,6 @@ public class SignInUpActivity extends AppCompatActivity
         setContentView(R.layout.activity_signinup);
         firebaseAuth = FirebaseAuth.getInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.container, new SignInFragment(), TAG).commit();
-
-/*        firebaseListener = firebaseAuth -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if(user != null)
-            {
-                if(fullName == null) { //signup
-                    user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullName).build()).addOnCompleteListener(task -> {
-                        fullName = null;
-                        if(task.isSuccessful())
-                            Toast.makeText(SignInUpActivity.this, user.getDisplayName() + " Welcome", Toast.LENGTH_SHORT).show();
-                    });
-                }
-            }
-        };*/
     }
 
     @Override

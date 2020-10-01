@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.barberme.R;
 
-public class MyBarberShopsFragment extends Fragment {
+public class AllBarberShopsFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_my_barbershops, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_all_barbershops, container, false);
         return rootView;
     }
 }

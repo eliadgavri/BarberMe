@@ -16,7 +16,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class SignInUpActivity extends AppCompatActivity
     implements SignInFragment.SignInListener, SignUpFragment.SignUpListener{
 
-    final String TAG = "MainActivity";
+    final String TAG = "SignInUpActivity";
     FirebaseAuth firebaseAuth;
     String fullName;
 

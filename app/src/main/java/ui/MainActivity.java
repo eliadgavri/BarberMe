@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    final String TAG = "MainActivity";
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         welcomeTV.setText(welcome +" "+ currentUser.getDisplayName());
         welcomeTV.setMovementMethod(LinkMovementMethod.getInstance());
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new AllBarberShopsFragment(), TAG).commit();
 
         firebaseListener = firebaseAuth -> {
             if(firebaseAuth.getCurrentUser() == null) {
@@ -69,14 +72,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        unCheckAllMenuItems(navigationView.getMenu());
         item.setChecked(true);
         drawerLayout.closeDrawers();
         switch (item.getItemId())
         {
+            case R.id.all_barbershops:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new AllBarberShopsFragment(), TAG).addToBackStack(null).commit();
+                break;
+            case R.id.my_barbershops:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new MyBarberShopsFragment(), TAG).addToBackStack(null).commit();
+                break;
             case R.id.Logout:
                 logout();
+                break;
         }
         return false;
+    }
+
+    private void unCheckAllMenuItems(@NonNull final Menu menu) {
+        int size = menu.size();
+        for (int i = 0; i < size; i++) {
+            final MenuItem item = menu.getItem(i);
+            if(item.hasSubMenu()) {
+                // Un check sub menu items
+                unCheckAllMenuItems(item.getSubMenu());
+            } else {
+                item.setChecked(false);
+            }
+        }
     }
 
     private void logout() {

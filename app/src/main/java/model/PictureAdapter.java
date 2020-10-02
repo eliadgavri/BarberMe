@@ -21,6 +21,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
     ArrayList<Uri> pictures;
     Context context;
 
+    public PictureAdapter(ArrayList<Uri> pictures) {
+        this.pictures = pictures;
+    }
+
+
+
     class PictureViewHolder extends RecyclerView.ViewHolder
     {
         ImageView picture;

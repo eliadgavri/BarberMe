@@ -24,7 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MyBarberShopsFragment.MyBarberShopsListener {
 
     final String TAG = "MainActivity";
     Toolbar toolbar;
@@ -127,5 +127,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPause();
         if(firebaseListener != null)
             firebaseAuth.removeAuthStateListener(firebaseListener);
+    }
+
+    @Override
+    public void onAddBarberShopClick() {
+        Intent intent = new Intent(this, AddBarberShopActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

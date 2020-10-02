@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:verticalScrollbarPosition="defaultPosition"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:verticalScrollbarPosition="defaultPosition">
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add BarberShop"
-        android:textSize="40sp"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/add_barbershop_tv"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add BarberShop"
+            android:textSize="40sp"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/add_barbershop_tv"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -179,7 +178,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginVertical="30dp"
             android:layout_below="@+id/upload_layout"
             android:id="@+id/finish_layout"
             android:layout_centerHorizontal="true">
@@ -191,5 +190,5 @@
                 android:padding="20dp"
                 android:id="@+id/finish_button"/>
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

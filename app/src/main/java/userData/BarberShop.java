@@ -1,7 +1,10 @@
 package userData;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.util.List;
 
+@IgnoreExtraProperties  // For Firebase deserialization
 public class BarberShop {
     private String name;
     private String area;
@@ -9,16 +12,36 @@ public class BarberShop {
     private String address;
     private String phoneNumber;
     private List<String> images;
+    private String userId;
+    private String userName;
 
     public BarberShop() {} //for firebase database
 
-    public BarberShop(String name, String area, String city, String address, String phoneNumber, List<String> images) {
+    public BarberShop(String name, String area, String city, String address, String phoneNumber, List<String> images, String userId, String userName) {
         this.name = name;
         this.area = area;
         this.city = city;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.images = images;
+        this.userId = userId;
+        this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getName() {

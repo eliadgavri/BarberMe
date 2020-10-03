@@ -22,7 +22,9 @@
         <activity android:name="ui.MainActivity"/>
         <activity android:name="ui.SignInUpActivity"/>
         <activity android:name="ui.AddBarberShopActivity"/>
-
+        <service
+            android:name="service.UploadPostService"
+            android:exported="false" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

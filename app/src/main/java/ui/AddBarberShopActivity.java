@@ -11,9 +11,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,37 +23,71 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barberme.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import model.PictureAdapter;
+import service.UploadPostService;
 
 public class AddBarberShopActivity extends AppCompatActivity {
-
-    RecyclerView picturesList;
-    PictureAdapter pictureAdapter;
-    ArrayList<Uri> pictures = new ArrayList<>();
-    Button uploadPicture;
-    Button takePicture;
-    File file;
-    int numOfPictures = 0;
-    final int MAX_PICTURES = 6;
+    private FirebaseUser currentUser;
+    private FirebaseAuth auth;;
+    private RecyclerView picturesList;
+    private PictureAdapter pictureAdapter;
+    private ArrayList<Uri> pictures = new ArrayList<>();
+    private Button uploadPicture;
+    private Button takePicture;
+    private Button finishBT;
+    private TextView picturesCountTv;
+    private TextInputEditText nameET;
+    private TextInputEditText areaET;
+    private TextInputEditText cityET;
+    private TextInputEditText addressET;
+    private TextInputEditText phoneNumberET;
+    private File file;
+    private int numOfPictures = 0;
+    private final int MAX_PICTURES = 6;
     private final int SELECT_IMAGE = 1;
     private final int CAMERA_REQUEST = 2;
     private final int WRITE_PERMISSION_REQUEST = 3;
-    Uri imageUri;
+    private Uri imageUri;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        currentUser = auth.getCurrentUser();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_add_barbershop);
+        auth = FirebaseAuth.getInstance();
         uploadPicture = findViewById(R.id.upload_button);
         takePicture = findViewById(R.id.take_picture_button);
         picturesList = findViewById(R.id.recyclerview_pics);
+        picturesCountTv = findViewById(R.id.pictures_count_tv);
+        picturesCountTv = findViewById(R.id.pictures_count_tv);
+        nameET = findViewById(R.id.name_et);
+        areaET = findViewById(R.id.area_et);
+        cityET = findViewById(R.id.city_et);
+        addressET = findViewById(R.id.address_et);
+        phoneNumberET = findViewById(R.id.phone_et);
+        finishBT = findViewById(R.id.finish_button);
         picturesList.setLayoutManager(new GridLayoutManager(this, MAX_PICTURES/2));
         pictureAdapter = new PictureAdapter(pictures);
         picturesList.setAdapter(pictureAdapter);
+        finishBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                publishNewShop();
+
+            }
+        });
         uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +114,42 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //Publish new barber shop
+    private void publishNewShop() {
+        if(UploadPostService.isRunning()) {
+            showMsg("A new post is already being uploaded");
+            return;
+        }
+        Intent intent = new Intent(this, UploadPostService.class)
+                .putParcelableArrayListExtra("images", pictures)
+                .putExtra("userId", currentUser.getUid())
+                .putExtra("userName", currentUser.getDisplayName())
+                .putExtra("phoneNumber", phoneNumberET.getText().toString())
+                .putExtra("title", nameET.getText().toString())
+                .putExtra("city", cityET.getText().toString())
+                .putExtra("area", areaET.getText().toString())
+                .putExtra("address", addressET.getText().toString());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            startForegroundService(intent);
+        else
+            startService(intent);
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        startActivity(mainIntent);
+        finish();
+    }
+
+    private void showMsg(String msg) {
+        new AlertDialog.Builder(this)
+                .setTitle("Note")
+                .setMessage(msg)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton("OK", null)
+                .create()
+                .show();
     }
 
     //Upload picture from gallery
@@ -136,12 +208,14 @@ public class AddBarberShopActivity extends AppCompatActivity {
         imageUri = data.getData();
         numOfPictures++;
         pictures.add(imageUri);
+        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
         pictureAdapter.notifyDataSetChanged();
     }
 
     private void addPictureFromCamera() {
         numOfPictures++;
         pictures.add(imageUri);
+        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
         pictureAdapter.notifyDataSetChanged();
     }
 

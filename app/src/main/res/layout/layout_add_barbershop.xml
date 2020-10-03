@@ -178,10 +178,20 @@
                 android:id="@+id/take_picture_button"/>
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pictures Count: 0 / 0"
+            android:textSize="20sp"
+            android:layout_below="@+id/upload_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/pictures_count_tv"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/upload_layout"
+            android:layout_below="@id/pictures_count_tv"
             android:id="@+id/recyclerview_pics"/>
 
         <LinearLayout

@@ -1,4 +1,4 @@
-package model;
+package adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.barberme.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureViewHolder> {
 

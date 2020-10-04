@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barberme.R;
@@ -30,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.io.File;
 import java.util.ArrayList;
 
-import model.PictureAdapter;
+import adapter.PictureAdapter;
 import service.UploadPostService;
 
 public class AddBarberShopActivity extends AppCompatActivity {

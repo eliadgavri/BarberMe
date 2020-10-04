@@ -1,7 +1,9 @@
 package userData;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 @IgnoreExtraProperties  // For Firebase deserialization
@@ -14,6 +16,17 @@ public class BarberShop {
     private List<String> images;
     private String userId;
     private String userName;
+
+    @ServerTimestamp
+    private Date updateDate;  // update (also created) date - from Firebase
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
 
     public BarberShop() {} //for firebase database
 

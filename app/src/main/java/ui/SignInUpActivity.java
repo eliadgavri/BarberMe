@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.barberme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import dialog.ForgotPasswordDialog;
@@ -56,6 +58,27 @@ public class SignInUpActivity extends AppCompatActivity
     public void onForgotPasswordClick() {
         ForgotPasswordDialog dialog = new ForgotPasswordDialog(this);
         dialog.show();
+    }
+
+    @Override
+    public void onGuestLoginClick() {
+        firebaseAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(SignInUpActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     @Override

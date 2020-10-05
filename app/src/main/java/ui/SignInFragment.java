@@ -22,12 +22,14 @@ public class SignInFragment extends Fragment {
     TextView forgotPassword;
     Button signin;
     Button signup;
+    Button guestSignin;
     SignInListener signInListener;
 
     interface SignInListener {
         void onSignInFragmentLoginClick(String email, String password);
         void onSignInFragmentRegisterClick();
         void onForgotPasswordClick();
+        void onGuestLoginClick();
     }
 
     @Override
@@ -45,6 +47,7 @@ public class SignInFragment extends Fragment {
         signin = rootView.findViewById(R.id.login_bt);
         signup = rootView.findViewById(R.id.signup_bt);
         forgotPassword = rootView.findViewById(R.id.forgot_password_tv);
+        guestSignin = rootView.findViewById(R.id.guest_login_bt);
 
         signin.setOnClickListener(view -> {
             if(signInListener != null)
@@ -60,6 +63,13 @@ public class SignInFragment extends Fragment {
             public void onClick(View view) {
                 if(signInListener != null)
                     signInListener.onForgotPasswordClick();
+            }
+        });
+        guestSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(signInListener != null)
+                    signInListener.onGuestLoginClick();
             }
         });
 

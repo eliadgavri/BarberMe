@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener firebaseListener;
+    Boolean isGuest = false;
+    ImageView home;
+    ImageView search;
+    boolean searchMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +47,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
         setSupportActionBar(toolbar);
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+        this.getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.menu.search_menu);
+        getSupportActionBar().setElevation(0);
+        View actionBar = getSupportActionBar().getCustomView();
+        home = actionBar.findViewById(R.id.home_button);
+        search = actionBar.findViewById(R.id.search_button);
+        home.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
+        search.setOnClickListener(view -> {
+            AllBarberShopsFragment myFragment = (AllBarberShopsFragment)getSupportFragmentManager().findFragmentByTag(TAG);
+            searchMode = !searchMode;
+            myFragment.showHideSearch(searchMode);
+        });
         View headerView = navigationView.getHeaderView(0);
-        String welcome = "Welcome";
         TextView welcomeTV = headerView.findViewById(R.id.navigation_header_tv);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        welcomeTV.setText(welcome +" "+ currentUser.getDisplayName());
+        String name;
+        if(currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0) {
+            name = "guest";
+            isGuest = true;
+        }
+        else {
+            name = currentUser.getDisplayName();
+            isGuest = false;
+        }
+        welcomeTV.setText("Welcome "+ name);
         welcomeTV.setMovementMethod(LinkMovementMethod.getInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.container, new AllBarberShopsFragment(), TAG).commit();
 
@@ -63,14 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-            drawerLayout.openDrawer(GravityCompat.START);
-        return super.onOptionsItemSelected(item);
-
-    }
-
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         unCheckAllMenuItems(navigationView.getMenu());
         item.setChecked(true);
@@ -79,9 +94,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.all_barbershops:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new AllBarberShopsFragment(), TAG).addToBackStack(null).commit();
+                search.setVisibility(View.VISIBLE);
+                searchMode = false;
                 break;
             case R.id.my_barbershops:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new MyBarberShopsFragment(), TAG).addToBackStack(null).commit();
+                if(isGuest != true) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new MyBarberShopsFragment(), TAG).addToBackStack(null).commit();
+                    search.setVisibility(View.GONE);
+                }
+                else
+                    Toast.makeText(this, "You must login to have your our barber shops", Toast.LENGTH_LONG).show();
                 break;
             case R.id.Logout:
                 logout();

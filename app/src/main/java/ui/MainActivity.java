@@ -1,14 +1,10 @@
 package ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceScreen;
 import android.text.method.LinkMovementMethod;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,18 +12,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.example.barberme.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MyBarberShopsFragment.MyBarberShopsListener {
 
     final String TAG = "MainActivity";
+    final int SETTING_REQUEST=1;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -105,12 +110,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 else
                     Toast.makeText(this, "You must login to have your our barber shops", Toast.LENGTH_LONG).show();
                 break;
+            case R.id.settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment(), TAG).addToBackStack(null).commit();
+                break;
             case R.id.Logout:
                 logout();
                 break;
         }
         return false;
     }
+
 
     private void unCheckAllMenuItems(@NonNull final Menu menu) {
         int size = menu.size();

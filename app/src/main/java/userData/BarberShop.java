@@ -17,7 +17,6 @@ public class BarberShop {
     private String userId;
     private String userName;
 
-    @ServerTimestamp
     private Date updateDate;  // update (also created) date - from Firebase
 
     public Date getUpdateDate() {

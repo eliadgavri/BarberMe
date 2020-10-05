@@ -16,15 +16,18 @@
         <activity android:name="ui.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ui.MainActivity"/>
-        <activity android:name="ui.SignInUpActivity"/>
-        <activity android:name="ui.AddBarberShopActivity"/>
+        <activity android:name="ui.MainActivity" />
+        <activity android:name="ui.SignInUpActivity" />
+        <activity android:name="ui.AddBarberShopActivity" />
+
         <service
             android:name="service.UploadPostService"
             android:exported="false" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -34,7 +37,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files_dir" />
         </provider>
-
     </application>
 
 </manifest>

@@ -39,6 +39,14 @@
             android:id="@+id/password_et"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:id="@+id/forgot_password_tv"/>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

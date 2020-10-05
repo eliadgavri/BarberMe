@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ public class SignInFragment extends Fragment {
 
     TextInputEditText email;
     TextInputEditText password;
+    TextView forgotPassword;
     Button signin;
     Button signup;
     SignInListener signInListener;
@@ -25,6 +27,7 @@ public class SignInFragment extends Fragment {
     interface SignInListener {
         void onSignInFragmentLoginClick(String email, String password);
         void onSignInFragmentRegisterClick();
+        void onForgotPasswordClick();
     }
 
     @Override
@@ -41,6 +44,7 @@ public class SignInFragment extends Fragment {
         password = rootView.findViewById(R.id.password_et);
         signin = rootView.findViewById(R.id.login_bt);
         signup = rootView.findViewById(R.id.signup_bt);
+        forgotPassword = rootView.findViewById(R.id.forgot_password_tv);
 
         signin.setOnClickListener(view -> {
             if(signInListener != null)
@@ -50,6 +54,13 @@ public class SignInFragment extends Fragment {
         signup.setOnClickListener(view -> {
             if(signInListener != null)
                 signInListener.onSignInFragmentRegisterClick();
+        });
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(signInListener != null)
+                    signInListener.onForgotPasswordClick();
+            }
         });
 
         return  rootView;

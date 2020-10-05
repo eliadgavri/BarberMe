@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import dialog.ForgotPasswordDialog;
+
 public class SignInUpActivity extends AppCompatActivity
     implements SignInFragment.SignInListener, SignUpFragment.SignUpListener{
 
@@ -48,6 +50,12 @@ public class SignInUpActivity extends AppCompatActivity
     @Override
     public void onSignInFragmentRegisterClick() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new SignUpFragment(), TAG).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onForgotPasswordClick() {
+        ForgotPasswordDialog dialog = new ForgotPasswordDialog(this);
+        dialog.show();
     }
 
     @Override

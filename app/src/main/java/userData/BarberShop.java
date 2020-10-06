@@ -1,7 +1,6 @@
 package userData;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
-import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,20 +16,13 @@ public class BarberShop implements Serializable {
     private List<String> images;
     private String userId;
     private String userName;
+    private String website;
 
     private Date updateDate;  // update (also created) date - from Firebase
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
     public BarberShop() {} //for firebase database
 
-    public BarberShop(String name, String area, String city, String address, String phoneNumber, List<String> images, String userId, String userName) {
+    public BarberShop(String name, String area, String city, String address, String phoneNumber, List<String> images, String userId, String userName, String website) {
         this.name = name;
         this.area = area;
         this.city = city;
@@ -39,6 +31,7 @@ public class BarberShop implements Serializable {
         this.images = images;
         this.userId = userId;
         this.userName = userName;
+        this.website = website;
     }
 
     public String getUserId() {
@@ -104,4 +97,16 @@ public class BarberShop implements Serializable {
     public void setImages(List<String> images) {
         this.images = images;
     }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getWebsite() { return website; }
+
+    public void setWebsite(String website) { this.website = website; }
 }

@@ -46,6 +46,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private TextInputEditText cityET;
     private TextInputEditText addressET;
     private TextInputEditText phoneNumberET;
+    private TextInputEditText websiteET;
     private File file;
     private int numOfPictures = 0;
     private final int MAX_PICTURES = 6;
@@ -75,6 +76,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
         cityET = findViewById(R.id.city_et);
         addressET = findViewById(R.id.address_et);
         phoneNumberET = findViewById(R.id.phone_et);
+        websiteET = findViewById(R.id.website_et);
         finishBT = findViewById(R.id.finish_button);
         picturesList.setLayoutManager(new GridLayoutManager(this, MAX_PICTURES/2));
         pictureAdapter = new PictureAdapter(pictures);
@@ -128,6 +130,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 .putExtra("title", nameET.getText().toString())
                 .putExtra("city", cityET.getText().toString())
                 .putExtra("area", areaET.getText().toString())
+                .putExtra("website", websiteET.getText().toString())
                 .putExtra("address", addressET.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

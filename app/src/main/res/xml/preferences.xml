@@ -5,6 +5,11 @@
 
     <PreferenceCategory
         android:title="Account Settings"/>
+
+    <Preference
+        android:title="Profile picture"
+        android:summary="Change profile picture"
+        android:key="ChangeProfilePicture"/>
     <Preference
         android:title="Email"
         android:summary="Change your email."

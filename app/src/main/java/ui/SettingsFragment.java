@@ -1,11 +1,18 @@
 package ui;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,12 +26,15 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.File;
 import java.net.PasswordAuthentication;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    Button savePassChangesBtn, saveEmailChangesBtn;
+    Button savePassChangesBtn, saveEmailChangesBtn,saveProfilePicChangesBtn,editProfilePicBtn;
     EditText repeatPassEt, newPassEt, emailEt, oldPassEt, oldPassEmailEt;
+    ImageView profilePicIv;
+    File file;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -34,6 +44,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public boolean onPreferenceTreeClick(androidx.preference.Preference preference) {
         switch (preference.getKey()) {
+            case "ChangeProfilePicture":
+            {
+                changeProfilePicture();
+            }
             case "ChangeEmail": {
                 changeEmail();
                 break;
@@ -44,6 +58,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void changeProfilePicture() {
+        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
+        final View dialogView = getLayoutInflater().inflate(R.layout.change_profile_pic_dialog, null);
+
+        saveProfilePicChangesBtn = dialogView.findViewById(R.id.save_profile_pic_changes_btn);
+        editProfilePicBtn = dialogView.findViewById(R.id.edit_profile_pic_btn);
+        profilePicIv=dialogView.findViewById(R.id.profile_pic_image_view);
+
+        editProfilePicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
 
     private void changeEmail() {
@@ -121,5 +152,34 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         builderDialog.setView(dialogView);
         AlertDialog alertDialog = builderDialog.create();
         alertDialog.show();
+    }
+
+    private void selectImage(Context context) {
+        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AlertDialog_Builder);
+        builder.setTitle("Choose your song picture");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (options[item].equals("Take Photo")) {
+                    file=new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),"song"+(songList!=null?songList.size():0)+".jpg");
+                    Uri imageUri= FileProvider.getUriForFile(MainActivity.this,"com.example.mediaplayerexerciseyossihaigavriel.provider",file);
+                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePicture.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+                    startActivityForResult(takePicture, CAMERA_REQUEST);
+
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    pickPhoto.setType("image/*");
+                    startActivityForResult(pickPhoto , CAMERA_PICK_IMAGE_GALLERY);
+
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
     }
 }

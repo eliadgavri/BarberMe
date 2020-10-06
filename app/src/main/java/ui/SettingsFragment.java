@@ -40,8 +40,8 @@ import java.net.PasswordAuthentication;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    Button savePassChangesBtn, saveEmailChangesBtn,saveProfilePicChangesBtn,editProfilePicBtn;
-    EditText repeatPassEt, newPassEt, emailEt, oldPassEt, oldPassEmailEt;
+    Button savePassChangesBtn, saveEmailChangesBtn,saveProfilePicChangesBtn,editProfilePicBtn,saveUsernameChangesBtn;
+    EditText repeatPassEt, newPassEt, emailEt, oldPassEt, usernameEt;
     ImageView profilePicIv;
     File file;
     private final int SELECT_IMAGE = 1;
@@ -62,6 +62,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 changeProfilePicture();
                 break;
             }
+            case "ChangeUserName":
+            {
+                changeUserName();
+                break;
+            }
             case "ChangeEmail": {
                 changeEmail();
                 break;
@@ -72,6 +77,46 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void changeUserName() {
+
+        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
+        final View dialogView = getLayoutInflater().inflate(R.layout.change_username_dialog, null);
+
+        saveUsernameChangesBtn = dialogView.findViewById(R.id.save_changes_username_btn);
+        usernameEt=dialogView.findViewById(R.id.change_username_et);
+
+        saveUsernameChangesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username=usernameEt.getText().toString();
+                if(!username.isEmpty()) {
+                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(username).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(SettingsFragment.this.getContext(), "Username changed", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent("usernameChange");
+                                LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
+                            } else {
+                                Toast.makeText(SettingsFragment.this.getContext(), "Username isn't changed", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(SettingsFragment.this.getContext(), "The username text can't be empty,please fill the text filed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        builderDialog.setView(dialogView);
+        AlertDialog alertDialog = builderDialog.create();
+        alertDialog.show();
     }
 
     private void changeProfilePicture() {

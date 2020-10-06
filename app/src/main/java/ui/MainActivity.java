@@ -109,6 +109,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 updateProfileReceiver, new IntentFilter("profilePictureChanged"));
+
+        BroadcastReceiver usernameReceiver=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String username=currentUser.getDisplayName();
+                welcomeTV.setText("Welcome "+ username);
+
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                usernameReceiver,new IntentFilter("usernameChange"));
     }
 
     @Override

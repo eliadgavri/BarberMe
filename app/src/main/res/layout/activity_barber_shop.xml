@@ -51,37 +51,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="nlabla"
-                android:textSize="100sp"/>
-
+                android:layout_marginTop="40dp"
+                android:id="@+id/recycler_barber_pictures"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

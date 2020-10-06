@@ -1,7 +1,11 @@
 package ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
 import android.text.method.LinkMovementMethod;
@@ -21,8 +25,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
+import com.bumptech.glide.Glide;
 import com.example.barberme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MyBarberShopsFragment.MyBarberShopsListener {
 
     final String TAG = "MainActivity";
+    final String ANNONYMOUS_PROFILE = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07";
     final int SETTING_REQUEST=1;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -67,15 +74,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         View headerView = navigationView.getHeaderView(0);
         TextView welcomeTV = headerView.findViewById(R.id.navigation_header_tv);
+        ImageView profileIV = headerView.findViewById(R.id.profile_picture_header);
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         String name;
         if(currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0) {
             name = "guest";
             isGuest = true;
+            Glide.with(this).load(ANNONYMOUS_PROFILE).into(profileIV);
         }
         else {
             name = currentUser.getDisplayName();
             isGuest = false;
+            Uri profilePicture = currentUser.getPhotoUrl();
+            Glide.with(this).load(profilePicture).into(profileIV);
         }
         welcomeTV.setText("Welcome "+ name);
         welcomeTV.setMovementMethod(LinkMovementMethod.getInstance());
@@ -88,6 +99,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
             }
         };
+        BroadcastReceiver updateProfileReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Uri profilePicture = currentUser.getPhotoUrl();
+                Glide.with(MainActivity.this).load(profilePicture).into(profileIV);
+            }
+        };
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                updateProfileReceiver, new IntentFilter("profilePictureChanged"));
     }
 
     @Override

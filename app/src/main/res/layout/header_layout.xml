@@ -9,10 +9,17 @@
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/profile_picture_header"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/navigation_header_tv"
+        android:layout_marginTop="20dp"
         android:text="header"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

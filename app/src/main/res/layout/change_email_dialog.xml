@@ -46,5 +46,5 @@
         android:id="@+id/preference_save_email_changes"
         android:layout_marginTop="20dp"
         android:padding="10dp"
-        android:layout_marginHorizontal="150dp"/>
+        android:layout_marginHorizontal="100dp"/>
 </LinearLayout>

@@ -3,11 +3,12 @@ package userData;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @IgnoreExtraProperties  // For Firebase deserialization
-public class BarberShop {
+public class BarberShop implements Serializable {
     private String name;
     private String area;
     private String city;

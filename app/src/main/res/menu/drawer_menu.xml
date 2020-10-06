@@ -8,6 +8,7 @@
     </group>
 
     <item android:title="Personal Submenu">
+
         <menu>
             <item android:id="@+id/my_barbershops"
                 android:title="My Barber Shops"/>

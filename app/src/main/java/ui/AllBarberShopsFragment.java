@@ -1,5 +1,7 @@
 package ui;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.barberme.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -32,7 +35,7 @@ import model.Consumer;
 import model.DatabaseFetch;
 import userData.BarberShop;
 
-public class AllBarberShopsFragment extends Fragment {
+public class AllBarberShopsFragment extends Fragment implements BarberShopAdapter.MyBarberShopListener {
 
     RecyclerView barbersList;
     LinearLayout searchLayout;
@@ -59,6 +62,7 @@ public class AllBarberShopsFragment extends Fragment {
                 barbers = param;
                 barberShopAdapter = new BarberShopAdapter(param);
                 barbersList.setAdapter(barberShopAdapter);
+                barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         };
         databaseFetch.fetchAllBarberShops(consumerList);
@@ -73,6 +77,7 @@ public class AllBarberShopsFragment extends Fragment {
                 }
                 barberShopAdapter = new BarberShopAdapter(data);
                 barbersList.setAdapter(barberShopAdapter);
+                barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         });
         resetBT.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +85,22 @@ public class AllBarberShopsFragment extends Fragment {
             public void onClick(View view) {
                 barberShopAdapter = new BarberShopAdapter(barbers);
                 barbersList.setAdapter(barberShopAdapter);
+                barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         });
+
         return rootView;
     }
 
     public void showHideSearch(boolean b)
     {
         searchLayout.setVisibility(b? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onBarberShopClick(int position, View view) {
+        Intent intent = new Intent(AllBarberShopsFragment.this.getContext(),BarberShopActivity.class);
+        intent.putExtra("Barbershop",barbers.get(position));
+        startActivity(intent);
     }
 }

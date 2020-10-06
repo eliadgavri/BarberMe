@@ -21,12 +21,19 @@ import userData.BarberShop;
 public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.BarberShopViewHolder> {
 
     private List<BarberShop> barberShops;
+    MyBarberShopListener listener;
     private Context context;
 
     public BarberShopAdapter(List<BarberShop> barberShops) {
         this.barberShops = barberShops;
     }
 
+    public interface MyBarberShopListener
+    {
+        void onBarberShopClick(int position,View view);
+    }
+
+    public void setListener(MyBarberShopListener listener){this.listener=listener;}
     @NonNull
     @Override
     public BarberShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,6 +67,16 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
             picture = itemView.findViewById(R.id.barebrshop_picture);
             title = itemView.findViewById(R.id.barebrshop_name);
             city = itemView.findViewById(R.id.barebrshop_city);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener!=null)
+                    {
+                        listener.onBarberShopClick(getAdapterPosition(),v);
+                    }
+                }
+            });
         }
     }
 

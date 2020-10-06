@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:title="Account Settings"/>
     <Preference
-        android:title="Password"
-        android:summary="Change your password."
-        android:key="ChangePassword"/>
-    <Preference
         android:title="Email"
         android:summary="Change your email."
         android:key="ChangeEmail"/>
+    <Preference
+        android:title="Password"
+        android:summary="Change your password."
+        android:key="ChangePassword"/>
 <!--
 
     </PreferenceScreen>

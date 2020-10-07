@@ -6,27 +6,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.barberme.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class SignUpFragment extends Fragment {
 
-    TextInputEditText fullname;
-    TextInputEditText email;
-    TextInputEditText password;
-    TextInputEditText repeatpassword;
-    Button backToSignin;
-    Button signup;
+    EditText firstName;
+    EditText lastName;
+    EditText email;
+    EditText password;
+    EditText confirmPassword;
+    EditText birthday;
+    EditText address;
+    RadioGroup radioGroup;
+    String radioGender="Male";
+    Button backToSignIn;
+    Button signUp;
     SignUpListener signUpListener;
 
     interface SignUpListener {
         void onSignUpFragmentLoginClick();
-        void onSignUpFragmentRegisterClick(String fullname, String email, String password, String repeatPassword);
+        void onSignUpFragmentRegisterClick(String firstName,String lastName, String email, String password, String repeatPassword,String gender,String birthday,String address);
     }
 
     @Override
@@ -39,23 +46,48 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_signup, container, false);
-        fullname = rootView.findViewById(R.id.fullname_et);
+
+        firstName=rootView.findViewById(R.id.first_name_et);
+        lastName=rootView.findViewById(R.id.last_name_et);
         email = rootView.findViewById(R.id.email_et);
         password = rootView.findViewById(R.id.password_et);
-        repeatpassword = rootView.findViewById(R.id.confirm_password_et);
-        backToSignin = rootView.findViewById(R.id.login_bt);
-        signup = rootView.findViewById(R.id.signup_bt);
+        confirmPassword = rootView.findViewById(R.id.confirm_password_et);
+        signUp = rootView.findViewById(R.id.signup_bt);
+        birthday=rootView.findViewById(R.id.birthday);
+        address =rootView.findViewById(R.id.address_et);
 
-        backToSignin.setOnClickListener(view -> {
+        addListenerOnButton(rootView);
+        backToSignIn.setOnClickListener(view -> {
             if(signUpListener!=null)
                 signUpListener.onSignUpFragmentLoginClick();
         });
 
-        signup.setOnClickListener(view -> {
+        signUp.setOnClickListener(view -> {
             if(signUpListener!=null)
-                signUpListener.onSignUpFragmentRegisterClick(fullname.getText().toString(), email.getText().toString(), password.getText().toString(), repeatpassword.getText().toString());
+                signUpListener.onSignUpFragmentRegisterClick(firstName.getText().toString(),lastName.getText().toString(), email.getText().toString(), password.getText().toString(), confirmPassword.getText().toString(),radioGender,birthday.getText().toString(),address.getText().toString());
         });
 
         return  rootView;
+    }
+
+    public void addListenerOnButton (View view) {
+
+        radioGroup = (RadioGroup)view.findViewById(R.id.radio);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                switch(checkedId){
+                    case R.id.radioMale:
+                        radioGender="Male";
+                        break;
+                    case R.id.radioFemale:
+                        radioGender="Female";
+                        break;
+                }
+            }
+        });
+
     }
 }

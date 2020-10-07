@@ -2,6 +2,7 @@ package ui;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import dialog.ForgotPasswordDialog;
+import service.UploadNewUser;
+import service.UploadPostService;
+import userData.User;
 
 public class SignInUpActivity extends AppCompatActivity
     implements SignInFragment.SignInListener, SignUpFragment.SignUpListener{
@@ -88,15 +92,17 @@ public class SignInUpActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSignUpFragmentRegisterClick(String fullname, String email, String password, String repeatPassword) {
-        if(!fullname.isEmpty() && !email.isEmpty() && !password.isEmpty() && !repeatPassword.isEmpty() && password.equals(repeatPassword)) {
+    public void onSignUpFragmentRegisterClick(String firstName, String lastName, String email, String password, String repeatPassword,String gender,String birthday,String address) {
+        if(!firstName.isEmpty() && !lastName.isEmpty() && !address.isEmpty() && !birthday.isEmpty() && !email.isEmpty() && !password.isEmpty() && !repeatPassword.isEmpty() && password.equals(repeatPassword)) {
             Uri profilePicture = Uri.parse("https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07");
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(fullname).setPhotoUri(profilePicture).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(firstName +" "+ lastName).setPhotoUri(profilePicture).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(SignInUpActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,email,password,repeatPassword,gender,birthday,address);
+                            publishNewUser(user);
                             Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -104,10 +110,31 @@ public class SignInUpActivity extends AppCompatActivity
                     });
                 }
                 else
-                    Toast.makeText(SignInUpActivity.this, "Signup failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInUpActivity.this, "SignuUp failed", Toast.LENGTH_SHORT).show();
             });
         }
         else
             Toast.makeText(SignInUpActivity.this, "Passwords not equal or something empty", Toast.LENGTH_SHORT).show();
     }
+
+    private void publishNewUser(User user) {
+
+        Intent intent = new Intent(this, UploadNewUser.class)
+                .putExtra("uID",user.getuID())
+                .putExtra("firstName",user.getFirstName())
+                .putExtra("lastName",user.getLastName())
+                .putExtra( "password",user.getPassword())
+                .putExtra("email",user.getEmail())
+                .putExtra("profilePicture",user.getProfilePicture())
+                .putExtra("gender",user.getGender())
+                .putExtra("birthday",user.getBirthday())
+                .putExtra("address",user.getAddress());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            startForegroundService(intent);
+        else
+            startService(intent);
+
+    }
+
 }

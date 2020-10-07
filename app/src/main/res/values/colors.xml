@@ -3,10 +3,11 @@
     <color name="colorPrimary">#B2000000</color>
     <color name="colorPrimaryDark">#B3000000</color>
     <color name="colorAccent">#B2000000</color>
-    <color name="barColor">#B2000000</color>
+    <color name="barColor">#FFFFFF</color>
     <color name="cardViewColor">#B3000000</color>
     <color name="White">#FFF</color>
     <color name="YellowApp">#FFCE6A</color>
+    <color name="YellowDark">#FBB940</color>
     <color name="BlackHide">#B2000000</color>
     <color name="Black">#000</color>
 </resources>

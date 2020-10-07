@@ -127,7 +127,7 @@ public class UploadPostService extends Service
                 })
                 .addOnFailureListener(ex -> {
                     ex.printStackTrace();
-                    showMessageAndFinish("fail to upload");
+                    showMessageAndFinish("failed to upload");
                 });
     }
 

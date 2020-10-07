@@ -60,33 +60,43 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/message_image"
+        android:id="@+id/image_btn_phone"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_baseline_menu_24"
+        android:src="@drawable/ic_baseline_phone_24"
         app:pressedTranslationZ="80dp"
         app:layout_anchor="@id/appBar"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="40dp"
         app:layout_anchorGravity="bottom|end"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/message_image1"
+        android:id="@+id/image_btn_navigation"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_baseline_menu_24"
+        android:src="@drawable/ic_baseline_navigation_24"
         app:pressedTranslationZ="80dp"
         app:layout_anchor="@id/appBar"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="130dp"
         app:layout_anchorGravity="bottom|end"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/message_image2"
+        android:id="@+id/image_btn_message"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_baseline_menu_24"
+        android:src="@drawable/ic_baseline_message_24"
         app:pressedTranslationZ="80dp"
         app:layout_anchor="@id/appBar"
-        android:layout_marginEnd="190dp"
+        android:layout_marginEnd="220dp"
+        app:layout_anchorGravity="bottom|end"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/image_btn_internet"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_baseline_home_24"
+        app:pressedTranslationZ="80dp"
+        app:layout_anchor="@id/appBar"
+        android:layout_marginEnd="310dp"
         app:layout_anchorGravity="bottom|end"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

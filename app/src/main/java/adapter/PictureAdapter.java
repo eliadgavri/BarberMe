@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,20 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
 
     ArrayList<Uri> pictures;
     Context context;
-
+    PictureListener pictureListener;
     public PictureAdapter(ArrayList<Uri> pictures) {
         this.pictures = pictures;
     }
 
+    public interface PictureListener
+    {
+        void onClickPicture(int position,View view);
+    }
 
+    public void setListener(PictureListener pictureListener)
+    {
+        this.pictureListener=pictureListener;
+    }
 
     class PictureViewHolder extends RecyclerView.ViewHolder
     {
@@ -32,6 +41,16 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
         public PictureViewHolder(@NonNull View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.picture_box);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(pictureListener!=null)
+                    {
+                        pictureListener.onClickPicture(getAdapterPosition(),v);
+                    }
+                }
+            });
         }
     }
 

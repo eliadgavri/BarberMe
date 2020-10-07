@@ -39,5 +39,6 @@
                 android:resource="@xml/files_dir" />
         </provider>
     </application>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
 </manifest>

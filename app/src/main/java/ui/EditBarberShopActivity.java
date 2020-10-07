@@ -32,6 +32,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import adapter.PictureAdapter;
 import service.UploadPostService;
@@ -95,7 +96,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateAd();
-                EditBarberShopActivity.this.finish();
             }
         });
         uploadPicture.setOnClickListener(new View.OnClickListener() {
@@ -137,32 +137,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
             pictures.add(Uri.parse(url));
         numOfPictures = pictures.size();
         picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
-    }
-
-    //Publish new barber shop
-    private void publishNewShop() {
-        if(UploadPostService.isRunning()) {
-            showMsg("A new post is already being uploaded");
-            return;
-        }
-        Intent intent = new Intent(this, UploadPostService.class)
-                .putParcelableArrayListExtra("images", pictures)
-                .putExtra("userId", currentUser.getUid())
-                .putExtra("userName", currentUser.getDisplayName())
-                .putExtra("phoneNumber", phoneNumberET.getText().toString())
-                .putExtra("title", nameET.getText().toString())
-                .putExtra("city", cityET.getText().toString())
-                .putExtra("area", areaET.getText().toString())
-                .putExtra("website", websiteET.getText().toString())
-                .putExtra("address", addressET.getText().toString());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            startForegroundService(intent);
-        else
-            startService(intent);
-        Intent mainIntent = new Intent(this, MainActivity.class);
-        startActivity(mainIntent);
-        finish();
     }
 
     private void showMsg(String msg) {
@@ -258,12 +232,19 @@ public class EditBarberShopActivity extends AppCompatActivity {
     }
 
     private void updateAd() {
-        barberShop = new BarberShop(nameET.getText().toString(), areaET.getText().toString(), cityET.getText().toString(), addressET.getText().toString(), phoneNumberET.getText().toString(), barberShop.getImages(), FirebaseAuth.getInstance().getCurrentUser().getUid(), FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), websiteET.getText().toString());
+        barberShop.setName(nameET.getText().toString());
+        barberShop.setCity(cityET.getText().toString());
+        barberShop.setAddress(addressET.getText().toString());
+        barberShop.setPhoneNumber(phoneNumberET.getText().toString());
+        barberShop.setWebsite(websiteET.getText().toString());
         FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId())
                 .set(barberShop, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(EditBarberShopActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+                Intent mainIntent = new Intent(EditBarberShopActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+                finish();
             }
 
         }).addOnFailureListener(new OnFailureListener() {

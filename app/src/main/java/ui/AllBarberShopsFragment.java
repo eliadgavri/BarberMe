@@ -60,7 +60,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
             @Override
             public void apply(List<BarberShop> param) {
                 barbers = param;
-                barberShopAdapter = new BarberShopAdapter(param);
+                barberShopAdapter = new BarberShopAdapter(param, false);
                 barbersList.setAdapter(barberShopAdapter);
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
@@ -75,7 +75,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
                     if (barber.getName().contains(searchString))
                         data.add(barber);
                 }
-                barberShopAdapter = new BarberShopAdapter(data);
+                barberShopAdapter = new BarberShopAdapter(data, false);
                 barbersList.setAdapter(barberShopAdapter);
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
@@ -83,7 +83,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         resetBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                barberShopAdapter = new BarberShopAdapter(barbers);
+                barberShopAdapter = new BarberShopAdapter(barbers, false);
                 barbersList.setAdapter(barberShopAdapter);
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
@@ -102,5 +102,10 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         Intent intent = new Intent(AllBarberShopsFragment.this.getContext(),BarberShopActivity.class);
         intent.putExtra("Barbershop",barbers.get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onEditBarberShopClick(int position, View view) {
+
     }
 }

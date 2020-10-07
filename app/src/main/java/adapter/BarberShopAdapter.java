@@ -21,16 +21,19 @@ import userData.BarberShop;
 public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.BarberShopViewHolder> {
 
     private List<BarberShop> barberShops;
+    private boolean showEdit;
     MyBarberShopListener listener;
     private Context context;
 
-    public BarberShopAdapter(List<BarberShop> barberShops) {
+    public BarberShopAdapter(List<BarberShop> barberShops, boolean showEdit) {
         this.barberShops = barberShops;
+        this.showEdit = showEdit;
     }
 
     public interface MyBarberShopListener
     {
         void onBarberShopClick(int position,View view);
+        void onEditBarberShopClick(int position,View view);
     }
 
     public void setListener(MyBarberShopListener listener){this.listener=listener;}
@@ -62,12 +65,23 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
         ImageView picture;
         TextView title;
         TextView city;
+        ImageView edit;
         public BarberShopViewHolder(@NonNull View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.barebrshop_picture);
             title = itemView.findViewById(R.id.barebrshop_name);
             city = itemView.findViewById(R.id.barebrshop_city);
-
+            edit = itemView.findViewById(R.id.edit_barebrshop_bt);
+            edit.setVisibility(showEdit? View.VISIBLE : View.GONE);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener!=null)
+                    {
+                        listener.onEditBarberShopClick(getAdapterPosition(),view);
+                    }
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInFragment extends Fragment {
 
-    TextInputEditText email;
-    TextInputEditText password;
+    EditText email;
+    EditText password;
     TextView forgotPassword;
     Button signin;
     Button signup;

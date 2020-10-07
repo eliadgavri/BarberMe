@@ -35,7 +35,7 @@ public class DatabaseFetch {
                     if (task.isSuccessful()) {
                         data = new ArrayList<>();
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
-                            data.add(document.toObject(BarberShop.class));
+                            data.add(document.toObject(BarberShop.class).withId(document.getId()));
                         }
                         consumer.apply(data);
                     } else {

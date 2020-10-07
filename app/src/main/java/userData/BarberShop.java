@@ -1,6 +1,10 @@
 package userData;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
+import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +12,10 @@ import java.util.List;
 
 @IgnoreExtraProperties  // For Firebase deserialization
 public class BarberShop implements Serializable {
+
+    @NonNull
+    private String id; // Document id
+
     private String name;
     private String area;
     private String city;
@@ -18,6 +26,7 @@ public class BarberShop implements Serializable {
     private String userName;
     private String website;
 
+    @ServerTimestamp
     private Date updateDate;  // update (also created) date - from Firebase
 
     public BarberShop() {} //for firebase database
@@ -32,6 +41,16 @@ public class BarberShop implements Serializable {
         this.userId = userId;
         this.userName = userName;
         this.website = website;
+    }
+
+    public <T extends BarberShop> T withId(String id) {
+        this.id = id;
+        return (T)this;
+    }
+
+    @Exclude
+    public String getId() {
+        return id;
     }
 
     public String getUserId() {

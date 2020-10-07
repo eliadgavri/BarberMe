@@ -28,5 +28,13 @@
         android:layout_marginStart="30dp"
         android:id="@+id/barebrshop_city"/>
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="50dp"
+        android:id="@+id/edit_barebrshop_bt"/>
 
 </RelativeLayout>

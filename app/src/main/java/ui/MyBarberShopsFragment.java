@@ -1,6 +1,7 @@
 package ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,20 +26,24 @@ import model.Consumer;
 import model.DatabaseFetch;
 import userData.BarberShop;
 
-public class MyBarberShopsFragment extends Fragment {
+public class MyBarberShopsFragment extends Fragment implements BarberShopAdapter.MyBarberShopListener{
 
-    MyBarberShopsListener myBarberShopsListener;
     FloatingActionButton addBarberShop;
     RecyclerView myBarbersList;
+    List<BarberShop> barbers;
 
-    interface MyBarberShopsListener {
-        void onAddBarberShopClick();
+    @Override
+    public void onBarberShopClick(int position, View view) {
+        Intent intent = new Intent(MyBarberShopsFragment.this.getContext(),BarberShopActivity.class);
+        intent.putExtra("Barbershop",barbers.get(position));
+        startActivity(intent);
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        myBarberShopsListener = (MyBarberShopsListener) context;
+    public void onEditBarberShopClick(int position, View view) {
+        Intent intent = new Intent(MyBarberShopsFragment.this.getContext(),EditBarberShopActivity.class);
+        intent.putExtra("Barbershop",barbers.get(position));
+        startActivity(intent);
     }
 
     @Nullable
@@ -49,8 +54,8 @@ public class MyBarberShopsFragment extends Fragment {
         addBarberShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(myBarberShopsListener != null)
-                    myBarberShopsListener.onAddBarberShopClick();
+                Intent intent = new Intent(MyBarberShopsFragment.this.getContext(), AddBarberShopActivity.class);
+                startActivity(intent);
             }
         });
         myBarbersList = rootView.findViewById(R.id.my_barbershops_recycler);
@@ -58,8 +63,10 @@ public class MyBarberShopsFragment extends Fragment {
         Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
             @Override
             public void apply(List<BarberShop> param) {
-                BarberShopAdapter barberShopAdapter = new BarberShopAdapter(param);
+                BarberShopAdapter barberShopAdapter = new BarberShopAdapter(param, true);
+                barbers = param;
                 myBarbersList.setAdapter(barberShopAdapter);
+                barberShopAdapter.setListener(MyBarberShopsFragment.this);
                 //barberShopAdapter.notifyDataSetChanged();
             }
         };

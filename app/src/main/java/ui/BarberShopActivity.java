@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -37,6 +38,7 @@ public class BarberShopActivity extends AppCompatActivity {
     RecyclerView picturesRecycler;
     FloatingActionButton phoneBtn, navigateBtn, messageBtn, websiteBtn;
     ImageView imageViewPic;
+    StringBuilder barberAddress = new StringBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class BarberShopActivity extends AppCompatActivity {
         picturesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         PictureAdapter pictureAdapter = new PictureAdapter(pictures);
         picturesRecycler.setAdapter(pictureAdapter);
-
 
         phoneBtn = findViewById(R.id.image_btn_phone);
         navigateBtn = findViewById(R.id.image_btn_navigation);
@@ -77,11 +78,23 @@ public class BarberShopActivity extends AppCompatActivity {
             }
         });
 
-
+        buildAddress();
         navigateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try
+                {
+                    // Launch Waze to look for Hawaii:
+                    String url = "https://waze.com/ul?q=" + barberAddress.toString();
+                    Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( url ) );
+                    startActivity( intent );
+                }
+                catch ( ActivityNotFoundException ex  )
+                {
+                    // If Waze is not installed, open it in Google Play:
+                    Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "market://details?id=com.waze" ) );
+                    startActivity(intent);
+                }
             }
         });
 
@@ -121,6 +134,16 @@ public class BarberShopActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void buildAddress() {
+        String city = barberShop.getCity();
+        city.replaceAll(" ", "%20");
+        String address = barberShop.getAddress();
+        address.replaceAll(" ", "%20");
+        barberAddress.append(city);
+        barberAddress.append("%20");
+        barberAddress.append(address);
     }
 
     private void makePhoneCall() {

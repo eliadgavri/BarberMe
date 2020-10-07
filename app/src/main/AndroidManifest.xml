@@ -30,7 +30,7 @@
         <service
             android:name="service.UploadPostService"
             android:exported="false" />
-        <service android:name="service.UploadNewUser"
+        <service android:name="service.UploadNewUserService"
             android:exported="false"/>
         <provider
             android:name="androidx.core.content.FileProvider"

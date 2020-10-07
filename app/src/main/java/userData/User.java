@@ -1,5 +1,9 @@
 package userData;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class User {
 
     String uID;
@@ -12,6 +16,11 @@ public class User {
     String birthday;
     String address;
 
+    @ServerTimestamp
+    private Date registerDate;  // update (also created) date - from Firebase
+
+    public User() {} //for firebase database
+
     public User(String uID,String firstName,String lastName, String password, String email, String profilePicture, String gender, String birthday, String address) {
 
         this.uID=uID;
@@ -23,6 +32,14 @@ public class User {
         this.gender = gender;
         this.birthday = birthday;
         this.address = address;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
     }
 
     public String getFirstName() {

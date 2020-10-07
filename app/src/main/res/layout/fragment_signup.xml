@@ -97,6 +97,16 @@
         android:paddingVertical="20dp"
         android:text="SignUp"
         android:id="@+id/signup_bt"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:paddingHorizontal="50dp"
+        android:paddingVertical="20dp"
+        android:text="back to login"
+        android:id="@+id/back_signin_bt"/>
 
 
 </LinearLayout>

@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import ui.SplashScreenActivity;
 import userData.User;
 
-public class UploadNewUser extends Service {
+public class UploadNewUserService extends Service {
 
     User user;
     private static final int ID = 1;

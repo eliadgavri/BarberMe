@@ -18,8 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import dialog.ForgotPasswordDialog;
-import service.UploadNewUser;
-import service.UploadPostService;
+import service.UploadNewUserService;
 import userData.User;
 
 public class SignInUpActivity extends AppCompatActivity
@@ -27,7 +26,7 @@ public class SignInUpActivity extends AppCompatActivity
 
     final String TAG = "SignInUpActivity";
     FirebaseAuth firebaseAuth;
-    String fullName;
+    final String annonymousPicture = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,14 +93,14 @@ public class SignInUpActivity extends AppCompatActivity
     @Override
     public void onSignUpFragmentRegisterClick(String firstName, String lastName, String email, String password, String repeatPassword,String gender,String birthday,String address) {
         if(!firstName.isEmpty() && !lastName.isEmpty() && !address.isEmpty() && !birthday.isEmpty() && !email.isEmpty() && !password.isEmpty() && !repeatPassword.isEmpty() && password.equals(repeatPassword)) {
-            Uri profilePicture = Uri.parse("https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07");
+            Uri profilePicture = Uri.parse(annonymousPicture);
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(firstName +" "+ lastName).setPhotoUri(profilePicture).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(SignInUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
-                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,email,password,repeatPassword,gender,birthday,address);
+                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address);
                             publishNewUser(user);
                             Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -119,7 +118,7 @@ public class SignInUpActivity extends AppCompatActivity
 
     private void publishNewUser(User user) {
 
-        Intent intent = new Intent(this, UploadNewUser.class)
+        Intent intent = new Intent(this, UploadNewUserService.class)
                 .putExtra("uID",user.getuID())
                 .putExtra("firstName",user.getFirstName())
                 .putExtra("lastName",user.getLastName())

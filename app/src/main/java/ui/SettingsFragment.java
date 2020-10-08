@@ -177,7 +177,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     updateFirestore(user.getPhotoUrl().toString());
                 }
                 else
-                    Toast.makeText(SettingsFragment.this.getContext(), "The was an error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsFragment.this.getContext(), "There was an error", Toast.LENGTH_SHORT).show();
             }
         });
     }

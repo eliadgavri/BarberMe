@@ -38,21 +38,26 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.net.PasswordAuthentication;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 
 import model.Consumer;
 import model.DatabaseFetch;
+import service.UploadPostService;
 import userData.Review;
 import userData.User;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
     Button savePassChangesBtn, saveEmailChangesBtn,saveProfilePicChangesBtn,editProfilePicBtn,saveUsernameChangesBtn;
-    EditText repeatPassEt, newPassEt, emailEt, oldPassEt, usernameEt;
+    EditText repeatPassEt, newPassEt, emailEt, oldPassEt, firstNameEt, lastNameEt, passwordEt;
     ImageView profilePicIv;
     File file;
     private final int SELECT_IMAGE = 1;
@@ -61,6 +66,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Uri imageUri;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     int prefMode = 1;
+    String imageUrl;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -102,12 +108,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final View dialogView = getLayoutInflater().inflate(R.layout.change_username_dialog, null);
 
         saveUsernameChangesBtn = dialogView.findViewById(R.id.save_changes_username_btn);
-        usernameEt=dialogView.findViewById(R.id.change_username_et);
+        firstNameEt=dialogView.findViewById(R.id.change_first_name_et);
+        lastNameEt = dialogView.findViewById(R.id.change_last_name_et);
 
         saveUsernameChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username=usernameEt.getText().toString();
+                String username=firstNameEt.getText().toString() + " " + lastNameEt.getText().toString();
                 if(!username.isEmpty()) {
                     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -188,22 +195,30 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         saveEmailChangesBtn = dialogView.findViewById(R.id.preference_save_email_changes);
         emailEt = dialogView.findViewById(R.id.preference_change_email_et);
+        passwordEt = dialogView.findViewById(R.id.preference_change_email_password_et);
 
         saveEmailChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String newEmail = emailEt.getText().toString();
-                user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String password = passwordEt.getText().toString();
+                AuthCredential credential = EmailAuthProvider
+                        .getCredential(user.getEmail(), password);
+                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SettingsFragment.this.getContext(), "Email changed", Toast.LENGTH_SHORT).show();
-                            updateFirestore(newEmail);
-                        }
+                        String newEmail = emailEt.getText().toString();
+                        user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SettingsFragment.this.getContext(), "Email changed", Toast.LENGTH_SHORT).show();
+                                    updateFirestore(newEmail);
+                                }
+                            }
+                        });
                     }
                 });
-
             }
         });
         builderDialog.setView(dialogView);
@@ -363,10 +378,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 switch (prefMode)
                 {
                     case 1:
-                        param.setProfilePicture(input);
-                        break;
+                        Consumer<String> updateImage = new Consumer<String>() {
+                            @Override
+                            public void apply(String param1) {
+
+                                param.setProfilePicture(param1);
+                                FirebaseFirestore.getInstance().collection("users").document(param.getId())
+                                        .set(param, SetOptions.merge());
+                            }
+                        };
+                        uploadPhotoToPhotos(updateImage);
+                        return;
                     case 2:
-                        param.setFirstName(input);
+                        param.setFirstName(firstNameEt.getText().toString());
+                        param.setLastName(lastNameEt.getText().toString());
                         break;
                     case 3:
                         param.setEmail(input);
@@ -376,19 +401,29 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         break;
                 }
                 FirebaseFirestore.getInstance().collection("users").document(param.getId())
-                        .set(param, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
+                        .set(param, SetOptions.merge());
             }
         };
         databaseFetch.findUserData(consumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
+    private void uploadPhotoToPhotos(Consumer<String> consumer) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference imagesRef = storage.getReference().child("profiles");;
+        final StorageReference photoRef = imagesRef.child(String.valueOf(System.currentTimeMillis()));
+        UploadTask uploadTask = photoRef.putFile(imageUri);
+        //upload the img + perform a task of getting the download url from the cloud
+        uploadTask.continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                task.getException().printStackTrace();
+                return null;
+            }
+            return photoRef.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                imageUrl = task.getResult().toString();
+                consumer.apply(imageUrl);
+            }
+        });
+    }
 }

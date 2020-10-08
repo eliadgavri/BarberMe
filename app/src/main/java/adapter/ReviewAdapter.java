@@ -60,7 +60,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.name.setText(user.getFirstName() + " " + user.getLastName());
         holder.reviewText.setText(reviews.get(position).getReviewText());
         holder.date.setText(reviews.get(position).getDate());
-        Glide.with(context).load(user.getProfilePicture());
+        Glide.with(context).load(user.getProfilePicture()).into(holder.picture);
     }
 
     @Override

@@ -14,7 +14,25 @@
         android:layout_marginTop="50dp">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:weightSum="4">
+            <TextView
+                android:text="Password"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
 
+            <EditText
+                android:id="@+id/preference_change_email_password_et"
+                android:inputType="textPassword"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

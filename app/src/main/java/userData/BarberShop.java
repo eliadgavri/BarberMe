@@ -25,6 +25,7 @@ public class BarberShop implements Serializable {
     private String userId;
     private String userName;
     private String website;
+    private List<Review> reviews;
 
     @ServerTimestamp
     private Date updateDate;  // update (also created) date - from Firebase
@@ -55,6 +56,14 @@ public class BarberShop implements Serializable {
 
     public String getUserId() {
         return userId;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public void setUserId(String userId) {

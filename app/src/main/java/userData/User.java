@@ -2,9 +2,11 @@ package userData;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
     String uID;
     String firstName;

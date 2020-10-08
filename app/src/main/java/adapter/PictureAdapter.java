@@ -66,7 +66,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.PictureV
     @Override
     public void onBindViewHolder(@NonNull PictureViewHolder holder, int position) {
         Uri picture = pictures.get(position);
-        Glide.with(context).load(pictures.get(position)).into(holder.picture);
+        Glide.with(context).load(picture).into(holder.picture);
     }
 
     @Override

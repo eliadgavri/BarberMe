@@ -20,8 +20,8 @@
         <shape>
             <gradient
 
-                android:startColor="@color/White"
-                android:endColor="@color/BlackHide"
+                android:startColor="@color/YellowApp"
+                android:endColor="@color/White"
                 android:angle="270"/>
 
             <stroke

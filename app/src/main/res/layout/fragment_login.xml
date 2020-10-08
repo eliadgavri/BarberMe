@@ -7,128 +7,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginHorizontal="50dp"
-        android:src="@drawable/logo_white"
-        android:layout_gravity="center"/>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
         android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/email_et"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:backgroundTint="@color/YellowApp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White" />
+            android:layout_height="220dp"
+            android:layout_marginHorizontal="50dp"
+            android:src="@drawable/logo_white"
+            android:layout_gravity="center"/>
 
-        <EditText
-            android:id="@+id/password_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:backgroundTint="@color/YellowApp"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:textColor="@color/White"
-            android:textColorHint="@color/White" />
-
-        <TextView
-            android:id="@+id/forgot_password_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="20dp"
-            android:text="Forgot your password? "
-            android:textColor="@color/YellowApp" />
-
-        <Button
-            android:id="@+id/login_bt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_selector_yellowapp"
-            android:padding="5dp"
-            android:text="LOGIN"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:weightSum="9">
+            android:layout_marginTop="200dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/email_et"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="40dp"
-                android:layout_weight="4"
-                android:src="@drawable/yellow_line" />
+                android:layout_marginHorizontal="40dp"
+                android:backgroundTint="@color/YellowApp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White" />
+
+            <EditText
+                android:id="@+id/password_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:backgroundTint="@color/YellowApp"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:textColor="@color/White"
+                android:textColorHint="@color/White" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="OR"
-                android:textColor="@color/YellowApp" />
-
-            <ImageView
-                android:layout_width="0dp"
+                android:id="@+id/forgot_password_tv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="40dp"
-                android:layout_weight="4"
-                android:src="@drawable/yellow_line" />
+                android:layout_marginVertical="20dp"
+                android:text="Forgot your password? "
+                android:textColor="@color/YellowApp" />
 
+            <Button
+                android:id="@+id/login_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_selector_yellowapp"
+                android:padding="5dp"
+                android:text="LOGIN"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="9">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/yellow_line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="OR"
+                    android:textColor="@color/YellowApp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/yellow_line" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/signup_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="110dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_selector_yellowapp"
+                android:padding="5dp"
+                android:text="CREATE NEW ACCOUNT"
+                android:textAllCaps="false"
+                android:textColor="@color/Black"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/guest_login_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="110dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_selector_transparent"
+                android:padding="5dp"
+                android:text="CONTINUE AS A GUEST"
+                android:textAllCaps="false"
+                android:textColor="@color/YellowApp"
+                android:textSize="15sp" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/signup_bt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="110dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_selector_yellowapp"
-            android:padding="5dp"
-            android:text="CREATE NEW ACCOUNT"
-            android:textAllCaps="false"
-            android:textColor="@color/Black"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/guest_login_bt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="110dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shape_selector_transparent"
-            android:padding="5dp"
-            android:text="CONTINUE AS A GUEST"
-            android:textAllCaps="false"
-            android:textColor="@color/YellowApp"
-            android:textSize="15sp" />
     </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

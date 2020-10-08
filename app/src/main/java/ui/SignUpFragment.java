@@ -53,15 +53,10 @@ public class SignUpFragment extends Fragment {
         password = rootView.findViewById(R.id.password_et);
         confirmPassword = rootView.findViewById(R.id.confirm_password_et);
         signUp = rootView.findViewById(R.id.signup_bt);
-        backToSignIn = rootView.findViewById(R.id.back_signin_bt);
         birthday=rootView.findViewById(R.id.birthday);
         address =rootView.findViewById(R.id.location);
 
         addListenerOnButton(rootView);
-        backToSignIn.setOnClickListener(view -> {
-            if(signUpListener!=null)
-                signUpListener.onSignUpFragmentLoginClick();
-        });
 
         signUp.setOnClickListener(view -> {
             if(signUpListener!=null)

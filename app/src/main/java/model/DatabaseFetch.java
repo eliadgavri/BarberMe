@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import userData.BarberShop;
+import userData.User;
 
 public class DatabaseFetch {
 
@@ -37,6 +38,23 @@ public class DatabaseFetch {
                         for (DocumentSnapshot document : task.getResult().getDocuments()) {
                             data.add(document.toObject(BarberShop.class).withId(document.getId()));
                         }
+                        consumer.apply(data);
+                    } else {
+                        task.getException().printStackTrace();
+                    }
+                });
+    }
+
+    public void findUserData(Consumer<User> consumer, String uid)
+    {
+        Query query = db.collection("users").whereEqualTo("uID", uid)/*.orderBy("updateDate", Query.Direction.DESCENDING)*/;
+        query.get()
+                .addOnCompleteListener(task -> {
+                    User data = null;
+                    if (task.isSuccessful()) {
+                        data = new User();
+                        DocumentSnapshot doc = task.getResult().getDocuments().get(0);
+                        data = doc.toObject(User.class).withId(doc.getId());
                         consumer.apply(data);
                     } else {
                         task.getException().printStackTrace();

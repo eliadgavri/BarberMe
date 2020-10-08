@@ -28,15 +28,26 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.bumptech.glide.Glide;
 import com.example.barberme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.io.File;
 import java.net.PasswordAuthentication;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import model.Consumer;
+import model.DatabaseFetch;
+import userData.Review;
+import userData.User;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -48,6 +59,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private final int CAMERA_REQUEST = 2;
     private final int WRITE_PERMISSION_REQUEST = 3;
     private Uri imageUri;
+    DatabaseFetch databaseFetch = new DatabaseFetch();
+    int prefMode = 1;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -60,19 +73,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             case "ChangeProfilePicture":
             {
                 changeProfilePicture();
+                prefMode = 1;
                 break;
             }
             case "ChangeUserName":
             {
                 changeUserName();
+                prefMode = 2;
                 break;
             }
             case "ChangeEmail": {
                 changeEmail();
+                prefMode = 3;
                 break;
             }
             case "ChangePassword": {
                 changePassword();
+                prefMode = 4;
                 break;
             }
         }
@@ -101,6 +118,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 Toast.makeText(SettingsFragment.this.getContext(), "Username changed", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent("usernameChange");
                                 LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
+                                updateFirestore(username);
                             } else {
                                 Toast.makeText(SettingsFragment.this.getContext(), "Username isn't changed", Toast.LENGTH_SHORT).show();
                             }
@@ -156,6 +174,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     Toast.makeText(SettingsFragment.this.getContext(), "Profile picture changed", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("profilePictureChanged");
                     LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
+                    updateFirestore(user.getPhotoUrl().toString());
                 }
                 else
                     Toast.makeText(SettingsFragment.this.getContext(), "The was an error", Toast.LENGTH_SHORT).show();
@@ -175,12 +194,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String newEmail = emailEt.getText().toString();
-
                 user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SettingsFragment.this.getContext(), "Email changed", Toast.LENGTH_SHORT).show();
+                            updateFirestore(newEmail);
                         }
                     }
                 });
@@ -222,6 +241,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(SettingsFragment.this.getContext(), "Password changed", Toast.LENGTH_SHORT).show();
+                                            updateFirestore(newPassword);
                                         } else {
                                             Toast.makeText(SettingsFragment.this.getContext(), "Password isn't changed", Toast.LENGTH_SHORT).show();
                                         }
@@ -334,6 +354,41 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 takePicture();
             }
         }
+    }
+
+    private void updateFirestore(String input) {
+        Consumer<User> consumer = new Consumer<User>() {
+            @Override
+            public void apply(User param) {
+                switch (prefMode)
+                {
+                    case 1:
+                        param.setProfilePicture(input);
+                        break;
+                    case 2:
+                        param.setFirstName(input);
+                        break;
+                    case 3:
+                        param.setEmail(input);
+                        break;
+                    case 4:
+                        param.setPassword(input);
+                        break;
+                }
+                FirebaseFirestore.getInstance().collection("users").document(param.getId())
+                        .set(param, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
+            }
+        };
+        databaseFetch.findUserData(consumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
 }

@@ -37,11 +37,16 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
+import adapter.BarberShopAdapter;
 import adapter.PictureAdapter;
 import adapter.ReviewAdapter;
+import model.Consumer;
+import model.DatabaseFetch;
 import userData.BarberShop;
 import userData.Review;
 import userData.User;
@@ -63,6 +68,7 @@ public class BarberShopActivity extends AppCompatActivity {
     ImageView imageViewPic;
     StringBuilder barberAddress = new StringBuilder();
     ReviewAdapter reviewAdapter;
+    DatabaseFetch databaseFetch = new DatabaseFetch();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,8 @@ public class BarberShopActivity extends AppCompatActivity {
         reviews = barberShop.getReviews();
         if(reviews == null)
             reviews = new ArrayList<>();
+        else
+            Collections.reverse(reviews);
         reviewAdapter = new ReviewAdapter(reviews);
         reviewRecycler.setAdapter(reviewAdapter);
 
@@ -187,26 +195,26 @@ public class BarberShopActivity extends AppCompatActivity {
     }
 
     private void uploadNewReview() {
-        FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        Consumer<User> consumer = new Consumer<User>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    User user = task.getResult().toObject(User.class);
-                    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date date = new Date(System.currentTimeMillis());
-                    Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), 5);
-                    reviews.add(newReview);
-                    reviewAdapter.notifyDataSetChanged();
-                    updateBarberReviews();
-                    newReviewLayout.setVisibility(View.GONE);
-                }
+            public void apply(User param) {
+                User user = param;
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date date = new Date(System.currentTimeMillis());
+                Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), 5);
+                reviews.add(0, newReview);
+                reviewAdapter.notifyDataSetChanged();
+                updateBarberReviews();
+                newReviewLayout.setVisibility(View.GONE);
             }
-        });
+        };
+        databaseFetch.findUserData(consumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     private void updateBarberReviews() {
-        barberShop.setReviews(reviews);
+        List<Review> tempReviews = new ArrayList<>(reviews);
+        Collections.reverse(tempReviews);
+        barberShop.setReviews(tempReviews);
         FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId())
                 .set(barberShop, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

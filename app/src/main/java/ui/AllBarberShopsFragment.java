@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.barberme.R;
 
@@ -45,6 +46,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     BarberShopAdapter barberShopAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     List<BarberShop> barbers;
+    SwipeRefreshLayout refreshLayout;
 
     @Nullable
     @Override
@@ -55,17 +57,15 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         searchTitle = rootView.findViewById(R.id.search_title);
         searchBT = rootView.findViewById(R.id.search_bt);
         resetBT = rootView.findViewById(R.id.reset_bt);
+        refreshLayout = rootView.findViewById(R.id.pullToRefresh);
         barbersList.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
-        Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void apply(List<BarberShop> param) {
-                barbers = param;
-                barberShopAdapter = new BarberShopAdapter(param, false);
-                barbersList.setAdapter(barberShopAdapter);
-                barberShopAdapter.setListener(AllBarberShopsFragment.this);
+            public void onRefresh() {
+                refreshDatabase();
+                refreshLayout.setRefreshing(false);
             }
-        };
-        databaseFetch.fetchAllBarberShops(consumerList);
+        });
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,5 +107,25 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     @Override
     public void onEditBarberShopClick(int position, View view) {
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refreshDatabase();
+    }
+
+    private void refreshDatabase()
+    {
+        Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
+            @Override
+            public void apply(List<BarberShop> param) {
+                barbers = param;
+                barberShopAdapter = new BarberShopAdapter(param, false);
+                barbersList.setAdapter(barberShopAdapter);
+                barberShopAdapter.setListener(AllBarberShopsFragment.this);
+            }
+        };
+        databaseFetch.fetchAllBarberShops(consumerList);
     }
 }

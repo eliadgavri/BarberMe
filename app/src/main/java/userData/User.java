@@ -1,5 +1,8 @@
 package userData;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
@@ -7,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 public class User implements Serializable {
+
+    @NonNull
+    private String id; // Document id
 
     String uID;
     String firstName;
@@ -35,6 +41,18 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.address = address;
     }
+
+    public <T extends User> T withId(String id) {
+        this.id = id;
+        return (T)this;
+    }
+
+    @Exclude
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) { this.id = id; }
 
     public Date getRegisterDate() {
         return registerDate;

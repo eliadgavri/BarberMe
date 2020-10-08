@@ -50,33 +50,6 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/name_layout"
-            android:id="@+id/area_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Area:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Area"
-                    android:inputType="text"
-                    android:id="@+id/area_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/area_layout"
             android:id="@+id/city_layout">
             <TextView
                 android:layout_width="0dp"

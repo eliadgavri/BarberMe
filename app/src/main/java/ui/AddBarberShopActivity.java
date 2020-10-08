@@ -42,7 +42,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private Button finishBT;
     private TextView picturesCountTv;
     private TextInputEditText nameET;
-    private TextInputEditText areaET;
     private TextInputEditText cityET;
     private TextInputEditText addressET;
     private TextInputEditText phoneNumberET;
@@ -72,7 +71,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         nameET = findViewById(R.id.name_et);
-        areaET = findViewById(R.id.area_et);
         cityET = findViewById(R.id.city_et);
         addressET = findViewById(R.id.address_et);
         phoneNumberET = findViewById(R.id.phone_et);
@@ -129,7 +127,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 .putExtra("phoneNumber", phoneNumberET.getText().toString())
                 .putExtra("title", nameET.getText().toString())
                 .putExtra("city", cityET.getText().toString())
-                .putExtra("area", areaET.getText().toString())
                 .putExtra("website", websiteET.getText().toString())
                 .putExtra("address", addressET.getText().toString());
 

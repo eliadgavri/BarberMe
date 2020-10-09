@@ -10,4 +10,5 @@
     <color name="YellowDark">#FBB940</color>
     <color name="BlackHide">#B3000000</color>
     <color name="Black">#000</color>
+    <color name="Gray">#7C7A7A</color>
 </resources>

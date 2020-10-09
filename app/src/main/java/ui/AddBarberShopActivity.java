@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private RecyclerView picturesList;
     private PictureAdapter pictureAdapter;
     private ArrayList<Uri> pictures = new ArrayList<>();
-    private Button uploadPicture;
+    private ImageButton uploadPicture;
     private Button finishBT;
     private TextView picturesCountTv;
     private EditText nameET;

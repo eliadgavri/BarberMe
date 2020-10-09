@@ -1,215 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:verticalScrollbarPosition="defaultPosition"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background_splash"
+    android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add BarberShop"
-            android:textSize="40sp"
-            android:layout_marginTop="15dp"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/add_barbershop_tv"/>
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/add_barbershop_tv"
-            android:id="@+id/name_layout">
+            android:orientation="vertical">
+
             <TextView
-                android:layout_width="0dp"
+                android:textColor="@color/YellowDark"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
+                android:text="Add Barber Shop"
+                android:textSize="40sp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/add_barbershop_tv"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:inputType="text"
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"
+                    android:hint="Barbershop name"
                     android:id="@+id/name_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/name_layout"
-            android:id="@+id/city_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="City:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"
+                    android:textSize="17.5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="City"
-                    android:inputType="text"
                     android:id="@+id/city_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/city_layout"
-            android:id="@+id/address_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Address:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/address_et"
                     android:hint="Address"
-                    android:inputType="textPostalAddress"
-                    android:id="@+id/address_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/address_layout"
-            android:id="@+id/phone_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Phone Number:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Number"
-                    android:inputType="phone"
-                    android:id="@+id/phone_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:id="@+id/phone_et"
+                    android:hint="Phone number"
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/phone_layout"
-            android:id="@+id/website_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Website:"
-                android:textSize="20sp" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <com.google.android.material.textfield.TextInputEditText
+
+                <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Website"
-                    android:inputType="text"
-                    android:id="@+id/website_et"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:id="@+id/website_et"
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"
+                    android:hint="Website"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/website_layout"
-            android:id="@+id/upload_layout"
-            android:layout_centerHorizontal="true">
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Upload"
-                android:textSize="20sp"
-                android:padding="20dp"
-                android:id="@+id/upload_button"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Take Picture"
-                android:textSize="20sp"
-                android:padding="20dp"
-                android:id="@+id/take_picture_button"/>
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pictures Count: 0 / 0"
-            android:textSize="20sp"
-            android:layout_below="@+id/upload_layout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="10dp"
-            android:id="@+id/pictures_count_tv"/>
+                <ImageButton
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Upload"
+                    android:background="@drawable/shape_selector_transparent"
+                    android:src="@drawable/ic_baseline_add_photo_alternate__orange24"
+                    android:id="@+id/upload_button"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pictures_count_tv"
-            android:id="@+id/recyclerview_pics"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="30dp"
-            android:layout_below="@+id/recyclerview_pics"
-            android:id="@+id/finish_layout"
-            android:layout_centerHorizontal="true">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Finish"
-                android:textSize="20sp"
-                android:padding="20dp"
-                android:id="@+id/finish_button"/>
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pictures count: 0 / 0"
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
+                    android:textColor="@color/White"
+                    android:layout_below="@+id/upload_layout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginVertical="10dp"
+                    android:id="@+id/pictures_count_tv"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerview_pics"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/finish_button"
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="20sp"
+                    android:background="@drawable/shape_selector_yellow_dark"
+                    android:text="Add Barber shop"/>
+            </LinearLayout>
+        </LinearLayout>>
+    </ScrollView>
+</LinearLayout>

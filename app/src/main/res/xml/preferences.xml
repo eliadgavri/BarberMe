@@ -7,33 +7,27 @@
         android:title="Personal Settings"/>
 
     <Preference
-        android:title="Profile picture"
-        android:summary="Change profile picture"
-        android:key="ChangeProfilePicture"/>
+        android:title="Basic Information"
+        android:layout="@layout/preference_basic_information"
+        android:key="ChangeUserName"/>
 
     <Preference
-        android:title="Username"
-        android:summary="Change your username"
-        android:key="ChangeUserName"/>
-    <Preference
-        android:title="Email"
-        android:summary="Change your email."
-        android:key="ChangeEmail"/>
-    <Preference
-        android:title="Password"
-        android:summary="Change your password."
-        android:key="ChangePassword"/>
+        android:title="Profile picture"
+        android:layout="@layout/preference_change_profile"
+        android:key="ChangeProfilePicture"/>
+
 
     <PreferenceCategory
         android:title="Account Settings"/>
 
     <Preference
         android:title="Notifications"
-
+        android:layout="@layout/preference_notifications"
         android:key="Notifications"/>
 
     <Preference
         android:title="Delete Account"
+        android:layout="@layout/preference_delete_account"
         android:key="Delete Account"/>
 
 

@@ -2,6 +2,7 @@ package ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,15 +48,14 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private RecyclerView picturesList;
     private PictureAdapter pictureAdapter;
     private ArrayList<Uri> pictures = new ArrayList<>();
-    private Button uploadPicture;
-    private Button takePicture;
+    private ImageButton uploadPicture;
     private Button finishBT;
     private TextView picturesCountTv;
-    private TextInputEditText nameET;
-    private TextInputEditText cityET;
-    private TextInputEditText addressET;
-    private TextInputEditText phoneNumberET;
-    private TextInputEditText websiteET;
+    private EditText nameET;
+    private EditText cityET;
+    private EditText addressET;
+    private EditText phoneNumberET;
+    private EditText websiteET;
     private File file;
     private int numOfPictures = 0;
     private final int SELECT_IMAGE = 1;
@@ -75,7 +77,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         barberShop = (BarberShop) getIntent().getSerializableExtra("Barbershop");
         uploadPicture = findViewById(R.id.upload_button);
-        takePicture = findViewById(R.id.take_picture_button);
         picturesList = findViewById(R.id.recyclerview_pics);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
@@ -98,27 +99,38 @@ public class EditBarberShopActivity extends AppCompatActivity {
         uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadPicture();
-            }
-        });
-        takePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Request permissions
-                if(Build.VERSION.SDK_INT>=23) {
-                    int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    if(hasWritePermission!= PackageManager.PERMISSION_GRANTED){
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
+                final CharSequence[] options = { EditBarberShopActivity.this.getResources().getString(R.string.take_picture), EditBarberShopActivity.this.getResources().getString(R.string.choose_picture),EditBarberShopActivity.this.getResources().getString(R.string.cancel) };
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(EditBarberShopActivity.this,R.style.AlertDialog_Builder);
+                builder.setTitle(EditBarberShopActivity.this.getResources().getString(R.string.upload_pictures_title));
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals(EditBarberShopActivity.this.getResources().getString(R.string.take_picture))) {
+                            //Request permissions
+                            if(Build.VERSION.SDK_INT>=23) {
+                                int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                if(hasWritePermission!= PackageManager.PERMISSION_GRANTED){
+                                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
+                                }
+                                else{
+                                    //has permission
+                                    takePicture();
+                                }
+                            }
+                            else {
+                                //has permission
+                                takePicture();
+                            }
+                        } else if (options[item].equals(EditBarberShopActivity.this.getResources().getString(R.string.choose_picture))) {
+                            uploadPicture();
+
+                        } else if (options[item].equals(EditBarberShopActivity.this.getResources().getString(R.string.cancel))) {
+                            dialog.dismiss();
+                        }
                     }
-                    else{
-                        //has permission
-                        takePicture();
-                    }
-                }
-                else {
-                    //has permission
-                    takePicture();
-                }
+                });
+                builder.show();
             }
         });
     }

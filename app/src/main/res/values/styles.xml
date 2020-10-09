@@ -7,6 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="PreferenceTheme" parent="@style/AppTheme">
+        <item name="android:colorBackground">@color/BlackHide</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AlertDialog.Builder" parent="android:style/Theme.Dialog">

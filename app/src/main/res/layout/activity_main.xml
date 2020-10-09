@@ -14,13 +14,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar"
-        android:background="@drawable/app_background">
+        android:background="@drawable/barbershop_background">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:backgroundTint="@color/BlackHide"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,7 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:itemTextColor="@color/White"
+        app:itemTextAppearance="@color/YellowDark"
         android:id="@+id/navigation_view"
+        android:backgroundTint="@color/BlackHide"
         app:headerLayout="@layout/header_layout"
         app:menu="@menu/drawer_menu"/>
 

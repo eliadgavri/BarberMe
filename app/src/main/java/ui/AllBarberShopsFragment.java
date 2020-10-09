@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     RecyclerView barbersList;
     LinearLayout searchLayout;
     EditText searchTitle;
-    Button searchBT;
+    ImageButton searchBT;
     BarberShopAdapter barberShopAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     List<BarberShop> barbers;

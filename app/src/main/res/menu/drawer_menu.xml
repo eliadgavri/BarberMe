@@ -7,7 +7,8 @@
             android:title="All Barber Shops"/>
     </group>
 
-    <item android:title="Personal Submenu">
+    <item android:title="Personal Submenu"
+        >
 
         <menu>
             <item android:id="@+id/my_barbershops"

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/barber_shop_activity_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout_barber_shop_activity"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -13,32 +14,70 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/shape_selector_tarsient_without_stroke"
         app:layout_constraintEnd_toEndOf="parent">
+
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="230dp"
             app:contentScrim="@color/barColor"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:fitsSystemWindows="true">
 
-            <ImageView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/barbershop_activity_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxHeight="350dp"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"/>
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="20dp"
+                app:civ_border_color="@color/YellowDark"
+                app:civ_border_width="2dp"/>
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <TextView
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/barbershop_activity_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:id="@+id/barbershop_name_activity_barber_shop"
+                android:textStyle="bold"
+                android:textColor="@color/White"
+                android:text="Yossi Gavriel "/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_barbershop_activity_barber_shop"
+                android:layout_below="@id/barbershop_name_activity_barber_shop"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/White"
+                android:text="Man barber Shop "/>
+
+        </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_marginTop="1dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            app:layout_collapseMode="pin"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ancor_to_me"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -111,13 +150,14 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/image_btn_phone"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:src="@drawable/ic_baseline_phone_24"
         app:pressedTranslationZ="80dp"
-        app:layout_anchor="@id/appBar"
+        app:layout_anchor="@id/ancor_to_me"
         android:layout_marginEnd="40dp"
         app:layout_anchorGravity="bottom|end"/>
 
@@ -127,7 +167,7 @@
         android:layout_height="56dp"
         android:src="@drawable/ic_baseline_navigation_24"
         app:pressedTranslationZ="80dp"
-        app:layout_anchor="@id/appBar"
+        app:layout_anchor="@id/ancor_to_me"
         android:layout_marginEnd="130dp"
         app:layout_anchorGravity="bottom|end"/>
 
@@ -137,18 +177,18 @@
         android:layout_height="56dp"
         android:src="@drawable/ic_baseline_message_24"
         app:pressedTranslationZ="80dp"
-        app:layout_anchor="@id/appBar"
+        app:layout_anchor="@id/ancor_to_me"
         android:layout_marginEnd="220dp"
         app:layout_anchorGravity="bottom|end"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/image_btn_internet"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@drawable/ic_baseline_home_24"
-        app:pressedTranslationZ="80dp"
-        app:layout_anchor="@id/appBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="310dp"
-        app:layout_anchorGravity="bottom|end"/>
+        android:src="@drawable/ic_baseline_home_24"
+        app:layout_anchor="@id/ancor_to_me"
+        app:layout_anchorGravity="bottom|end"
+        app:pressedTranslationZ="80dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

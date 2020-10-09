@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     RecyclerView barbersList;
     LinearLayout searchLayout;
     EditText searchTitle;
-    Button searchBT;
+    ImageButton searchBT;
     Button resetBT;
     BarberShopAdapter barberShopAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
@@ -56,7 +57,6 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         searchLayout = rootView.findViewById(R.id.search_layout);
         searchTitle = rootView.findViewById(R.id.search_title);
         searchBT = rootView.findViewById(R.id.search_bt);
-        resetBT = rootView.findViewById(R.id.reset_bt);
         refreshLayout = rootView.findViewById(R.id.pullToRefresh);
         barbersList.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -80,7 +80,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         });
-        resetBT.setOnClickListener(new View.OnClickListener() {
+       /* resetBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 barberShopAdapter = new BarberShopAdapter(barbers, false);
@@ -88,7 +88,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         });
-
+*/
         return rootView;
     }
 

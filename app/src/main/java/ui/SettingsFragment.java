@@ -82,9 +82,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 prefMode = 1;
                 break;
             }
-            case "ChangeUserName":
+            case "ChangeBasicInfo":
             {
-                changeUserName();
+                changeBasicInfo();
                 prefMode = 2;
                 break;
             }
@@ -100,6 +100,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         }
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void changeBasicInfo() {
+
+
     }
 
     private void changeUserName() {

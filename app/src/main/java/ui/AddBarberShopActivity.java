@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,11 +42,11 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private Button takePicture;
     private Button finishBT;
     private TextView picturesCountTv;
-    private TextInputEditText nameET;
-    private TextInputEditText cityET;
-    private TextInputEditText addressET;
-    private TextInputEditText phoneNumberET;
-    private TextInputEditText websiteET;
+    private EditText nameET;
+    private EditText cityET;
+    private EditText addressET;
+    private EditText phoneNumberET;
+    private EditText websiteET;
     private File file;
     private int numOfPictures = 0;
     private final int SELECT_IMAGE = 1;

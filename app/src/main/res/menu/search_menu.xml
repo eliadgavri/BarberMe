@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
-            android:src = "@drawable/ic_baseline_search_24"
+            android:src ="@drawable/ic_baseline_search_white24"
             android:layout_alignParentEnd="true"
             android:id="@+id/search_button"/>
     </RelativeLayout>

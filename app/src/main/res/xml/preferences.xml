@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="Account Settings"/>
+        android:title="Personal Settings"/>
 
     <Preference
         android:title="Profile picture"
@@ -23,12 +23,18 @@
         android:title="Password"
         android:summary="Change your password."
         android:key="ChangePassword"/>
-<!--
 
-    </PreferenceScreen>
+    <PreferenceCategory
+        android:title="Account Settings"/>
+
+    <Preference
+        android:title="Notifications"
+
+        android:key="Notifications"/>
+
+    <Preference
+        android:title="Delete Account"
+        android:key="Delete Account"/>
 
 
-    <PreferenceScreen
-        android:title="Notifications"/>
--->
 </PreferenceScreen>

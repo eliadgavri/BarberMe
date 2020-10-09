@@ -50,4 +50,17 @@
     <string name="update_failed">Update Failed</string>
     <string name="guest">Guest</string>
     <string name="welcome">Welcome</string>
+    <string name="take_picture">Take Picture</string>
+    <string name="choose_picture">Choose Picture From Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload_pictures_title">Choose Your Barber Shop Pictures</string>
+    <string name="guest_error">You Must Login To Use This Function</string>
+    <string name="logout">Logout</string>
+    <string name="logout_message">Are You Sure You Want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="barber_remove">Barber Shop Removed!</string>
+    <string name="signin_successful">Sign In Successful</string>
+    <string name="signin_failed">Sign In Failed</string>
+    <string name="empty_texts">Please Fill All The Text Boxes</string>
 </resources>

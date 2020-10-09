@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Uri profilePicture = currentUser.getPhotoUrl();
             Glide.with(this).load(profilePicture).into(profileIV);
         }
-        welcomeTV.setText("Welcome "+ name);
+        welcomeTV.setText(getResources().getString(R.string.welcome) + " " + name);
         welcomeTV.setMovementMethod(LinkMovementMethod.getInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.container, new AllBarberShopsFragment(), TAG).commit();
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onReceive(Context context, Intent intent) {
                 String username=currentUser.getDisplayName();
-                welcomeTV.setText("Welcome "+ username);
+                welcomeTV.setText(getResources().getString(R.string.welcome) + " " + username);
 
             }
         };
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     search.setVisibility(View.GONE);
                 }
                 else
-                    Toast.makeText(this, "You must login to have your our barber shops", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getResources().getString(R.string.guest_error), Toast.LENGTH_LONG).show();
                 break;
             case R.id.settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment(), TAG).addToBackStack(null).commit();
@@ -169,13 +169,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void logout() {
         new AlertDialog.Builder(this)
-                .setTitle("Logout?")
-                .setMessage("Do you want to logout?")
+                .setTitle(getResources().getString(R.string.logout))
+                .setMessage(getResources().getString(R.string.logout_message))
                 .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton(("Yes"), (dialog, which) -> {
+                .setPositiveButton((getResources().getString(R.string.yes)), (dialog, which) -> {
                     FirebaseAuth.getInstance().signOut();
                 })
-                .setNegativeButton(("No"), null)
+                .setNegativeButton((getResources().getString(R.string.no)), null)
                 .create()
                 .show();
     }

@@ -3,6 +3,8 @@ package ui;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,8 +43,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     RecyclerView barbersList;
     LinearLayout searchLayout;
     EditText searchTitle;
-    ImageButton searchBT;
-    Button resetBT;
+    Button searchBT;
     BarberShopAdapter barberShopAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     List<BarberShop> barbers;
@@ -80,15 +80,32 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         });
-       /* resetBT.setOnClickListener(new View.OnClickListener() {
+
+        searchTitle.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                barberShopAdapter = new BarberShopAdapter(barbers, false);
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String searchString = searchTitle.getText().toString();
+                List<BarberShop> data = new ArrayList<>();
+                for(BarberShop barber : barbers) {
+                    if (barber.getName().contains(searchString))
+                        data.add(barber);
+                }
+                barberShopAdapter = new BarberShopAdapter(data, false);
                 barbersList.setAdapter(barberShopAdapter);
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
-*/
+
         return rootView;
     }
 

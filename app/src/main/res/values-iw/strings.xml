@@ -35,4 +35,17 @@
     <string name="update_failed">העדכון כשל</string>
     <string name="guest">אורח</string>
     <string name="welcome">ברוך הבא</string>
+    <string name="take_picture">צלם תמונה</string>
+    <string name="choose_picture">בחר תמונה מהגלריה</string>
+    <string name="cancel">בטל</string>
+    <string name="upload_pictures_title">בחר את תמונות המספרה שלך</string>
+    <string name="guest_error">עלייך להתחבר על מנת להשתמש בתכונה זו</string>
+    <string name="logout">התנתקות</string>
+    <string name="logout_message">האם אתה בטוח שברצונך להתנתק?</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="barber_remove">המספרה נמחקה!</string>
+    <string name="signin_successful">החיבור צלח</string>
+    <string name="signin_failed">החיבור נכשל</string>
+    <string name="empty_texts">אנא מלא את כל השדות</string>
 </resources>

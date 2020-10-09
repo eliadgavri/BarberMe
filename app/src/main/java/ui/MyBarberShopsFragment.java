@@ -100,13 +100,13 @@ public class MyBarberShopsFragment extends Fragment implements BarberShopAdapter
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(MyBarberShopsFragment.this.getContext(), "Barber Shop Removed !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBarberShopsFragment.this.getContext(), MyBarberShopsFragment.this.getContext().getResources().getString(R.string.barber_remove), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MyBarberShopsFragment.this.getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBarberShopsFragment.this.getContext(), MyBarberShopsFragment.this.getContext().getResources().getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

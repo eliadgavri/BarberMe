@@ -41,16 +41,16 @@ public class SignInUpActivity extends AppCompatActivity
         if(!email.isEmpty() || !password.isEmpty()) {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(SignInUpActivity.this, "Signin Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signin_successful), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 } else
-                    Toast.makeText(SignInUpActivity.this, "Signin failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signin_failed), Toast.LENGTH_SHORT).show();
             });
         }
         else
-            Toast.makeText(SignInUpActivity.this, "email and password can't be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.empty_textboxes), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SignInUpActivity extends AppCompatActivity
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(SignInUpActivity.this, "Authentication failed.",
+                            Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signin_failed),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

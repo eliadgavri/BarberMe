@@ -2,6 +2,7 @@ package ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -39,7 +40,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private PictureAdapter pictureAdapter;
     private ArrayList<Uri> pictures = new ArrayList<>();
     private Button uploadPicture;
-    private Button takePicture;
     private Button finishBT;
     private TextView picturesCountTv;
     private EditText nameET;
@@ -66,7 +66,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
         setContentView(R.layout.layout_add_barbershop);
         auth = FirebaseAuth.getInstance();
         uploadPicture = findViewById(R.id.upload_button);
-        takePicture = findViewById(R.id.take_picture_button);
         picturesList = findViewById(R.id.recyclerview_pics);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
@@ -86,7 +85,46 @@ public class AddBarberShopActivity extends AppCompatActivity {
 
             }
         });
+
         uploadPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final CharSequence[] options = { AddBarberShopActivity.this.getResources().getString(R.string.take_picture), AddBarberShopActivity.this.getResources().getString(R.string.choose_picture),AddBarberShopActivity.this.getResources().getString(R.string.cancel) };
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(AddBarberShopActivity.this,R.style.AlertDialog_Builder);
+                builder.setTitle(AddBarberShopActivity.this.getResources().getString(R.string.upload_pictures_title));
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals(AddBarberShopActivity.this.getResources().getString(R.string.take_picture))) {
+                            //Request permissions
+                            if(Build.VERSION.SDK_INT>=23) {
+                                int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                if(hasWritePermission!= PackageManager.PERMISSION_GRANTED){
+                                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
+                                }
+                                else{
+                                    //has permission
+                                    takePicture();
+                                }
+                            }
+                            else {
+                                //has permission
+                                takePicture();
+                            }
+                        } else if (options[item].equals(AddBarberShopActivity.this.getResources().getString(R.string.choose_picture))) {
+                            uploadPicture();
+
+                        } else if (options[item].equals(AddBarberShopActivity.this.getResources().getString(R.string.cancel))) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
+/*        uploadPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadPicture();
@@ -111,7 +149,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
                     takePicture();
                 }
             }
-        });
+        });*/
     }
 
     //Publish new barber shop

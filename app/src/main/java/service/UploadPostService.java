@@ -99,7 +99,7 @@ public class UploadPostService extends Service
                         postAd(data);
                     }
                 } else {
-                    showMessageAndFinish("fail to upload");
+                    showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
                 }
             });
         }
@@ -126,7 +126,7 @@ public class UploadPostService extends Service
                 })
                 .addOnFailureListener(ex -> {
                     ex.printStackTrace();
-                    showMessageAndFinish("failed to upload");
+                    showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
                 });
     }
 
@@ -161,8 +161,8 @@ public class UploadPostService extends Service
         notificationBuilder.setAutoCancel(false)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Uploading...")
-                .setContentText("Upload new post")
+                .setContentTitle(getApplicationContext().getResources().getString(R.string.upload_title))
+                .setContentText(getApplicationContext().getResources().getString(R.string.upload_message))
                 .setContentIntent(pi);
 
         return notificationBuilder.build();

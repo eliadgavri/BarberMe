@@ -56,7 +56,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private TextInputEditText websiteET;
     private File file;
     private int numOfPictures = 0;
-    private final int MAX_PICTURES = 6;
     private final int SELECT_IMAGE = 1;
     private final int CAMERA_REQUEST = 2;
     private final int WRITE_PERMISSION_REQUEST = 3;
@@ -87,7 +86,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         websiteET = findViewById(R.id.website_et);
         finishBT = findViewById(R.id.finish_button);
         setOldData();
-        picturesList.setLayoutManager(new GridLayoutManager(this, MAX_PICTURES/2));
+        picturesList.setLayoutManager(new GridLayoutManager(this, 3));
         pictureAdapter = new PictureAdapter(pictures);
         picturesList.setAdapter(pictureAdapter);
         finishBT.setOnClickListener(new View.OnClickListener() {
@@ -133,38 +132,30 @@ public class EditBarberShopActivity extends AppCompatActivity {
         for (String url : barberShop.getImages())
             pictures.add(Uri.parse(url));
         numOfPictures = pictures.size();
-        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
     }
 
     private void showMsg(String msg) {
         new AlertDialog.Builder(this)
-                .setTitle("Note")
+                .setTitle(getResources().getString(R.string.note))
                 .setMessage(msg)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getResources().getString(R.string.ok), null)
                 .create()
                 .show();
     }
 
     //Upload picture from gallery
     private void uploadPicture() {
-        if(numOfPictures>=MAX_PICTURES){
-            Toast.makeText(EditBarberShopActivity.this, "6 is the maximum pictures you can add", Toast.LENGTH_SHORT).show();
-            return;
-        }
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.select_picture)), SELECT_IMAGE);
     }
 
     //Take picture from camera
     private void takePicture(){
-        if(numOfPictures>=MAX_PICTURES){
-            Toast.makeText(EditBarberShopActivity.this, "6 is the maximum pictures you can add", Toast.LENGTH_SHORT).show();
-            return;
-        }
         String pictureName = String.valueOf(System.currentTimeMillis());
         file = new File(this.getExternalFilesDir(null), pictureName + ".jpg");
         imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
@@ -203,14 +194,14 @@ public class EditBarberShopActivity extends AppCompatActivity {
         imageUri = data.getData();
         numOfPictures++;
         pictures.add(imageUri);
-        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
 
     private void addPictureFromCamera() {
         numOfPictures++;
         pictures.add(imageUri);
-        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
 
@@ -219,7 +210,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==WRITE_PERMISSION_REQUEST){
             if(grantResults[0]!=PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, "you need permission to take picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getResources().getString(R.string.permission), Toast.LENGTH_SHORT).show();
             }
             else{
                 //Has permissions
@@ -238,7 +229,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
                 .set(barberShop, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(EditBarberShopActivity.this, "Update successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditBarberShopActivity.this, EditBarberShopActivity.this.getResources().getString(R.string.update_successful), Toast.LENGTH_SHORT).show();
                 Intent mainIntent = new Intent(EditBarberShopActivity.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
@@ -247,7 +238,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditBarberShopActivity.this, "Update failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditBarberShopActivity.this, EditBarberShopActivity.this.getResources().getString(R.string.update_failed), Toast.LENGTH_SHORT).show();
             }
         });
     }

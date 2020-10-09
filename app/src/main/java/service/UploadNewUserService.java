@@ -56,7 +56,7 @@ public class UploadNewUserService extends Service {
                 })
                 .addOnFailureListener(ex -> {
                     ex.printStackTrace();
-                    showMessageAndFinish("failed to upload");
+                    showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
                 });
 
     }
@@ -85,7 +85,7 @@ public class UploadNewUserService extends Service {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("BarberMe")
-                .setContentText(user.getFirstName()+ " " +user.getLastName()+ " " +"Welcome to your BarberHouse.")
+                .setContentText(user.getFirstName()+ " " +user.getLastName()+ " " +this.getApplicationContext().getResources().getString(R.string.notif_title))
                 .setContentIntent(pi);
 
         return notificationBuilder.build();

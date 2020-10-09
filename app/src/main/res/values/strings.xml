@@ -36,4 +36,18 @@
     <string name="password">Password</string>
     <string name="forget_password">Forgot Password?</string>
     <string name="reviews">Reviews:</string>
+    <string name="notif_title">Welcome To Your Barber House</string>
+    <string name="upload_title">Uploading...</string>
+    <string name="upload_message">A New Post Is Being Uploaded</string>
+    <string name="double_post">A New Post is Already Being Uploaded</string>
+    <string name="note">Note</string>
+    <string name="ok">OK</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="permission">Please Accept Permissions For That Request</string>
+    <string name="pictures_count">Pictures Count:</string>
+    <string name="new_review">New Review Has Been Published</string>
+    <string name="update_successful">Update Successful</string>
+    <string name="update_failed">Update Failed</string>
+    <string name="guest">Guest</string>
+    <string name="welcome">Welcome</string>
 </resources>

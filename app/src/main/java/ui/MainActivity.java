@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         String name;
         if(currentUser.getDisplayName() == null || currentUser.getDisplayName().length() == 0) {
-            name = "guest";
+            name = getResources().getString(R.string.guest);
             isGuest = true;
             Glide.with(this).load(ANNONYMOUS_PROFILE).into(profileIV);
         }

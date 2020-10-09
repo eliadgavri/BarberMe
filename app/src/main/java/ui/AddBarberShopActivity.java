@@ -48,7 +48,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private TextInputEditText websiteET;
     private File file;
     private int numOfPictures = 0;
-    private final int MAX_PICTURES = 6;
     private final int SELECT_IMAGE = 1;
     private final int CAMERA_REQUEST = 2;
     private final int WRITE_PERMISSION_REQUEST = 3;
@@ -76,7 +75,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
         phoneNumberET = findViewById(R.id.phone_et);
         websiteET = findViewById(R.id.website_et);
         finishBT = findViewById(R.id.finish_button);
-        picturesList.setLayoutManager(new GridLayoutManager(this, MAX_PICTURES/2));
+        picturesList.setLayoutManager(new GridLayoutManager(this, 3));
         pictureAdapter = new PictureAdapter(pictures);
         picturesList.setAdapter(pictureAdapter);
         finishBT.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +116,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
     //Publish new barber shop
     private void publishNewShop() {
         if(UploadPostService.isRunning()) {
-            showMsg("A new post is already being uploaded");
+            showMsg(this.getResources().getString(R.string.double_post));
             return;
         }
         Intent intent = new Intent(this, UploadPostService.class)
@@ -141,33 +140,25 @@ public class AddBarberShopActivity extends AppCompatActivity {
 
     private void showMsg(String msg) {
         new AlertDialog.Builder(this)
-                .setTitle("Note")
+                .setTitle(this.getResources().getString(R.string.note))
                 .setMessage(msg)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton("OK", null)
+                .setPositiveButton(this.getResources().getString(R.string.ok), null)
                 .create()
                 .show();
     }
 
     //Upload picture from gallery
     private void uploadPicture() {
-        if(numOfPictures>=MAX_PICTURES){
-            Toast.makeText(AddBarberShopActivity.this, "6 is the maximum pictures you can add", Toast.LENGTH_SHORT).show();
-            return;
-        }
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_IMAGE);
+        startActivityForResult(Intent.createChooser(intent, this.getResources().getString(R.string.select_picture)), SELECT_IMAGE);
     }
 
     //Take picture from camera
     private void takePicture(){
-        if(numOfPictures>=MAX_PICTURES){
-            Toast.makeText(AddBarberShopActivity.this, "6 is the maximum pictures you can add", Toast.LENGTH_SHORT).show();
-            return;
-        }
         String pictureName = String.valueOf(System.currentTimeMillis());
         file = new File(this.getExternalFilesDir(null), pictureName + ".jpg");
         imageUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
@@ -206,14 +197,14 @@ public class AddBarberShopActivity extends AppCompatActivity {
         imageUri = data.getData();
         numOfPictures++;
         pictures.add(imageUri);
-        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
 
     private void addPictureFromCamera() {
         numOfPictures++;
         pictures.add(imageUri);
-        picturesCountTv.setText("Pictures Count: " + numOfPictures + " / " + MAX_PICTURES);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
 
@@ -222,7 +213,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==WRITE_PERMISSION_REQUEST){
             if(grantResults[0]!=PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this, "you need permission to take picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getResources().getString(R.string.permission), Toast.LENGTH_SHORT).show();
             }
             else{
                 //Has permissions

@@ -21,4 +21,18 @@
     <string name="password">סיסמא</string>
     <string name="forget_password">שכחת סיסמא?</string>
     <string name="reviews">ביקורות:</string>
+    <string name="notif_title">ברוך הבא לאפליקציית המספרות שלך</string>
+    <string name="upload_title">מעלה...</string>
+    <string name="upload_message">פוסט חדש מועלה ממש ברגעים אלה</string>
+    <string name="double_post">פוסט אחר מועלה ממש ברגעים אלה</string>
+    <string name="note">הערה</string>
+    <string name="ok">אוקי</string>
+    <string name="select_picture">בחר תמונה</string>
+    <string name="permission">אנא אשר את ההרשאות על מנת לבצע את הפעולה</string>
+    <string name="pictures_count">מכסת תמונות:</string>
+    <string name="new_review">ביקורת חדשה פורסמה</string>
+    <string name="update_successful">העדכון הצליח</string>
+    <string name="update_failed">העדכון כשל</string>
+    <string name="guest">אורח</string>
+    <string name="welcome">ברוך הבא</string>
 </resources>

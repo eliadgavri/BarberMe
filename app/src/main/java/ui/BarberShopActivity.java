@@ -219,7 +219,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 .set(barberShop, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(BarberShopActivity.this, "New review published", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BarberShopActivity.this, BarberShopActivity.this.getResources().getString(R.string.new_review), Toast.LENGTH_SHORT).show();
             }
 
         }).addOnFailureListener(new OnFailureListener() {
@@ -260,7 +260,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 makePhoneCall();
             }
             else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getResources().getString(R.string.permission), Toast.LENGTH_SHORT).show();
             }
         }
     }

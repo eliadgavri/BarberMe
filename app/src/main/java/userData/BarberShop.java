@@ -17,7 +17,6 @@ public class BarberShop implements Serializable {
     private String id; // Document id
 
     private String name;
-    private String area;
     private String city;
     private String address;
     private String phoneNumber;
@@ -32,9 +31,8 @@ public class BarberShop implements Serializable {
 
     public BarberShop() {} //for firebase database
 
-    public BarberShop(String name, String area, String city, String address, String phoneNumber, List<String> images, String userId, String userName, String website) {
+    public BarberShop(String name, String city, String address, String phoneNumber, List<String> images, String userId, String userName, String website) {
         this.name = name;
-        this.area = area;
         this.city = city;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -84,14 +82,6 @@ public class BarberShop implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
     }
 
     public String getCity() {

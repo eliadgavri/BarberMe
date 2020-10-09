@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
                 android:backgroundTint="@color/YellowApp"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/White"
                 android:textColorHint="@color/White" />
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
                 android:backgroundTint="@color/YellowApp"
-                android:hint="password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textColor="@color/White"
                 android:textColorHint="@color/White" />
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginVertical="20dp"
-                android:text="Forgot your password? "
+                android:text="@string/forget_password"
                 android:textColor="@color/YellowApp" />
 
             <Button
@@ -70,7 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_selector_yellowapp"
                 android:padding="5dp"
-                android:text="LOGIN"
+                android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@color/Black"
                 android:textSize="15sp" />
@@ -95,7 +95,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="OR"
+                    android:text="@string/or"
                     android:textColor="@color/YellowApp" />
 
                 <ImageView
@@ -117,7 +117,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_selector_yellowapp"
                 android:padding="5dp"
-                android:text="CREATE NEW ACCOUNT"
+                android:text="@string/signup"
                 android:textAllCaps="false"
                 android:textColor="@color/Black"
                 android:textSize="15sp" />
@@ -131,7 +131,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_selector_transparent"
                 android:padding="5dp"
-                android:text="CONTINUE AS A GUEST"
+                android:text="@string/guest_login"
                 android:textAllCaps="false"
                 android:textColor="@color/YellowApp"
                 android:textSize="15sp" />

@@ -47,17 +47,17 @@ public class ForgotPasswordDialog extends Dialog{
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(parent, "Email Sent", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(parent, ForgotPasswordDialog.this.getContext().getResources().getString(R.string.reset_password_email), Toast.LENGTH_SHORT).show();
                                         dismiss();
                                     }
                                     else {
-                                        Toast.makeText(parent, "An error occurred", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(parent, ForgotPasswordDialog.this.getContext().getResources().getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 }
                 else
-                    Toast.makeText(parent, "Email can't be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(parent, ForgotPasswordDialog.this.getContext().getResources().getString(R.string.empty_textboxes), Toast.LENGTH_SHORT).show();
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {

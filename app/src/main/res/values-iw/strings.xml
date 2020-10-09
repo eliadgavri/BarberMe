@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BarberMe</string>
+    <string name="error_message">קרתה תקלה</string>
+    <string name="reset_password_email">מייל לאיפוס סיסמא נשלח</string>
+    <string name="empty_textboxes">לא כל הנתונים מולאו</string>
+    <string name="upload_data_error">תקלה בהעלאת נתונים</string>
+    <string name="first_name">שם פרטי</string>
+    <string name="last_name">שם משפחה</string>
+    <string name="city">עיר</string>
+    <string name="address">כתובת</string>
+    <string name="gender">מין</string>
+    <string name="male">זכר</string>
+    <string name="female">נקבה</string>
+    <string name="birthday">יום הולדת</string>
+    <string name="login">התחבר</string>
+    <string name="signup">צור משתמש חדש</string>
+    <string name="guest_login">התחבר בתור אורח</string>
+    <string name="or">או</string>
+    <string name="email">אימייל</string>
+    <string name="password">סיסמא</string>
+    <string name="forget_password">שכחת סיסמא?</string>
+    <string name="reviews">ביקורות:</string>
+</resources>

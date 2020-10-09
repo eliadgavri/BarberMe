@@ -50,7 +50,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private Button finishBT;
     private TextView picturesCountTv;
     private TextInputEditText nameET;
-    private TextInputEditText areaET;
     private TextInputEditText cityET;
     private TextInputEditText addressET;
     private TextInputEditText phoneNumberET;
@@ -82,7 +81,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         picturesCountTv = findViewById(R.id.pictures_count_tv);
         nameET = findViewById(R.id.name_et);
-        areaET = findViewById(R.id.area_et);
         cityET = findViewById(R.id.city_et);
         addressET = findViewById(R.id.address_et);
         phoneNumberET = findViewById(R.id.phone_et);
@@ -128,7 +126,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
 
     private void setOldData() {
         nameET.setText(barberShop.getName());
-        areaET.setText(barberShop.getArea());
         cityET.setText(barberShop.getCity());
         addressET.setText(barberShop.getAddress());
         phoneNumberET.setText(barberShop.getPhoneNumber());

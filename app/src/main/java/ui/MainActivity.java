@@ -144,7 +144,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Toast.makeText(this, getResources().getString(R.string.guest_error), Toast.LENGTH_LONG).show();
                 break;
             case R.id.settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment(), TAG).addToBackStack(null).commit();
+                if(isGuest != true) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment(), TAG).addToBackStack(null).commit();
+                    search.setVisibility(View.GONE);
+                }
+                else
+                    Toast.makeText(this, getResources().getString(R.string.guest_error), Toast.LENGTH_LONG).show();
                 break;
             case R.id.Logout:
                 logout();

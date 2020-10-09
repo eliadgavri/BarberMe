@@ -56,8 +56,7 @@ import userData.User;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    Button savePassChangesBtn, saveEmailChangesBtn,saveProfilePicChangesBtn,editProfilePicBtn,saveUsernameChangesBtn;
-    EditText repeatPassEt, newPassEt, emailEt, oldPassEt, firstNameEt, lastNameEt, passwordEt;
+    Button saveProfilePicChangesBtn,editProfilePicBtn;
     ImageView profilePicIv;
     File file;
     private final int SELECT_IMAGE = 1;
@@ -65,7 +64,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private final int WRITE_PERMISSION_REQUEST = 3;
     private Uri imageUri;
     DatabaseFetch databaseFetch = new DatabaseFetch();
-    int prefMode = 1;
     String imageUrl;
 
     @Override
@@ -79,23 +77,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             case "ChangeProfilePicture":
             {
                 changeProfilePicture();
-                prefMode = 1;
                 break;
             }
             case "ChangeBasicInfo":
             {
                 changeBasicInfo();
-                prefMode = 2;
-                break;
-            }
-            case "ChangeEmail": {
-                changeEmail();
-                prefMode = 3;
-                break;
-            }
-            case "ChangePassword": {
-                changePassword();
-                prefMode = 4;
                 break;
             }
         }
@@ -103,50 +89,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void changeBasicInfo() {
-
-
-    }
-
-    private void changeUserName() {
-
-        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
-        final View dialogView = getLayoutInflater().inflate(R.layout.change_username_dialog, null);
-
-        saveUsernameChangesBtn = dialogView.findViewById(R.id.save_changes_username_btn);
-        firstNameEt=dialogView.findViewById(R.id.change_first_name_et);
-        lastNameEt = dialogView.findViewById(R.id.change_last_name_et);
-
-        saveUsernameChangesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username=firstNameEt.getText().toString() + " " + lastNameEt.getText().toString();
-                if(!username.isEmpty()) {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    user.updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(username).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(SettingsFragment.this.getContext(), "Username changed", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent("usernameChange");
-                                LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
-                                updateFirestore(username);
-                            } else {
-                                Toast.makeText(SettingsFragment.this.getContext(), "Username isn't changed", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-                else
-                {
-                    Toast.makeText(SettingsFragment.this.getContext(), "The username text can't be empty,please fill the text filed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        builderDialog.setView(dialogView);
-        AlertDialog alertDialog = builderDialog.create();
-        alertDialog.show();
+        Intent intent = new Intent(this.getContext(), ChangeBasicInfoActivity.class);
+        startActivity(intent);
     }
 
     private void changeProfilePicture() {
@@ -159,6 +103,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         Glide.with(this.getContext()).load(user.getPhotoUrl()).into(profilePicIv);
+        builderDialog.setView(dialogView);
+        AlertDialog alertDialog = builderDialog.create();
         editProfilePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,10 +115,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public void onClick(View view) {
                 saveProfilePicture();
+                alertDialog.dismiss();
             }
         });
-        builderDialog.setView(dialogView);
-        AlertDialog alertDialog = builderDialog.create();
         alertDialog.show();
     }
 
@@ -186,98 +131,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     Toast.makeText(SettingsFragment.this.getContext(), "Profile picture changed", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("profilePictureChanged");
                     LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
-                    updateFirestore(user.getPhotoUrl().toString());
+                    updateFirestore();
                 }
                 else
                     Toast.makeText(SettingsFragment.this.getContext(), "There was an error", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void changeEmail() {
-        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
-        final View dialogView = getLayoutInflater().inflate(R.layout.change_email_dialog, null);
-
-        saveEmailChangesBtn = dialogView.findViewById(R.id.preference_save_email_changes);
-        emailEt = dialogView.findViewById(R.id.preference_change_email_et);
-        passwordEt = dialogView.findViewById(R.id.preference_change_email_password_et);
-
-        saveEmailChangesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String password = passwordEt.getText().toString();
-                AuthCredential credential = EmailAuthProvider
-                        .getCredential(user.getEmail(), password);
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        String newEmail = emailEt.getText().toString();
-                        user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(SettingsFragment.this.getContext(), "Email changed", Toast.LENGTH_SHORT).show();
-                                    updateFirestore(newEmail);
-                                }
-                            }
-                        });
-                    }
-                });
-            }
-        });
-        builderDialog.setView(dialogView);
-        AlertDialog alertDialog = builderDialog.create();
-        alertDialog.show();
-    }
-
-    private void changePassword() {
-        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
-        final View dialogView = getLayoutInflater().inflate(R.layout.change_password_dialog, null);
-
-        savePassChangesBtn = dialogView.findViewById(R.id.preference_save_password_changes);
-        oldPassEt = dialogView.findViewById(R.id.preference_old_password_et);
-        newPassEt = dialogView.findViewById(R.id.preference_new_password_et);
-        repeatPassEt = dialogView.findViewById(R.id.preference_confirm_password_et);
-
-        savePassChangesBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newPass = newPassEt.getText().toString();
-                String oldPass = oldPassEt.getText().toString();
-                String repeatPass = repeatPassEt.getText().toString();
-                if (!oldPass.isEmpty() && !newPass.isEmpty() && !repeatPass.isEmpty() && newPass.equals(repeatPass)) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    AuthCredential credential = EmailAuthProvider
-                            .getCredential(user.getEmail(), oldPassEt.getText().toString());
-
-                    String newPassword = newPassEt.getText().toString();
-                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(SettingsFragment.this.getContext(), "Password changed", Toast.LENGTH_SHORT).show();
-                                            updateFirestore(newPassword);
-                                        } else {
-                                            Toast.makeText(SettingsFragment.this.getContext(), "Password isn't changed", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-                } else {
-                    Toast.makeText(SettingsFragment.this.getContext(), "Something invalid", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builderDialog.setView(dialogView);
-        AlertDialog alertDialog = builderDialog.create();
-        alertDialog.show();
     }
 
     private void selectImage() {
@@ -376,37 +235,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    private void updateFirestore(String input) {
+    private void updateFirestore() {
         Consumer<User> consumer = new Consumer<User>() {
             @Override
             public void apply(User param) {
-                switch (prefMode)
-                {
-                    case 1:
-                        Consumer<String> updateImage = new Consumer<String>() {
-                            @Override
-                            public void apply(String param1) {
-
-                                param.setProfilePicture(param1);
-                                FirebaseFirestore.getInstance().collection("users").document(param.getId())
-                                        .set(param, SetOptions.merge());
-                            }
-                        };
-                        uploadPhotoToPhotos(updateImage);
-                        return;
-                    case 2:
-                        param.setFirstName(firstNameEt.getText().toString());
-                        param.setLastName(lastNameEt.getText().toString());
-                        break;
-                    case 3:
-                        param.setEmail(input);
-                        break;
-                    case 4:
-                        param.setPassword(input);
-                        break;
-                }
-                FirebaseFirestore.getInstance().collection("users").document(param.getId())
-                        .set(param, SetOptions.merge());
+                Consumer<String> updateImage = new Consumer<String>() {
+                    @Override
+                    public void apply(String param1) {
+                        param.setProfilePicture(param1);
+                        FirebaseFirestore.getInstance().collection("users").document(param.getId())
+                                .set(param, SetOptions.merge());
+                    }
+                };
+                uploadPhotoToPhotos(updateImage);
             }
         };
         databaseFetch.findUserData(consumer, FirebaseAuth.getInstance().getCurrentUser().getUid());

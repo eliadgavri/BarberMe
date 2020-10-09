@@ -69,17 +69,15 @@ public class SignUpFragment extends Fragment {
     public void addListenerOnButton (View view) {
 
         radioGroup = (RadioGroup)view.findViewById(R.id.radio);
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
                 switch(checkedId){
                     case R.id.radioMale:
-                        radioGender="Male";
+                        radioGender=SignUpFragment.this.getContext().getResources().getString(R.string.male);
                         break;
                     case R.id.radioFemale:
-                        radioGender="Female";
+                        radioGender=SignUpFragment.this.getContext().getResources().getString(R.string.female);
                         break;
                 }
             }

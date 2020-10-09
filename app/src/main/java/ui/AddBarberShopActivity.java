@@ -76,6 +76,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
         phoneNumberET = findViewById(R.id.phone_et);
         websiteET = findViewById(R.id.website_et);
         finishBT = findViewById(R.id.finish_button);
+        picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         picturesList.setLayoutManager(new GridLayoutManager(this, 3));
         pictureAdapter = new PictureAdapter(pictures);
         picturesList.setAdapter(pictureAdapter);
@@ -124,33 +125,6 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
-/*        uploadPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadPicture();
-            }
-        });
-        takePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Request permissions
-                if(Build.VERSION.SDK_INT>=23) {
-                    int hasWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    if(hasWritePermission!= PackageManager.PERMISSION_GRANTED){
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST);
-                    }
-                    else{
-                        //has permission
-                        takePicture();
-                    }
-                }
-                else {
-                    //has permission
-                    takePicture();
-                }
-            }
-        });*/
     }
 
     //Publish new barber shop

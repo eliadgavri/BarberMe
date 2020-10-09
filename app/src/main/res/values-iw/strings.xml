@@ -48,4 +48,17 @@
     <string name="signin_successful">החיבור צלח</string>
     <string name="signin_failed">החיבור נכשל</string>
     <string name="empty_texts">אנא מלא את כל השדות</string>
+    <string name="signup_successful">ההרשמה צלחה</string>
+    <string name="signup_failed">ההרשמה נכשלה</string>
+    <string name="equal_passwords_empty_boxes">אנא מלא את כל השדות וודא שהסיסמאות זהות</string>
+    <string name="submit">הוסף</string>
+    <string name="add_review">הוספת ביקורת</string>
+    <string name="review_hint">אנא הכנס את הביקורת שלך כאן</string>
+    <string name="barbershop_name">שם המספרה</string>
+    <string name="barbershop_subtitle">תת כותרת</string>
+    <string name="search">חפש</string>
+    <string name="confirm_password">אימות סיסמא</string>
+    <string name="phone_number">מספר טלפון</string>
+    <string name="website">אתר</string>
+    <string name="add_barber_shop">הוספת מספרה</string>
 </resources>

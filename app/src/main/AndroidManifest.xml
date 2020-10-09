@@ -26,6 +26,7 @@
         <activity android:name="ui.SignInUpActivity" />
         <activity android:name="ui.AddBarberShopActivity" />
         <activity android:name="ui.EditBarberShopActivity"/>
+        <activity android:name="ui.ChangeBasicInfoActivity"/>
 
         <service
             android:name="service.UploadPostService"

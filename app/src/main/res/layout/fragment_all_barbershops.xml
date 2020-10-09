@@ -73,7 +73,7 @@
                 android:layout_weight="4"
                 android:padding="1dp"
                 android:layout_height="match_parent"
-                android:hint="title"/>
+                android:hint="@string/barbershop_name"/>
 
 
             <ImageButton
@@ -85,7 +85,7 @@
                 android:background="@drawable/shape_selector_yellow_dark"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="search" />
+                android:text="@string/search" />
 
         </LinearLayout>
 

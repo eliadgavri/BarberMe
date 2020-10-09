@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="17.5sp"
-                        android:hint="First Name"
+                        android:hint="@string/first_name"
                         android:inputType="textPersonName"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White" />
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="17.5sp"
-                        android:hint="Last Name"
+                        android:hint="@string/last_name"
                         android:inputType="textPersonName"
                         android:textColor="@color/White"
                         android:textColorHint="@color/White" />
@@ -70,7 +70,7 @@
                     android:id="@+id/birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Date of Birth"
+                    android:hint="@string/birthday"
                     android:inputType="datetime"
                     android:padding="5dp"
                     android:textColor="@color/White"
@@ -80,6 +80,7 @@
                 <RadioGroup
                     android:layout_marginTop="30dp"
                     android:id="@+id/radio"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -90,27 +91,27 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Gender: "
+                            android:text="@string/gender"
                             android:padding="5dp"
                             android:textColor="@color/White"
                             android:textColorHint="@color/YellowApp" />
-
-                        <RadioButton
-                            android:id="@+id/radioMale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="Male"
-                            android:textColor="@color/White" />
-
-                        <RadioButton
-                            android:id="@+id/radioFemale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Female"
-                            android:textColor="@color/White" />
-
                     </LinearLayout>
+
+                    <RadioButton
+                        android:id="@+id/radioMale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/male"
+                        android:textColor="@color/White" />
+
+                    <RadioButton
+                        android:id="@+id/radioFemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female"
+                        android:textColor="@color/White" />
+
                 </RadioGroup>
 
                 <EditText
@@ -119,7 +120,7 @@
                     android:backgroundTint="@color/YellowApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:padding="5dp"
                     android:textColor="@color/White"
@@ -131,7 +132,7 @@
                     android:id="@+id/password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:backgroundTint="@color/YellowApp"
                     android:inputType="textPassword"
                     android:padding="5dp"
@@ -144,7 +145,7 @@
                     android:id="@+id/confirm_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm password"
+                    android:hint="@string/confirm_password"
                     android:inputType="textPassword"
                     android:padding="5dp"
                     android:backgroundTint="@color/YellowApp"
@@ -157,7 +158,7 @@
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:backgroundTint="@color/YellowApp"
                     android:padding="5dp"
                     android:textColor="@color/White"
@@ -173,7 +174,7 @@
                     android:layout_marginTop="70dp"
                     android:background="@drawable/shape_selector_yellowapp"
                     android:paddingHorizontal="70dp"
-                    android:text="Sign Up"
+                    android:text="@string/signup"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>

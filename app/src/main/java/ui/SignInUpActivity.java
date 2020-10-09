@@ -99,7 +99,7 @@ public class SignInUpActivity extends AppCompatActivity
                     firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(firstName +" "+ lastName).setPhotoUri(profilePicture).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(SignInUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
                             User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address);
                             publishNewUser(user);
                             Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
@@ -109,11 +109,11 @@ public class SignInUpActivity extends AppCompatActivity
                     });
                 }
                 else
-                    Toast.makeText(SignInUpActivity.this, "SignuUp failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_failed), Toast.LENGTH_SHORT).show();
             });
         }
         else
-            Toast.makeText(SignInUpActivity.this, "Passwords not equal or something empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.equal_passwords_empty_boxes), Toast.LENGTH_SHORT).show();
     }
 
     private void publishNewUser(User user) {

@@ -9,7 +9,7 @@
     <Preference
         android:title="Basic Information"
         android:layout="@layout/preference_basic_information"
-        android:key="ChangeUserName"/>
+        android:key="ChangeBasicInfo"/>
 
     <Preference
         android:title="Profile picture"

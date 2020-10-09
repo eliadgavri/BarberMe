@@ -63,4 +63,17 @@
     <string name="signin_successful">Sign In Successful</string>
     <string name="signin_failed">Sign In Failed</string>
     <string name="empty_texts">Please Fill All The Text Boxes</string>
+    <string name="signup_successful">Sign Up Successful</string>
+    <string name="signup_failed">Sign Up Failed</string>
+    <string name="equal_passwords_empty_boxes">Please Fill All The Text Boxes And Make Sure Passwords Are Equal</string>
+    <string name="submit">Submit</string>
+    <string name="add_review">Add Review</string>
+    <string name="review_hint">Please Enter Your Review Text Here</string>
+    <string name="barbershop_name">Barber Shop Title</string>
+    <string name="barbershop_subtitle">Baber Shop Subtitle</string>
+    <string name="search">Search</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="website">Website</string>
+    <string name="add_barber_shop">Add Barber Shop</string>
 </resources>

@@ -5,6 +5,11 @@
     android:paddingVertical="20dp"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_notifications_24"/>
+
     <TextView
         android:id="@android:id/title"
         android:textColor="@color/White"

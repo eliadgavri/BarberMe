@@ -3,7 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="20dp"
+    android:background="@drawable/top_bottom"
     android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_person_pin_24"/>
 
     <TextView
         android:id="@android:id/title"

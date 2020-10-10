@@ -22,7 +22,6 @@ public class ForgotPasswordDialog extends Dialog{
 
     Activity parent;
     private Button send;
-    private Button cancel;
     private EditText email;
 
     public ForgotPasswordDialog(Activity parent) {
@@ -36,7 +35,6 @@ public class ForgotPasswordDialog extends Dialog{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.forgot_password_dialog);
         send = findViewById(R.id.send_bt);
-        cancel = findViewById(R.id.cancel_bt);
         email = findViewById(R.id.forgot_password_email);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +58,6 @@ public class ForgotPasswordDialog extends Dialog{
                     Toast.makeText(parent, ForgotPasswordDialog.this.getContext().getResources().getString(R.string.empty_textboxes), Toast.LENGTH_SHORT).show();
             }
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+
     }
 }

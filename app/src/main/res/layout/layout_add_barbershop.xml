@@ -16,19 +16,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:textColor="@color/YellowDark"
-                android:padding="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_barber_shop"
-                android:textSize="40sp"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/add_barbershop_tv"/>
 
             <LinearLayout
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="40dp"
                 android:layout_height="match_parent"
@@ -98,13 +88,14 @@
 
 
                 <ImageButton
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
                     android:layout_marginTop="30dp"
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/shape_selector_transparent"
-                    android:src="@drawable/ic_baseline_add_photo_alternate__orange24"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_add_a_photo_orange_24"
+                    android:text="Upload"
                     android:id="@+id/upload_button"/>
 
 
@@ -127,14 +118,14 @@
                     android:id="@+id/recyclerview_pics"/>
 
                 <Button
+                    android:id="@+id/finish_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/finish_button"
                     android:layout_marginTop="30dp"
-                    android:padding="5dp"
-                    android:textSize="20sp"
                     android:background="@drawable/shape_selector_yellow_dark"
-                    android:text="@string/add_barber_shop"/>
+                    android:padding="5dp"
+                    android:text="@string/add_barber_shop"
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>>
     </ScrollView>

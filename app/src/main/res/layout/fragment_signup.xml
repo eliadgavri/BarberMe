@@ -93,6 +93,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/gender"
                             android:padding="5dp"
+                            android:textSize="17.5sp"
                             android:textColor="@color/White"
                             android:textColorHint="@color/YellowApp" />
                     </LinearLayout>

@@ -62,4 +62,6 @@
     <string name="website">אתר</string>
     <string name="add_barber_shop">הוספת מספרה</string>
     <string name="push_new_review">ביקורת חדשה נוספה</string>
+    <string name="post">פרסם</string>
+    <string name="edit_barber">ערוך</string>
 </resources>

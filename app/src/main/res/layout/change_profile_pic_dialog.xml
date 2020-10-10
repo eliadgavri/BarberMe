@@ -3,6 +3,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/top_bottom"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -19,12 +20,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
         android:text="Edit profile picture"
+        android:background="@drawable/shape_selector_yellow_dark"
         android:textAllCaps="false"
         android:id="@+id/edit_profile_pic_btn"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_selector_yellow_dark"
         android:layout_marginTop="10dp"
         android:text="Save changes"
         android:id="@+id/save_profile_pic_changes_btn"

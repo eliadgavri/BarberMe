@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -77,6 +78,8 @@ public class BarberShopActivity extends AppCompatActivity {
     ArrayList<Uri> pictures;
     RecyclerView picturesRecycler;
     RecyclerView reviewRecycler;
+    TextView title;
+    TextView type;
     FloatingActionButton phoneBtn, navigateBtn, messageBtn, websiteBtn;
     ImageView imageViewPic;
     StringBuilder barberAddress = new StringBuilder();
@@ -95,8 +98,12 @@ public class BarberShopActivity extends AppCompatActivity {
         newReviewLayout = findViewById(R.id.new_review_layout);
         newReviewText = findViewById(R.id.review_text_et);
         submitNewReview = findViewById(R.id.submit_review_bt);
+        title = findViewById(R.id.barbershop_name_activity_barber_shop);
+        type = findViewById(R.id.type_barbershop_activity_barber_shop);
         newReviewLayout.setVisibility(View.GONE);
         barberShop = (BarberShop) getIntent().getSerializableExtra("Barbershop");
+        title.setText(barberShop.getName());
+        //type =
         Glide.with(this).load(barberShop.getImages().get(0)).into(barberPicture);
         pictures = new ArrayList<>();
         String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -141,7 +148,6 @@ public class BarberShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAddReviewLayout = false;
-                newReviewText.setText("");
                 uploadNewReview();
             }
         });
@@ -234,6 +240,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 reviewAdapter.notifyDataSetChanged();
                 updateBarberReviews();
                 newReviewLayout.setVisibility(View.GONE);
+                newReviewText.setText("");
             }
         };
         databaseFetch.findUserData(consumer, FirebaseAuth.getInstance().getCurrentUser().getUid());

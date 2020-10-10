@@ -110,7 +110,7 @@ public class UploadPostService extends Service
         return isRunning;
     }
 
-    private List<String> mappedURLs(List<UrlData> urlsList) {
+    public List<String> mappedURLs(List<UrlData> urlsList) {
         List<String> result = new ArrayList<>();
         for(UrlData data : urlsList)
             result.add(data.url);
@@ -175,9 +175,9 @@ public class UploadPostService extends Service
     }
 
 
-    private static class UrlData {
-        private String url;
-        private int position;
+    public static class UrlData {
+        public String url;
+        public int position;
 
         public UrlData(int pos) {
             position = pos;

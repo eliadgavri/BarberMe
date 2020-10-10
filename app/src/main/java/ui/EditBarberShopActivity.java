@@ -32,9 +32,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import adapter.PictureAdapter;
@@ -63,6 +68,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private final int WRITE_PERMISSION_REQUEST = 3;
     private Uri imageUri;
     BarberShop barberShop;
+    boolean reuploadImages = false;
 
     @Override
     protected void onStart() {
@@ -206,6 +212,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         imageUri = data.getData();
         numOfPictures++;
         pictures.add(imageUri);
+        reuploadImages = true;
         picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
@@ -213,6 +220,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private void addPictureFromCamera() {
         numOfPictures++;
         pictures.add(imageUri);
+        reuploadImages = true;
         picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         pictureAdapter.notifyDataSetChanged();
     }
@@ -237,6 +245,13 @@ public class EditBarberShopActivity extends AppCompatActivity {
         barberShop.setAddress(addressET.getText().toString());
         barberShop.setPhoneNumber(phoneNumberET.getText().toString());
         barberShop.setWebsite(websiteET.getText().toString());
+        if(reuploadImages)
+            uploadPicturesToFirebase();
+        else
+            uploadAd();
+    }
+
+    private void uploadAd() {
         FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId())
                 .set(barberShop, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -254,4 +269,50 @@ public class EditBarberShopActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void uploadPicturesToFirebase() {
+        StorageReference imagesRef = FirebaseStorage.getInstance().getReference().child("images");
+        final List<UploadPostService.UrlData> urlsList =  Collections.synchronizedList(new LinkedList<>());
+        for(int i=0; i<pictures.size(); i++) {
+            final StorageReference photoRef = imagesRef.child(String.valueOf(System.currentTimeMillis()));
+            final UploadPostService.UrlData url = new UploadPostService.UrlData(i);
+            UploadTask uploadTask = photoRef.putFile(pictures.get(i));
+            //upload the img + perform a task of getting the download url from the cloud
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    task.getException().printStackTrace();
+                    return null;
+                }
+                return photoRef.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String downloadUrl = task.getResult().toString();
+                    url.url = downloadUrl;
+                    urlsList.add(url);
+                    if(urlsList.size() == pictures.size()) {
+                        // all images were uploaded..
+
+                        // sort the list by original elements' position
+                        Collections.sort(urlsList, (e1, e2) -> {
+                            return Integer.compare(e1.position, e2.position);
+                        });
+
+                        barberShop.setImages(mappedURLs(urlsList));
+                        uploadAd();
+                    }
+                } else {
+                    Toast.makeText(EditBarberShopActivity.this, EditBarberShopActivity.this.getResources().getString(R.string.update_failed), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    public List<String> mappedURLs(List<UploadPostService.UrlData> urlsList) {
+        List<String> result = new ArrayList<>();
+        for(UploadPostService.UrlData data : urlsList)
+            result.add(data.url);
+
+        return result;
+    }
+
 }

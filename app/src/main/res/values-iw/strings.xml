@@ -61,4 +61,5 @@
     <string name="phone_number">מספר טלפון</string>
     <string name="website">אתר</string>
     <string name="add_barber_shop">הוספת מספרה</string>
+    <string name="push_new_review">ביקורת חדשה נוספה</string>
 </resources>

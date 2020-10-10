@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.barberme.R;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import ui.SplashScreenActivity;
 import userData.User;
@@ -24,6 +25,7 @@ public class UploadNewUserService extends Service {
 
     User user;
     private static final int ID = 1;
+    FirebaseMessaging messaging = FirebaseMessaging.getInstance();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -52,6 +54,8 @@ public class UploadNewUserService extends Service {
         FirebaseFirestore.getInstance().collection("users")
                 .add(user)
                 .addOnSuccessListener(docRef -> {
+                    String str = user.getuID();
+                    messaging.subscribeToTopic(user.getuID());
                     stopSelf();
                 })
                 .addOnFailureListener(ex -> {

@@ -29,6 +29,13 @@
         <activity android:name="ui.ChangeBasicInfoActivity"/>
 
         <service
+            android:name="service.FirebasePushService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
             android:name="service.UploadPostService"
             android:exported="false" />
         <service android:name="service.UploadNewUserService"

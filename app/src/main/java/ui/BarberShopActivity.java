@@ -23,6 +23,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.barberme.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,12 +41,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import adapter.BarberShopAdapter;
@@ -69,6 +82,7 @@ public class BarberShopActivity extends AppCompatActivity {
     StringBuilder barberAddress = new StringBuilder();
     ReviewAdapter reviewAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
+    boolean showAddReviewLayout = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +99,12 @@ public class BarberShopActivity extends AppCompatActivity {
         barberShop = (BarberShop) getIntent().getSerializableExtra("Barbershop");
         Glide.with(this).load(barberShop.getImages().get(0)).into(barberPicture);
         pictures = new ArrayList<>();
+        String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String barberUID = barberShop.getUserId();
+        if(uID.equals(barberUID))
+            addReview.setVisibility(View.GONE);
+        else
+            addReview.setVisibility(View.VISIBLE);
         for (String url : barberShop.getImages())
             pictures.add(Uri.parse(url));
         picturesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -107,13 +127,21 @@ public class BarberShopActivity extends AppCompatActivity {
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newReviewLayout.setVisibility(View.VISIBLE);
+                if(FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null || FirebaseAuth.getInstance().getCurrentUser().getDisplayName().length() == 0) {
+                    Toast.makeText(BarberShopActivity.this, getResources().getString(R.string.guest_error), Toast.LENGTH_LONG).show();
+                }
+                else {
+                    showAddReviewLayout = !showAddReviewLayout;
+                    newReviewLayout.setVisibility(showAddReviewLayout? View.VISIBLE : View.GONE);
+                }
             }
         });
 
         submitNewReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showAddReviewLayout = false;
+                newReviewText.setText("");
                 uploadNewReview();
             }
         });
@@ -220,6 +248,7 @@ public class BarberShopActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(BarberShopActivity.this, BarberShopActivity.this.getResources().getString(R.string.new_review), Toast.LENGTH_SHORT).show();
+                sendPushNotification();
             }
 
         }).addOnFailureListener(new OnFailureListener() {
@@ -227,6 +256,45 @@ public class BarberShopActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
             }
         });
+    }
+
+    private void sendPushNotification() {
+        JSONObject rootObject = new JSONObject();
+        try {
+            rootObject.put("to", "/topics/" + barberShop.getUserId());
+            rootObject.put("data", new JSONObject().put("message", barberShop.getName() + ": " + getResources().getString(R.string.push_new_review)));
+            String url = "https://fcm.googleapis.com/fcm/send";
+            RequestQueue queue = Volley.newRequestQueue(this);
+            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String API_TOKEN_KEY = "AAAAoF0h4pE:APA91bE62Z9KGOf-3mskaHcVldCJdQEDXVL53v2FsneoeC0impMaLQpT2cj3zT_SSo46uUiwWeSo2648CZfkZMwnzltuo51cceaZx1taERc3emWHxQnH1Gov5SsXytN5cOayvw1L5ZuI";
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type","application/json");
+                    headers.put("Authorization","key="+API_TOKEN_KEY);
+                    return headers;
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return rootObject.toString().getBytes();
+                }
+            };
+            queue.add(request);
+            queue.start();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void buildAddress() {

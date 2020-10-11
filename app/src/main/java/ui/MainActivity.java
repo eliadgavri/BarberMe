@@ -38,7 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     final String TAG = "MainActivity";
-    final String ANNONYMOUS_PROFILE = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07";
+    final String ANNONYMOUS_PROFILE = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/profiles%2FprofilePicture.png?alt=media&token=996a8ccb-7f65-43da-86ad-4619a9580fa5";
     final int SETTING_REQUEST=1;
     Toolbar toolbar;
     DrawerLayout drawerLayout;

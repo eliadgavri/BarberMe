@@ -41,7 +41,7 @@ public class UploadNewUserService extends Service {
        String birthday=intent.getStringExtra("birthday");
        String address=intent.getStringExtra("address");
 
-       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address);
+       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address, true);
 
         startForeground(ID, createNotification());
         uploadNewUser(user);

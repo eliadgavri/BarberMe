@@ -21,15 +21,17 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_layout"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="wrap_content"
             app:contentScrim="@color/barColor"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:fitsSystemWindows="true">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="100dp"
+            android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/barbershop_activity_image_view"
@@ -54,18 +56,29 @@
                 android:textColor="@color/White"
                 android:text="@string/barbershop_name"/>
 
+            <RatingBar
+                android:id="@+id/rating_barber_shop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:saveEnabled="true"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_marginVertical="2dp"
+                android:layout_marginHorizontal="2dp"
+                android:layout_gravity="center_horizontal"
+                android:numStars="5"/>
+
             <TextView
+                android:id="@+id/type_barbershop_activity_barber_shop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/type_barbershop_activity_barber_shop"
-                android:layout_below="@id/barbershop_name_activity_barber_shop"
+                android:layout_below="@id/rating_barber_shop"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:text="@string/barbershop_subtitle"
                 android:textColor="@color/White"
-                android:text="@string/barbershop_subtitle"/>
+                android:textSize="15sp" />
 
-        </RelativeLayout>
+        </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <androidx.appcompat.widget.Toolbar
@@ -147,12 +160,12 @@
                     android:id="@+id/review_text_et"/>
                 <RatingBar
                     android:id="@+id/rating"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:isIndicator="true" />
+                    android:saveEnabled="true"
+                    android:stepSize="1"
+                    android:layout_gravity="center_horizontal"
+                    android:numStars="5"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

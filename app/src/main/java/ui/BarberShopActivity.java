@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,8 @@ public class BarberShopActivity extends AppCompatActivity {
     RecyclerView reviewRecycler;
     TextView title;
     TextView type;
+    RatingBar ratingBar;
+    RatingBar barbershopRatingBar;
     FloatingActionButton phoneBtn, navigateBtn, messageBtn, websiteBtn;
     ImageView imageViewPic;
     StringBuilder barberAddress = new StringBuilder();
@@ -98,11 +101,14 @@ public class BarberShopActivity extends AppCompatActivity {
         newReviewLayout = findViewById(R.id.new_review_layout);
         newReviewText = findViewById(R.id.review_text_et);
         submitNewReview = findViewById(R.id.submit_review_bt);
+        barbershopRatingBar = findViewById(R.id.rating_barber_shop);
         title = findViewById(R.id.barbershop_name_activity_barber_shop);
         type = findViewById(R.id.type_barbershop_activity_barber_shop);
+        ratingBar = findViewById(R.id.rating);
         newReviewLayout.setVisibility(View.GONE);
         barberShop = (BarberShop) getIntent().getSerializableExtra("Barbershop");
         title.setText(barberShop.getName());
+        barbershopRatingBar.setRating(barberShop.getRate());
         //type =
         Glide.with(this).load(barberShop.getImages().get(0)).into(barberPicture);
         pictures = new ArrayList<>();
@@ -131,6 +137,14 @@ public class BarberShopActivity extends AppCompatActivity {
         messageBtn = findViewById(R.id.image_btn_message);
         websiteBtn = findViewById(R.id.image_btn_internet);
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                if(v<1.0f)
+                    ratingBar.setRating(1.0f);
+            }
+        });
+
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +154,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 else {
                     showAddReviewLayout = !showAddReviewLayout;
                     newReviewLayout.setVisibility(showAddReviewLayout? View.VISIBLE : View.GONE);
+                    ratingBar.setRating(5);
                 }
             }
         });
@@ -147,8 +162,15 @@ public class BarberShopActivity extends AppCompatActivity {
         submitNewReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAddReviewLayout = false;
-                uploadNewReview();
+                if(newReviewText.getText().toString().isEmpty())
+                {
+                    Toast.makeText(BarberShopActivity.this, getResources().getString(R.string.empty_textboxes), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    showAddReviewLayout = false;
+                    uploadNewReview();
+                }
             }
         });
 
@@ -235,7 +257,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 User user = param;
                 SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date date = new Date(System.currentTimeMillis());
-                Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), 5);
+                Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), ratingBar.getNumStars());
                 reviews.add(0, newReview);
                 reviewAdapter.notifyDataSetChanged();
                 updateBarberReviews();
@@ -255,6 +277,7 @@ public class BarberShopActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(BarberShopActivity.this, BarberShopActivity.this.getResources().getString(R.string.new_review), Toast.LENGTH_SHORT).show();
+                updateRating();
                 sendPushNotification();
             }
 
@@ -263,6 +286,19 @@ public class BarberShopActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
             }
         });
+    }
+
+    private void updateRating() {
+        //((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1)
+        if(barberShop.getRate() != 0) {
+            float totalRating = barberShop.getReviews().size();
+            float rating = ((barberShop.getRate() * totalRating) + ratingBar.getRating()) / (totalRating + 1);
+            barberShop.setRate(rating);
+        }
+        else
+            barberShop.setRate(ratingBar.getRating());
+        FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId())
+                .set(barberShop, SetOptions.merge());
     }
 
     private void sendPushNotification() {

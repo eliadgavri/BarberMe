@@ -141,6 +141,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 .putExtra("title", nameET.getText().toString())
                 .putExtra("city", cityET.getText().toString())
                 .putExtra("website", websiteET.getText().toString())
+                .putExtra("rate", 0)
                 .putExtra("address", addressET.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

@@ -61,8 +61,10 @@ public class UploadPostService extends Service
         String userName = intent.getStringExtra("userName");
         String website = intent.getStringExtra("website");
         String phoneNumber = intent.getStringExtra("phoneNumber");
+        float rate = intent.getFloatExtra("rate", 0);
 
-        BarberShop data = new BarberShop(title, city, address, phoneNumber, null, userId, userName, website);
+
+        BarberShop data = new BarberShop(title, city, address, phoneNumber, null, userId, userName, website, rate);
 
         if(images == null || images.size() == 0) {
             postAd(data);

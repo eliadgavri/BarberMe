@@ -26,6 +26,14 @@
 
     </style>
 
+    <style name="NavigationViewStyle">
+        <item name="android:textSize">16sp</item> <!-- menu item text size-->
+        <item name="android:listPreferredItemHeightSmall">40dp</item><!-- menu item height-->
+        <item name="android:textColorPrimary">@color/White</item>
+        <item name="android:textColorSecondary">@color/YellowDark</item>
+        <item name="actionMenuTextColor">@color/YellowDark</item>
+    </style>
+
 
 
 </resources>

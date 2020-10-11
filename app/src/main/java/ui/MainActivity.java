@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Uri profilePicture = currentUser.getPhotoUrl();
             Glide.with(this).load(profilePicture).into(profileIV);
         }
-        welcomeTV.setText(getResources().getString(R.string.welcome) + " " + name);
+        welcomeTV.setText(name);
         welcomeTV.setMovementMethod(LinkMovementMethod.getInstance());
         getSupportFragmentManager().beginTransaction().add(R.id.container, new AllBarberShopsFragment(), TAG).commit();
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onReceive(Context context, Intent intent) {
                 String username=currentUser.getDisplayName();
-                welcomeTV.setText(getResources().getString(R.string.welcome) + " " + username);
+                welcomeTV.setText(username);
 
             }
         };

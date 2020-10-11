@@ -12,24 +12,26 @@ import androidx.preference.PreferenceViewHolder;
 import com.example.barberme.R;
 
 public class NotificationPreference extends Preference {
-    public NotificationPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+
+
+    public NotificationPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        setLayoutResource(R.layout.preference_notifications);
     }
-
-
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         CheckBox checkBox = (CheckBox) holder.findViewById(R.id.check_box_notif);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b)
+                    {
 
+                    }
                 }
-            }
         });
     }
 }

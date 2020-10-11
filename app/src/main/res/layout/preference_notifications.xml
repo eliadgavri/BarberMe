@@ -47,6 +47,7 @@
     </LinearLayout>
 
     <CheckBox
+
         android:id="@+id/check_box_notif"
         android:layout_width="0dp"
         android:buttonTint="@color/White"

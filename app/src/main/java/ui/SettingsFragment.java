@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.Preference;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +25,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.preference.CheckBoxPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.bumptech.glide.Glide;
@@ -101,12 +102,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             {
                 View view=getListView().getChildAt(preference.getOrder());
                 CheckBox checkBoxNotif=view.findViewById(R.id.check_box_notif);
-                checkBoxNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    }
-                });
             }
         }
         return super.onPreferenceTreeClick(preference);

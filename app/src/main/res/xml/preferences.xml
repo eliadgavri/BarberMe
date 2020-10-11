@@ -22,7 +22,7 @@
         android:fontFamily="@font/assistant_semi_bold"
         android:title="Account Settings"/>
 
-    <CheckBoxPreference
+    <dialog.NotificationPreference
         android:title="Notifications"
         android:layout="@layout/preference_notifications"
         android:key="Notifications"/>

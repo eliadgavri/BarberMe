@@ -106,6 +106,7 @@
                     android:layout_below="@+id/upload_layout"
                     android:layout_centerHorizontal="true"
                     android:layout_marginVertical="10dp"
+                    android:fontFamily="@font/assistant_light"
                     android:layout_marginTop="30dp"
                     android:padding="5dp"
                     android:text="Pictures count: 0 / 0"
@@ -125,6 +126,7 @@
                     android:background="@drawable/shape_selector_yellow_dark"
                     android:padding="5dp"
                     android:text="@string/edit_barber"
+                    android:fontFamily="@font/assistant_regular"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>

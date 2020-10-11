@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/White"
             android:textStyle="bold"
+            android:fontFamily="@font/assistant_bold"
             android:text="User name"
             android:textSize="25dp"
             style="@style/TextAppearance.AppCompat.Body2"/>
@@ -38,6 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/White"
+            android:fontFamily="@font/assistant_light"
             android:text="Text"
             android:textSize="20dp"
             style="@style/TextAppearance.AppCompat.Body1"/>

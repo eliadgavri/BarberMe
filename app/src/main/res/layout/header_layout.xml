@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/navigation_header_tv"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/assistant_regular"
         android:text="header"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 

@@ -26,13 +26,14 @@ public class BarberShop implements Serializable {
     private String website;
     private List<Review> reviews;
     private float rate;
+    private String type;
 
     @ServerTimestamp
     private Date updateDate;  // update (also created) date - from Firebase
 
     public BarberShop() {} //for firebase database
 
-    public BarberShop(String name, String city, String address, String phoneNumber, List<String> images, String userId, String userName, String website, float rate) {
+    public BarberShop(String name, String city, String address, String phoneNumber, List<String> images, String userId, String userName, String website, float rate, String type) {
         this.name = name;
         this.city = city;
         this.address = address;
@@ -42,6 +43,7 @@ public class BarberShop implements Serializable {
         this.userName = userName;
         this.website = website;
         this.rate = rate;
+        this.type = type;
     }
 
     public <T extends BarberShop> T withId(String id) {
@@ -136,5 +138,13 @@ public class BarberShop implements Serializable {
 
     public void setRate(float rate) {
         this.rate = rate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

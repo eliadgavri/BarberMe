@@ -48,6 +48,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
     private EditText addressET;
     private EditText phoneNumberET;
     private EditText websiteET;
+    private EditText typeET;
     private File file;
     private int numOfPictures = 0;
     private final int SELECT_IMAGE = 1;
@@ -75,6 +76,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
         addressET = findViewById(R.id.address_et);
         phoneNumberET = findViewById(R.id.phone_et);
         websiteET = findViewById(R.id.website_et);
+        typeET = findViewById(R.id.type_et);
         finishBT = findViewById(R.id.finish_button);
         picturesCountTv.setText(this.getResources().getString(R.string.pictures_count) + " " + numOfPictures);
         picturesList.setLayoutManager(new GridLayoutManager(this, 3));
@@ -83,7 +85,10 @@ public class AddBarberShopActivity extends AppCompatActivity {
         finishBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publishNewShop();
+                if(pictures.size() != 0)
+                    publishNewShop();
+                else
+                    Toast.makeText(AddBarberShopActivity.this, "You must add at least one picture", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -142,6 +147,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 .putExtra("city", cityET.getText().toString())
                 .putExtra("website", websiteET.getText().toString())
                 .putExtra("rate", 0)
+                .putExtra("type", typeET.getText().toString())
                 .putExtra("address", addressET.getText().toString());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

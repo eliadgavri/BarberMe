@@ -61,6 +61,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
     private EditText addressET;
     private EditText phoneNumberET;
     private EditText websiteET;
+    private EditText typeET;
     private File file;
     private int numOfPictures = 0;
     private final int SELECT_IMAGE = 1;
@@ -91,6 +92,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         addressET = findViewById(R.id.address_et);
         phoneNumberET = findViewById(R.id.phone_et);
         websiteET = findViewById(R.id.website_et);
+        typeET = findViewById(R.id.edit_type_et);
         finishBT = findViewById(R.id.finish_button);
         setOldData();
         picturesList.setLayoutManager(new GridLayoutManager(this, 3));
@@ -147,6 +149,7 @@ public class EditBarberShopActivity extends AppCompatActivity {
         addressET.setText(barberShop.getAddress());
         phoneNumberET.setText(barberShop.getPhoneNumber());
         websiteET.setText(barberShop.getWebsite());
+        typeET.setText(barberShop.getType());
         for (String url : barberShop.getImages())
             pictures.add(Uri.parse(url));
         numOfPictures = pictures.size();
@@ -245,8 +248,10 @@ public class EditBarberShopActivity extends AppCompatActivity {
         barberShop.setAddress(addressET.getText().toString());
         barberShop.setPhoneNumber(phoneNumberET.getText().toString());
         barberShop.setWebsite(websiteET.getText().toString());
-        if(reuploadImages)
+        barberShop.setType(typeET.getText().toString());
+        if(reuploadImages) {
             uploadPicturesToFirebase();
+        }
         else
             uploadAd();
     }
@@ -296,7 +301,6 @@ public class EditBarberShopActivity extends AppCompatActivity {
                         Collections.sort(urlsList, (e1, e2) -> {
                             return Integer.compare(e1.position, e2.position);
                         });
-
                         barberShop.setImages(mappedURLs(urlsList));
                         uploadAd();
                     }

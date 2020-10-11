@@ -79,4 +79,5 @@
     <string name="push_new_review">A New Review Added</string>
     <string name="post">Post</string>
     <string name="edit_barber">Edit</string>
+    <string name="barbershop_type">Barber Shop Type</string>
 </resources>

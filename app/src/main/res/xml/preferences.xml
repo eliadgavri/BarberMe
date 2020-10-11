@@ -30,7 +30,7 @@
     <Preference
         android:title="Delete Account"
         android:layout="@layout/preference_delete_account"
-        android:key="Delete Account"/>
+        android:key="DeleteAccount"/>
 
 
 </PreferenceScreen>

@@ -142,6 +142,8 @@ public class BarberShopActivity extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 if(v<1.0f)
                     ratingBar.setRating(1.0f);
+                else
+                    ratingBar.setRating(v);
             }
         });
 
@@ -257,7 +259,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 User user = param;
                 SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 Date date = new Date(System.currentTimeMillis());
-                Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), ratingBar.getNumStars());
+                Review newReview = new Review(user, newReviewText.getText().toString(), formatter.format(date), (int)ratingBar.getRating());
                 reviews.add(0, newReview);
                 reviewAdapter.notifyDataSetChanged();
                 updateBarberReviews();

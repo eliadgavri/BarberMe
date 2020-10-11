@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -41,16 +42,19 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firestore.v1.WriteResult;
 
 import java.io.File;
 import java.net.PasswordAuthentication;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import model.Consumer;
 import model.DatabaseFetch;
 import service.UploadPostService;
+import userData.BarberShop;
 import userData.Review;
 import userData.User;
 
@@ -65,6 +69,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Uri imageUri;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     String imageUrl;
+    User currentUser;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -84,8 +89,67 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 changeBasicInfo();
                 break;
             }
+            case "DeleteAccount":
+            {
+                deleteAccount();
+                break;
+            }
         }
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private void deleteAccount() {
+        final AlertDialog.Builder builderDialog = new AlertDialog.Builder(SettingsFragment.this.getContext());
+        final View dialogView = getLayoutInflater().inflate(R.layout.delete_account_dialog, null);
+        Button deleteAccount = dialogView.findViewById(R.id.delete_account_bt);
+        builderDialog.setView(dialogView);
+        AlertDialog alertDialog = builderDialog.create();
+        alertDialog.show();
+        Consumer<User> uid = new Consumer<User>() {
+            @Override
+            public void apply(User param) {
+                currentUser = param;
+            }
+        };
+        databaseFetch.findUserData(uid, FirebaseAuth.getInstance().getCurrentUser().getUid());
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthCredential credential = EmailAuthProvider
+                        .getCredential(currentUser.getEmail(), currentUser.getPassword());
+                FirebaseAuth.getInstance().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                {
+                                    deleteAccountFromDatabase();
+                                }
+                                else
+                                    Toast.makeText(SettingsFragment.this.getContext(), SettingsFragment.this.getContext().getResources().getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    private void deleteAccountFromDatabase() {
+        Consumer<List<BarberShop>> consumer = new Consumer<List<BarberShop>>() {
+            @Override
+            public void apply(List<BarberShop> param) {
+                for(BarberShop barberShop : param)
+                    FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId()).delete();
+                FirebaseFirestore.getInstance().collection("users").document(currentUser.getuID()).delete();
+                Toast.makeText(SettingsFragment.this.getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SettingsFragment.this.getContext(), SignInUpActivity.class);
+                startActivity(intent);
+            }
+        };
+        databaseFetch.fetchUserBarberShops(consumer, currentUser.getuID());
     }
 
     private void changeBasicInfo() {

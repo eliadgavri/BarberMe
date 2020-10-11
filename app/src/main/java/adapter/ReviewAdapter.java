@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView name;
         TextView reviewText;
         TextView date;
+        RatingBar ratingBar;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -42,6 +44,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             name = itemView.findViewById(R.id.user_name_reviews);
             reviewText = itemView.findViewById(R.id.user_text_reviews);
             date = itemView.findViewById(R.id.date_reviews);
+            ratingBar = itemView.findViewById(R.id.rating_cardview);
         }
     }
 
@@ -60,6 +63,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.name.setText(user.getFirstName() + " " + user.getLastName());
         holder.reviewText.setText(reviews.get(position).getReviewText());
         holder.date.setText(reviews.get(position).getDate());
+        holder.ratingBar.setRating(reviews.get(position).getRate());
         Glide.with(context).load(user.getProfilePicture()).into(holder.picture);
     }
 

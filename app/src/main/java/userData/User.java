@@ -23,13 +23,14 @@ public class User implements Serializable {
     String gender;
     String birthday;
     String address;
+    boolean isGettingNotifications;
 
     @ServerTimestamp
     private Date registerDate;  // update (also created) date - from Firebase
 
     public User() {} //for firebase database
 
-    public User(String uID,String firstName,String lastName, String password, String email, String profilePicture, String gender, String birthday, String address) {
+    public User(String uID,String firstName,String lastName, String password, String email, String profilePicture, String gender, String birthday, String address, boolean isGettingNotifications) {
 
         this.uID=uID;
         this.firstName=firstName;
@@ -40,6 +41,7 @@ public class User implements Serializable {
         this.gender = gender;
         this.birthday = birthday;
         this.address = address;
+        this.isGettingNotifications = isGettingNotifications;
     }
 
     public <T extends User> T withId(String id) {
@@ -133,5 +135,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isGettingNotifications() {
+        return isGettingNotifications;
+    }
+
+    public void setGettingNotifications(boolean gettingNotifications) {
+        isGettingNotifications = gettingNotifications;
     }
 }

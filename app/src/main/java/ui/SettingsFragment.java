@@ -97,12 +97,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 deleteAccount();
                 break;
             }
-
-            case "Notifications":
-            {
-                View view=getListView().getChildAt(preference.getOrder());
-                CheckBox checkBoxNotif=view.findViewById(R.id.check_box_notif);
-            }
         }
         return super.onPreferenceTreeClick(preference);
     }

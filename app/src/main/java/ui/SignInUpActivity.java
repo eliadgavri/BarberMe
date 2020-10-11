@@ -26,7 +26,7 @@ public class SignInUpActivity extends AppCompatActivity
 
     final String TAG = "SignInUpActivity";
     FirebaseAuth firebaseAuth;
-    final String annonymousPicture = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/images%2FprofilePicture.png?alt=media&token=8c5ed008-5852-453b-83ec-0d53c8dc5f07";
+    final String annonymousPicture = "https://firebasestorage.googleapis.com/v0/b/barberme-83e8b.appspot.com/o/profiles%2FprofilePicture.png?alt=media&token=996a8ccb-7f65-43da-86ad-4619a9580fa5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class SignInUpActivity extends AppCompatActivity
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
-                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address);
+                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address, true);
                             publishNewUser(user);
                             Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
                             startActivity(intent);

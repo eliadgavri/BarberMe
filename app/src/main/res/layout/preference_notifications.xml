@@ -47,10 +47,13 @@
     </LinearLayout>
 
     <CheckBox
+        android:id="@+id/check_box_notif"
         android:layout_width="0dp"
+        android:buttonTint="@color/White"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="30dp"
+        android:textColor="@color/White"
+        android:layout_marginVertical="20dp"
+        android:layout_marginStart="50dp"
         android:layout_weight="1"/>
 
 </LinearLayout>

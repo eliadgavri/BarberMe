@@ -15,6 +15,8 @@ import android.preference.Preference;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -93,6 +95,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             {
                 deleteAccount();
                 break;
+            }
+
+            case "Notifications":
+            {
+                View view=getListView().getChildAt(preference.getOrder());
+                CheckBox checkBoxNotif=view.findViewById(R.id.check_box_notif);
+                checkBoxNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    }
+                });
             }
         }
         return super.onPreferenceTreeClick(preference);

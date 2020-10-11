@@ -35,8 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="50dp"
                     android:weightSum="2">
 
                     <EditText
@@ -69,19 +68,30 @@
                 <EditText
                     android:fontFamily="@font/assistant_light"
                     android:backgroundTint="@color/YellowApp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/birthday"
                     android:inputType="date"
-                    android:padding="5dp"
+                    android:textColor="@color/White"
+                    android:textColorHint="@color/White"
+                    android:textSize="17.5sp" />
+
+                <EditText
+                    android:fontFamily="@font/assistant_light"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    android:backgroundTint="@color/YellowApp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
                     android:textSize="17.5sp" />
 
                 <RadioGroup
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/radio"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -109,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/male"
+                        android:buttonTint="@color/color_selector"
                         android:textColor="@color/White" />
 
                     <RadioButton
@@ -116,6 +127,7 @@
                         android:id="@+id/radioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/color_selector"
                         android:text="@string/female"
                         android:textColor="@color/White" />
 
@@ -123,55 +135,39 @@
 
                 <EditText
                     android:fontFamily="@font/assistant_light"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/email_et"
                     android:backgroundTint="@color/YellowApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
                     android:textSize="17.5sp" />
 
                 <EditText
                     android:fontFamily="@font/assistant_light"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:backgroundTint="@color/YellowApp"
                     android:inputType="textPassword"
-                    android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
                     android:textSize="17.5sp" />
 
                 <EditText
                     android:fontFamily="@font/assistant_light"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/confirm_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/confirm_password"
                     android:inputType="textPassword"
-                    android:padding="5dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:textColor="@color/White"
-                    android:textColorHint="@color/White"
-                    android:textSize="17.5sp" />
-
-                <EditText
-                    android:fontFamily="@font/assistant_light"
-                    android:layout_marginTop="30dp"
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/address"
-                    android:backgroundTint="@color/YellowApp"
-                    android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
                     android:textSize="17.5sp" />
@@ -179,11 +175,11 @@
                 <Button
                     android:id="@+id/signup_bt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:padding="5dp"
                     android:fontFamily="@font/assistant_regular"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/shape_selector_yellowapp"
                     android:paddingHorizontal="70dp"
                     android:text="@string/signup"

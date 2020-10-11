@@ -9,7 +9,7 @@
     <string name="last_name">שם משפחה</string>
     <string name="city">עיר</string>
     <string name="address">כתובת</string>
-    <string name="gender">מין</string>
+    <string name="gender">מין:</string>
     <string name="male">זכר</string>
     <string name="female">נקבה</string>
     <string name="birthday">יום הולדת</string>

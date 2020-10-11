@@ -60,6 +60,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="3dp"
             android:visibility="gone">
 
             <EditText
@@ -67,8 +69,8 @@
                 android:id="@+id/search_title"
                 android:textColor="@color/White"
                 android:textColorHint="@color/White"
-                android:background="@color/BlackHide"
-                android:backgroundTint="@color/BlackHide"
+                android:background="@drawable/shape_selector_tarsient_without_stroke"
+                android:backgroundTint="@color/YellowDark"
                 android:layout_width="0dp"
                 android:layout_weight="4"
                 android:fontFamily="@font/assistant_light"

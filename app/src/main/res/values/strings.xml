@@ -24,7 +24,7 @@
     <string name="last_name">Last Name</string>
     <string name="city">City</string>
     <string name="address">Address</string>
-    <string name="gender">Gender</string>
+    <string name="gender">Gender:</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="birthday">Birthday</string>

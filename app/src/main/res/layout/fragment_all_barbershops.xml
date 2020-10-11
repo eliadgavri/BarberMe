@@ -74,7 +74,7 @@
                 android:fontFamily="@font/assistant_light"
                 android:padding="1dp"
                 android:layout_height="match_parent"
-                android:hint="@string/barbershop_name"/>
+                android:hint="@string/search"/>
 
 
             <ImageButton

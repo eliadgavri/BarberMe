@@ -109,7 +109,7 @@ public class BarberShopActivity extends AppCompatActivity {
         barberShop = (BarberShop) getIntent().getSerializableExtra("Barbershop");
         title.setText(barberShop.getName());
         barbershopRatingBar.setRating(barberShop.getRate());
-        //type =
+        type.setText(barberShop.getType());
         Glide.with(this).load(barberShop.getImages().get(0)).into(barberPicture);
         pictures = new ArrayList<>();
         String uID = FirebaseAuth.getInstance().getCurrentUser().getUid();

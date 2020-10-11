@@ -38,6 +38,18 @@
                     android:textSize="17.5sp" />
 
                 <EditText
+                    android:layout_marginTop="30dp"
+                    android:padding="5dp"
+                    android:textSize="17.5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/White"
+                    android:textColor="@color/White"
+                    android:backgroundTint="@color/YellowApp"
+                    android:hint="@string/barbershop_type"
+                    android:id="@+id/edit_type_et"/>
+
+                <EditText
                     android:id="@+id/city_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

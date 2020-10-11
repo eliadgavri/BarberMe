@@ -70,10 +70,10 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String searchString = searchTitle.getText().toString();
+                String searchString = searchTitle.getText().toString().toLowerCase();
                 List<BarberShop> data = new ArrayList<>();
                 for(BarberShop barber : barbers) {
-                    if (barber.getName().contains(searchString))
+                    if (barber.getName().toLowerCase().contains(searchString))
                         data.add(barber);
                 }
                 barberShopAdapter = new BarberShopAdapter(data, false);
@@ -90,10 +90,10 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String searchString = searchTitle.getText().toString();
+                String searchString = searchTitle.getText().toString().toLowerCase();
                 List<BarberShop> data = new ArrayList<>();
                 for(BarberShop barber : barbers) {
-                    if (barber.getName().contains(searchString))
+                    if (barber.getName().toLowerCase().contains(searchString))
                         data.add(barber);
                 }
                 barberShopAdapter = new BarberShopAdapter(data, false);

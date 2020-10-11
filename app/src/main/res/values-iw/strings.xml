@@ -89,4 +89,6 @@
     <string name="profile_picture">תמונת פרופיל</string>
     <string name="account_settings">הגדרות משתמש</string>
     <string name="notifications">התראות</string>
+    <string name="edit_my_barberss">ערוך את המספרה שלי</string>
+    <string name="add">הוסף</string>
 </resources>

@@ -5,23 +5,16 @@
         <item android:id="@+id/all_barbershops"
             android:checked="true"
             android:title="@string/all_barber_shops"/>
-    </group>
 
-    <item android:title="@string/personal_submenu"
-        >
 
-        <menu>
             <item android:id="@+id/my_barbershops"
                 android:title="@string/my_barber_shops"/>
-        </menu>
-    </item>
 
-    <item android:title="@string/settings_submenu">
-        <menu>
+
             <item android:id="@+id/settings"
                 android:title="@string/settings"/>
+
             <item android:id="@+id/Logout"
                 android:title="@string/logout"/>
-        </menu>
-    </item>
+    </group>
 </menu>

@@ -17,6 +17,16 @@
             android:orientation="vertical">
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="50sp"
+                android:fontFamily="@font/agency"
+                android:textColor="@color/YellowApp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@string/add_barber_shop"/>
+
             <LinearLayout
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
@@ -134,10 +144,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/shape_selector_yellow_dark"
+                    android:background="@drawable/shape_selector_yellowapp"
                     android:padding="5dp"
                     android:fontFamily="@font/assistant_regular"
-                    android:text="@string/add_barber_shop"
+                    android:text="@string/add"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>>

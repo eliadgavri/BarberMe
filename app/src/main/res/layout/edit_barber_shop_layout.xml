@@ -16,9 +16,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="50sp"
+                android:fontFamily="@font/agency"
+                android:textColor="@color/YellowApp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:text="@string/edit_my_barberss"/>
 
             <LinearLayout
+                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="40dp"
@@ -134,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/shape_selector_yellow_dark"
+                    android:background="@drawable/shape_selector_yellowapp"
                     android:padding="5dp"
                     android:text="@string/edit_barber"
                     android:fontFamily="@font/assistant_regular"

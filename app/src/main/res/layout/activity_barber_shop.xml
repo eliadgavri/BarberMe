@@ -177,7 +177,7 @@
                     android:fontFamily="@font/assistant_light"
                     android:padding="5dp"
                     android:layout_margin="2dp"
-                    android:background="@drawable/shape_selector_yellow_dark"
+                    android:background="@drawable/shape_selector_yellowapp"
                     android:layout_gravity="center"
                     android:id="@+id/submit_review_bt"/>
 

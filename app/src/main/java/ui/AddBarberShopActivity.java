@@ -88,7 +88,7 @@ public class AddBarberShopActivity extends AppCompatActivity {
                 if(pictures.size() != 0)
                     publishNewShop();
                 else
-                    Toast.makeText(AddBarberShopActivity.this, "You must add at least one picture", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBarberShopActivity.this, AddBarberShopActivity.this.getResources().getString(R.string.atleast_one_picture), Toast.LENGTH_SHORT).show();
 
             }
         });

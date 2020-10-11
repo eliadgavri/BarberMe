@@ -40,7 +40,7 @@
             android:textColor="@color/White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update your basic info, email and password."
+            android:text="@string/update_info"
             android:textSize="14sp"
             android:textAllCaps="false"/>
     </LinearLayout>

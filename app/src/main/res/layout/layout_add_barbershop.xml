@@ -107,7 +107,6 @@
                     android:background="@drawable/shape_selector_transparent"
                     android:padding="5dp"
                     android:src="@drawable/ic_baseline_add_a_photo_orange_24"
-                    android:text="Upload"
                     android:id="@+id/upload_button"/>
 
 

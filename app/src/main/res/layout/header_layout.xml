@@ -45,7 +45,7 @@
         android:layout_height="0dp"
         android:id="@+id/navigation_sub_header_tv"
         android:fontFamily="@font/assistant_light"
-        android:text="My Account" />
+        android:text="@string/my_account" />
     </LinearLayout>
     </LinearLayout>
 </LinearLayout>

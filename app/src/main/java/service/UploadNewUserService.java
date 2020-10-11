@@ -62,7 +62,6 @@ public class UploadNewUserService extends Service {
                     ex.printStackTrace();
                     showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
                 });
-
     }
 
     private Notification createNotification() {

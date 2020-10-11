@@ -4,24 +4,24 @@
 
         <item android:id="@+id/all_barbershops"
             android:checked="true"
-            android:title="All Barber Shops"/>
+            android:title="@string/all_barber_shops"/>
     </group>
 
-    <item android:title="Personal Submenu"
+    <item android:title="@string/personal_submenu"
         >
 
         <menu>
             <item android:id="@+id/my_barbershops"
-                android:title="My Barber Shops"/>
+                android:title="@string/my_barber_shops"/>
         </menu>
     </item>
 
-    <item android:title="Settings Submenu">
+    <item android:title="@string/settings_submenu">
         <menu>
             <item android:id="@+id/settings"
-                android:title="Settings"/>
+                android:title="@string/settings"/>
             <item android:id="@+id/Logout"
-                android:title="Logout"/>
+                android:title="@string/logout"/>
         </menu>
     </item>
 </menu>

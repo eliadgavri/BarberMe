@@ -26,7 +26,7 @@ public class SignUpFragment extends Fragment {
     EditText birthday;
     EditText address;
     RadioGroup radioGroup;
-    String radioGender="Male";
+    String radioGender=SignUpFragment.this.getContext().getResources().getString(R.string.male);
     Button backToSignIn;
     Button signUp;
     SignUpListener signUpListener;

@@ -40,7 +40,7 @@
         android:textColor="@color/White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete your account"
+        android:text="@string/delete_your_account"
         android:textSize="14sp"
         android:textAllCaps="false"/>
 </LinearLayout>

@@ -76,7 +76,7 @@
                 android:background="@drawable/shape_selector_yellowapp"
                 android:padding="5dp"
                 android:text="@string/login"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@color/Black"
                 android:textSize="15sp" />
 
@@ -125,7 +125,7 @@
                 android:background="@drawable/shape_selector_yellowapp"
                 android:padding="5dp"
                 android:text="@string/signup"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@color/Black"
                 android:textSize="15sp" />
 
@@ -139,7 +139,7 @@
                 android:background="@drawable/shape_selector_transparent"
                 android:padding="5dp"
                 android:text="@string/guest_login"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@color/YellowApp"
                 android:textSize="15sp" />
         </LinearLayout>

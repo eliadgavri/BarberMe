@@ -26,9 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="100dp"
-        android:text="EDIT PROFILE PICTURE"
+        android:text="@string/edit_profile_picture"
         android:background="@drawable/shape_selector_yellow_dark"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:id="@+id/edit_profile_pic_btn"/>
 
     <Button
@@ -36,11 +36,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_selector_yellow_dark"
         android:layout_marginTop="20dp"
-        android:text="SAVE CHANGES"
+        android:text="@string/save_changes"
         android:fontFamily="@font/assistant_regular"
         android:id="@+id/save_profile_pic_changes_btn"
         android:layout_marginHorizontal="100dp"
-        android:textAllCaps="false"/>
+        android:textAllCaps="true"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:hint="Barbershop name"
+                    android:hint="@string/barbershop_name"
                     android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:hint="City"
+                    android:hint="@string/city"
                     android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:hint="Address"
+                    android:hint="@string/address"
                     android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:hint="Phone number"
+                    android:hint="@string/phone_number"
                     android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="@color/YellowApp"
-                    android:hint="Website"
+                    android:hint="@string/website"
                     android:padding="5dp"
                     android:textColor="@color/White"
                     android:textColorHint="@color/White"
@@ -107,8 +107,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/shape_selector_transparent"
                     android:padding="5dp"
-                    android:src="@drawable/ic_baseline_add_a_photo_orange_24"
-                    android:text="Upload" />
+                    android:src="@drawable/ic_baseline_add_a_photo_orange_24"/>
 
 
                 <TextView
@@ -121,7 +120,7 @@
                     android:fontFamily="@font/assistant_light"
                     android:layout_marginTop="30dp"
                     android:padding="5dp"
-                    android:text="Pictures count: 0 / 0"
+                    android:text="@string/pictures_count"
                     android:textColor="@color/White"
                     android:textSize="17.5sp" />
 
@@ -142,6 +141,5 @@
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
-        >
     </ScrollView>
 </LinearLayout>

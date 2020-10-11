@@ -8,28 +8,28 @@
         android:title="Personal Settings"/>
 
     <Preference
-        android:title="Basic Information"
+        android:title="@string/basic_Information"
         android:layout="@layout/preference_basic_information"
         android:key="ChangeBasicInfo"/>
 
     <Preference
-        android:title="Profile picture"
+        android:title="@string/profile_picture"
         android:layout="@layout/preference_change_profile"
         android:key="ChangeProfilePicture"/>
 
 
     <PreferenceCategory
         android:fontFamily="@font/assistant_semi_bold"
-        android:title="Account Settings"/>
+        android:title="@string/account_settings"/>
 
     <CheckBoxPreference
         android:title="Notifications"
         android:layout="@layout/preference_notifications"
         android:defaultValue="true"
-        android:key="Notifications"/>
+        android:key="@string/notifications"/>
 
     <Preference
-        android:title="Delete Account"
+        android:title="@string/delete_account"
         android:layout="@layout/preference_delete_account"
         android:key="DeleteAccount"/>
 

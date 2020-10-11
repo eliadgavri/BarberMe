@@ -147,7 +147,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 for(BarberShop barberShop : param)
                     FirebaseFirestore.getInstance().collection("shops").document(barberShop.getId()).delete();
                 FirebaseFirestore.getInstance().collection("users").document(currentUser.getuID()).delete();
-                Toast.makeText(SettingsFragment.this.getContext(), "Account Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsFragment.this.getContext(), SettingsFragment.this.getContext().getResources().getString(R.string.account_deleted), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SettingsFragment.this.getContext(), SignInUpActivity.class);
                 startActivity(intent);
             }
@@ -195,26 +195,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    Toast.makeText(SettingsFragment.this.getContext(), "Profile picture changed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsFragment.this.getContext(), SettingsFragment.this.getContext().getResources().getString(R.string.profile_picture_chaneged), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("profilePictureChanged");
                     LocalBroadcastManager.getInstance(SettingsFragment.this.getContext()).sendBroadcast(intent);
                     updateFirestore();
                 }
                 else
-                    Toast.makeText(SettingsFragment.this.getContext(), "There was an error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsFragment.this.getContext(), SettingsFragment.this.getContext().getResources().getString(R.string.error_message), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void selectImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = { SettingsFragment.this.getContext().getResources().getString(R.string.take_picture), SettingsFragment.this.getContext().getResources().getString(R.string.choose_picture) };
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext(),R.style.AlertDialog_Builder);
-        builder.setTitle("Choose your profile picture");
+        builder.setTitle(SettingsFragment.this.getContext().getResources().getString(R.string.choose_picture));
         builder.setItems(options, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")) {
+                if (options[item].equals(SettingsFragment.this.getContext().getResources().getString(R.string.take_picture))) {
                     if(Build.VERSION.SDK_INT>=23) {
                         int hasWritePermission = getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
                         if(hasWritePermission!= PackageManager.PERMISSION_GRANTED){
@@ -230,13 +230,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         takePicture();
                     }
 
-                } else if (options[item].equals("Choose from Gallery")) {
+                } else if (options[item].equals(SettingsFragment.this.getContext().getResources().getString(R.string.choose_picture))) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_IMAGE);
+                    startActivityForResult(Intent.createChooser(intent, SettingsFragment.this.getContext().getResources().getString(R.string.choose_picture)), SELECT_IMAGE);
 
-                } else if (options[item].equals("Cancel")) {
+                } else if (options[item].equals(SettingsFragment.this.getContext().getResources().getString(R.string.cancel))) {
                     dialog.dismiss();
                 }
             }
@@ -293,7 +293,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(requestCode==WRITE_PERMISSION_REQUEST){
             if(grantResults[0]!=PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this.getContext(), "you need permission to take picture", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), SettingsFragment.this.getContext().getResources().getString(R.string.permission), Toast.LENGTH_SHORT).show();
             }
             else{
                 //Has permissions

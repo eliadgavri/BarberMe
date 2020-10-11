@@ -22,10 +22,11 @@
         android:fontFamily="@font/assistant_semi_bold"
         android:title="Account Settings"/>
 
-    <Preference
+    <CheckBoxPreference
         android:title="Notifications"
         android:layout="@layout/preference_notifications"
         android:key="Notifications"/>
+
 
     <Preference
         android:title="Delete Account"

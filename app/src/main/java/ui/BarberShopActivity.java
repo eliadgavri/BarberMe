@@ -281,6 +281,7 @@ public class BarberShopActivity extends AppCompatActivity {
                 Toast.makeText(BarberShopActivity.this, BarberShopActivity.this.getResources().getString(R.string.new_review), Toast.LENGTH_SHORT).show();
                 updateRating();
                 sendPushNotification();
+                barbershopRatingBar.setRating(barberShop.getRate());
             }
 
         }).addOnFailureListener(new OnFailureListener() {
@@ -378,4 +379,10 @@ public class BarberShopActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

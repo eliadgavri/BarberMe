@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener firebaseListener;
-    Boolean isGuest = false;
+    static Boolean isGuest = false;
     ImageView home;
     ImageView search;
     boolean searchMode = false;

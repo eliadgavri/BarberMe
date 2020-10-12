@@ -20,6 +20,7 @@ import java.util.List;
 
 import model.DatabaseFetch;
 import ui.AllBarberShopsFragment;
+import ui.MainActivity;
 import userData.BarberShop;
 
 public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.BarberShopViewHolder> {
@@ -29,10 +30,12 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
     MyBarberShopListener listener;
     private Context context;
     DatabaseFetch databaseFetch = new DatabaseFetch();
+    boolean isGuest;
 
-    public BarberShopAdapter(List<BarberShop> barberShops, boolean showEdit) {
+    public BarberShopAdapter(List<BarberShop> barberShops, boolean showEdit, boolean isGuest) {
         this.barberShops = barberShops;
         this.showEdit = showEdit;
+        this.isGuest = isGuest;
     }
 
     public interface MyBarberShopListener
@@ -58,7 +61,7 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
             Glide.with(context).load(barberShop.getImages().get(0)).into(holder.picture);
         holder.title.setText(barberShop.getName());
         holder.city.setText(barberShop.getCity());
-        if(!showEdit)
+        if(!showEdit && !isGuest)
         {
             float distance=0;
             Location crntLocation=new Location("crntlocation");

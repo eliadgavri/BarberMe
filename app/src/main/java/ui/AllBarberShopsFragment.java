@@ -115,7 +115,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
             barbers = localBarbersList;
             data = localBarbersList;
         }
-        barberShopAdapter = new BarberShopAdapter(data, false);
+        barberShopAdapter = new BarberShopAdapter(data, false, MainActivity.isGuest);
         barbersList.setAdapter(barberShopAdapter);
         barberShopAdapter.setListener(AllBarberShopsFragment.this);
     }
@@ -130,6 +130,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         Intent intent = new Intent(AllBarberShopsFragment.this.getContext(),BarberShopActivity.class);
         intent.putExtra("Barbershop",barbers.get(position));
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
@@ -145,24 +146,40 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
 
     private void refreshDatabase()
     {
-        Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
-            @Override
-            public void apply(List<BarberShop> param) {
-                Consumer<User> userConsumer = new Consumer<User>() {
-                    @Override
-                    public void apply(User param) {
-                        lat = param.getLat();
-                        lng = param.getLng();
-                        barbersList.setAdapter(barberShopAdapter);
-                        barberShopAdapter.setListener(AllBarberShopsFragment.this);
-                    }
-                };
-                databaseFetch.findUserData(userConsumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
-                barbers = param;
-                localBarbersList = param;
-                barberShopAdapter = new BarberShopAdapter(param, false);
-            }
-        };
-        databaseFetch.fetchAllBarberShops(consumerList);
+        if(MainActivity.isGuest != true) {
+            Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
+                @Override
+                public void apply(List<BarberShop> param) {
+                    Consumer<User> userConsumer = new Consumer<User>() {
+                        @Override
+                        public void apply(User param) {
+                            lat = param.getLat();
+                            lng = param.getLng();
+                            barbersList.setAdapter(barberShopAdapter);
+                            barberShopAdapter.setListener(AllBarberShopsFragment.this);
+                        }
+                    };
+                    databaseFetch.findUserData(userConsumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    barbers = param;
+                    localBarbersList = param;
+                    barberShopAdapter = new BarberShopAdapter(param, false, false);
+                }
+            };
+            databaseFetch.fetchAllBarberShops(consumerList);
+        }
+        else
+        {
+            Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
+                @Override
+                public void apply(List<BarberShop> param) {
+                    barbers = param;
+                    localBarbersList = param;
+                    barberShopAdapter = new BarberShopAdapter(param, false, true);
+                    barbersList.setAdapter(barberShopAdapter);
+                    barberShopAdapter.setListener(AllBarberShopsFragment.this);
+                }
+            };
+            databaseFetch.fetchAllBarberShops(consumerList);
+        }
     }
 }

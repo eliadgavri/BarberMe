@@ -75,7 +75,7 @@ public class MyBarberShopsFragment extends Fragment implements BarberShopAdapter
             @Override
             public void apply(List<BarberShop> param) {
                 barbers = param;
-                BarberShopAdapter barberShopAdapter = new BarberShopAdapter(barbers, true);
+                BarberShopAdapter barberShopAdapter = new BarberShopAdapter(barbers, true, false);
                 ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {

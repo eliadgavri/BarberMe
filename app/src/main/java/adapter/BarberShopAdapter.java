@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.barberme.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
+import model.DatabaseFetch;
+import ui.AllBarberShopsFragment;
 import userData.BarberShop;
 
 public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.BarberShopViewHolder> {
@@ -24,6 +28,7 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
     private boolean showEdit;
     MyBarberShopListener listener;
     private Context context;
+    DatabaseFetch databaseFetch = new DatabaseFetch();
 
     public BarberShopAdapter(List<BarberShop> barberShops, boolean showEdit) {
         this.barberShops = barberShops;
@@ -53,6 +58,20 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
             Glide.with(context).load(barberShop.getImages().get(0)).into(holder.picture);
         holder.title.setText(barberShop.getName());
         holder.city.setText(barberShop.getCity());
+        if(!showEdit)
+        {
+            float distance=0;
+            Location crntLocation=new Location("crntlocation");
+            crntLocation.setLatitude(AllBarberShopsFragment.lat);
+            crntLocation.setLongitude(AllBarberShopsFragment.lng);
+
+            Location newLocation=new Location("newlocation");
+            newLocation.setLatitude(barberShop.getLat());
+            newLocation.setLongitude(barberShop.getLng());
+
+            distance =crntLocation.distanceTo(newLocation) / 1000; // in km
+            holder.distance.setText(new DecimalFormat("##.##").format(distance) + " " + "KM");
+        }
     }
 
     @Override
@@ -66,13 +85,16 @@ public class BarberShopAdapter extends RecyclerView.Adapter<BarberShopAdapter.Ba
         TextView title;
         TextView city;
         ImageView edit;
+        TextView distance;
         public BarberShopViewHolder(@NonNull View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.barebrshop_picture);
             title = itemView.findViewById(R.id.barebrshop_name);
             city = itemView.findViewById(R.id.barebrshop_city);
             edit = itemView.findViewById(R.id.edit_barebrshop_bt);
+            distance = itemView.findViewById(R.id.distance_tv);
             edit.setVisibility(showEdit? View.VISIBLE : View.GONE);
+            distance.setVisibility(showEdit? View.GONE : View.VISIBLE);
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

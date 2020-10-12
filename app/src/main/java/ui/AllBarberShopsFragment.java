@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.barberme.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ import adapter.PictureAdapter;
 import model.Consumer;
 import model.DatabaseFetch;
 import userData.BarberShop;
+import userData.User;
 
 public class AllBarberShopsFragment extends Fragment implements BarberShopAdapter.MyBarberShopListener {
 
@@ -50,6 +52,8 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     List<BarberShop> barbers;
     List<BarberShop> localBarbersList;
     SwipeRefreshLayout refreshLayout;
+    public static Double lat;
+    public static Double lng;
 
     @Nullable
     @Override
@@ -144,11 +148,19 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         Consumer<List<BarberShop>> consumerList = new Consumer<List<BarberShop>>() {
             @Override
             public void apply(List<BarberShop> param) {
+                Consumer<User> userConsumer = new Consumer<User>() {
+                    @Override
+                    public void apply(User param) {
+                        lat = param.getLat();
+                        lng = param.getLng();
+                        barbersList.setAdapter(barberShopAdapter);
+                        barberShopAdapter.setListener(AllBarberShopsFragment.this);
+                    }
+                };
+                databaseFetch.findUserData(userConsumer, FirebaseAuth.getInstance().getCurrentUser().getUid());
                 barbers = param;
                 localBarbersList = param;
                 barberShopAdapter = new BarberShopAdapter(param, false);
-                barbersList.setAdapter(barberShopAdapter);
-                barberShopAdapter.setListener(AllBarberShopsFragment.this);
             }
         };
         databaseFetch.fetchAllBarberShops(consumerList);

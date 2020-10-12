@@ -106,4 +106,5 @@
     <string name="notifications">Notifications</string>
     <string name="edit_my_barberss">Edit My Barber\'s</string>
     <string name="add">Add</string>
+    <string name="distance">KM</string>
 </resources>

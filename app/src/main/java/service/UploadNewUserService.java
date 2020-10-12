@@ -40,6 +40,8 @@ public class UploadNewUserService extends Service {
     User user;
     private static final int ID = 1;
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
+    Double lat = 0.0;
+    Double lng = 0.0;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -69,12 +71,11 @@ public class UploadNewUserService extends Service {
                             JSONArray jsonArray1 = jsonObject.getJSONArray("locations");
                             JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
                             JSONObject jsonObject2 = jsonObject1.getJSONObject("latLng");
-                            Double lat = jsonObject2.getDouble("lat");
-                            Double lng = jsonObject2.getDouble("lng");
+                            lat = jsonObject2.getDouble("lat");
+                            lng = jsonObject2.getDouble("lng");
                             user.setLat(lat);
                             user.setLng(lng);
-                            FirebaseFirestore.getInstance().collection("users").document(user.getId())
-                                    .set(user, SetOptions.merge());
+                            uploadNewUser(user);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -87,20 +88,18 @@ public class UploadNewUserService extends Service {
         queue.add(request);
         queue.start();
 
-       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address, true,0.0,0.0);
+       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address, true,lat,lng);
 
         startForeground(ID, createNotification());
-        uploadNewUser(user);
+        //uploadNewUser(user);
 
         return Service.START_NOT_STICKY;
     }
 
     private void uploadNewUser(User user) {
-
         FirebaseFirestore.getInstance().collection("users")
                 .add(user)
                 .addOnSuccessListener(docRef -> {
-                    String str = user.getuID();
                     messaging.subscribeToTopic(user.getuID());
                     stopSelf();
                 })

@@ -35,6 +35,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import dialog.LogoutDialog;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     final String TAG = "MainActivity";
@@ -173,16 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.logout))
-                .setMessage(getResources().getString(R.string.logout_message))
-                .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton((getResources().getString(R.string.yes)), (dialog, which) -> {
-                    FirebaseAuth.getInstance().signOut();
-                })
-                .setNegativeButton((getResources().getString(R.string.no)), null)
-                .create()
-                .show();
+        LogoutDialog dialog = new LogoutDialog(this);
+        dialog.show();
     }
 
     @Override

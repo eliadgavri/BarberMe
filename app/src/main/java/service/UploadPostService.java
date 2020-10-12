@@ -15,11 +15,21 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.barberme.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +44,11 @@ public class UploadPostService extends Service
     private static final int ID = 1;
     private StorageReference imagesRef;
     private static boolean isRunning = false;
+    private Double lat = 0.0;
+    private Double lng = 0.0;
+    private String userAddress;
+    BarberShop data;
+    final String geoApi = "http://open.mapquestapi.com/geocoding/v1/address?key=zdmIpWnC4qo7HygG9FDevXQUvQexxm3M&location=";
 
     @Override
     public void onCreate() {
@@ -64,11 +79,12 @@ public class UploadPostService extends Service
         float rate = intent.getFloatExtra("rate", 0);
         String type = intent.getStringExtra("type");
 
+        userAddress = address + "," + city;
 
-        BarberShop data = new BarberShop(title, city, address, phoneNumber, null, userId, userName, website, rate, type);
+        data = new BarberShop(title, city, address, phoneNumber, null, userId, userName, website, rate, type, lat, lng);
 
         if(images == null || images.size() == 0) {
-            postAd(data);
+            postAd();
             return Service.START_NOT_STICKY;
         }
 
@@ -99,7 +115,7 @@ public class UploadPostService extends Service
                         });
 
                         data.setImages(mappedURLs(urlsList));
-                        postAd(data);
+                        postAd();
                     }
                 } else {
                     showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
@@ -121,16 +137,50 @@ public class UploadPostService extends Service
         return result;
     }
 
-    private void postAd(BarberShop adData) {
-        FirebaseFirestore.getInstance().collection("shops")
-                .add(adData)
-                .addOnSuccessListener(docRef -> {
-                    stopSelf();
-                })
-                .addOnFailureListener(ex -> {
-                    ex.printStackTrace();
-                    showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
-                });
+    private void postAd() {
+        String withoutspaces = "";
+        for (int i = 0; i < userAddress.length(); i++) {
+            if (userAddress.charAt(i) != ' ')
+                withoutspaces += userAddress.charAt(i);
+            else
+                withoutspaces += "+";
+        }
+        String getUrl = geoApi + withoutspaces + ",Israel";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("results");
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            JSONArray jsonArray1 = jsonObject.getJSONArray("locations");
+                            JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+                            JSONObject jsonObject2 = jsonObject1.getJSONObject("latLng");
+                            lat = jsonObject2.getDouble("lat");
+                            lng = jsonObject2.getDouble("lng");
+                            data.setLat(lat);
+                            data.setLng(lng);
+                            FirebaseFirestore.getInstance().collection("shops")
+                                    .add(data)
+                                    .addOnSuccessListener(docRef -> {
+                                        stopSelf();
+                                    })
+                                    .addOnFailureListener(ex -> {
+                                        ex.printStackTrace();
+                                        showMessageAndFinish(getApplicationContext().getResources().getString(R.string.upload_data_error));
+                                    });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(request);
+        queue.start();
     }
 
     private void showMessageAndFinish(String msg) {

@@ -79,10 +79,10 @@
     <string name="push_new_review">A new review added</string>
     <string name="post">Post</string>
     <string name="edit_barber">Edit</string>
-    <string name="barbershop_type">Barber Shop Type</string>
+    <string name="barbershop_type">Barber Shop type</string>
     <string name="atleast_one_picture">You must add at least one picture</string>
-    <string name="account_deleted">Account Deleted !</string>
-    <string name="profile_picture_chaneged">Profile Picture Changed !</string>
+    <string name="account_deleted">Account deleted !</string>
+    <string name="profile_picture_chaneged">Profile picture changed !</string>
     <string name="new_password">New Password</string>
     <string name="save_changes">Save Changes</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>

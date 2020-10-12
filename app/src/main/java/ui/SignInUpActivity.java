@@ -1,5 +1,6 @@
 package ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -104,9 +105,19 @@ public class SignInUpActivity extends AppCompatActivity
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
                                 User user = new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address, true, 0.0, 0.0);
                                 publishNewUser(user);
+                                ProgressDialog pd = new ProgressDialog(SignInUpActivity.this);
+                                pd.setMessage("loading");
+                                pd.show();
+                                try {
+                                    Thread.sleep(5000);
+                                    pd.dismiss();
+                                } catch (InterruptedException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BarberMe</string>
+    <string name="app_name" translatable="false">Barber\'s House</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
 
     <!-- Preference Titles -->

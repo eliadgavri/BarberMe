@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BarberMe</string>
     <string name="error_message">קרתה תקלה</string>
     <string name="reset_password_email">מייל לאיפוס סיסמא נשלח</string>
     <string name="empty_textboxes">לא כל הנתונים מולאו</string>

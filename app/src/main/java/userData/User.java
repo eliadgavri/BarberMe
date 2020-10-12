@@ -23,6 +23,8 @@ public class User implements Serializable {
     String gender;
     String birthday;
     String address;
+    Double lat;
+    Double lng;
     boolean isGettingNotifications;
 
     @ServerTimestamp
@@ -30,7 +32,7 @@ public class User implements Serializable {
 
     public User() {} //for firebase database
 
-    public User(String uID,String firstName,String lastName, String password, String email, String profilePicture, String gender, String birthday, String address, boolean isGettingNotifications) {
+    public User(String uID,String firstName,String lastName, String password, String email, String profilePicture, String gender, String birthday, String address, boolean isGettingNotifications, Double lat, Double lng) {
 
         this.uID=uID;
         this.firstName=firstName;
@@ -42,6 +44,8 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.address = address;
         this.isGettingNotifications = isGettingNotifications;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public <T extends User> T withId(String id) {
@@ -143,5 +147,21 @@ public class User implements Serializable {
 
     public void setGettingNotifications(boolean gettingNotifications) {
         isGettingNotifications = gettingNotifications;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

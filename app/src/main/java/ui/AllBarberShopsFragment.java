@@ -48,6 +48,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
     BarberShopAdapter barberShopAdapter;
     DatabaseFetch databaseFetch = new DatabaseFetch();
     List<BarberShop> barbers;
+    List<BarberShop> localBarbersList;
     SwipeRefreshLayout refreshLayout;
 
     @Nullable
@@ -70,15 +71,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String searchString = searchTitle.getText().toString().toLowerCase();
-                List<BarberShop> data = new ArrayList<>();
-                for(BarberShop barber : barbers) {
-                    if (barber.getName().toLowerCase().contains(searchString))
-                        data.add(barber);
-                }
-                barberShopAdapter = new BarberShopAdapter(data, false);
-                barbersList.setAdapter(barberShopAdapter);
-                barberShopAdapter.setListener(AllBarberShopsFragment.this);
+                doSearch();
             }
         });
 
@@ -90,15 +83,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String searchString = searchTitle.getText().toString().toLowerCase();
-                List<BarberShop> data = new ArrayList<>();
-                for(BarberShop barber : barbers) {
-                    if (barber.getName().toLowerCase().contains(searchString))
-                        data.add(barber);
-                }
-                barberShopAdapter = new BarberShopAdapter(data, false);
-                barbersList.setAdapter(barberShopAdapter);
-                barberShopAdapter.setListener(AllBarberShopsFragment.this);
+                doSearch();
             }
 
             @Override
@@ -108,6 +93,27 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
         });
 
         return rootView;
+    }
+
+    private void doSearch() {
+        String searchString = searchTitle.getText().toString().toLowerCase();
+        List<BarberShop> data = new ArrayList<>();
+        if(!searchString.isEmpty())
+        {
+            for(BarberShop barber : barbers) {
+                if (barber.getName().toLowerCase().contains(searchString))
+                    data.add(barber);
+            }
+            barbers = data;
+        }
+        else
+        {
+            barbers = localBarbersList;
+            data = localBarbersList;
+        }
+        barberShopAdapter = new BarberShopAdapter(data, false);
+        barbersList.setAdapter(barberShopAdapter);
+        barberShopAdapter.setListener(AllBarberShopsFragment.this);
     }
 
     public void showHideSearch(boolean b)
@@ -139,6 +145,7 @@ public class AllBarberShopsFragment extends Fragment implements BarberShopAdapte
             @Override
             public void apply(List<BarberShop> param) {
                 barbers = param;
+                localBarbersList = param;
                 barberShopAdapter = new BarberShopAdapter(param, false);
                 barbersList.setAdapter(barberShopAdapter);
                 barberShopAdapter.setListener(AllBarberShopsFragment.this);

@@ -17,7 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.ArrayList;
+
 import dialog.ForgotPasswordDialog;
+import model.Consumer;
 import service.UploadNewUserService;
 import userData.User;
 
@@ -99,12 +102,17 @@ public class SignInUpActivity extends AppCompatActivity
                     firebaseAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(firstName +" "+ lastName).setPhotoUri(profilePicture).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
-                            User user =new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address, true);
-                            publishNewUser(user);
-                            Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
+                                User user = new User(firebaseAuth.getCurrentUser().getUid(),firstName,lastName,password,email,annonymousPicture,gender,birthday,address, true, 0.0, 0.0);
+                                publishNewUser(user);
+                                Intent intent = new Intent(SignInUpActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else
+                                Toast.makeText(SignInUpActivity.this, getResources().getString(R.string.signup_failed), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -135,5 +143,4 @@ public class SignInUpActivity extends AppCompatActivity
             startService(intent);
 
     }
-
 }

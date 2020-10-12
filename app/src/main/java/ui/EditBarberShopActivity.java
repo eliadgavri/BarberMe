@@ -301,11 +301,12 @@ public class EditBarberShopActivity extends AppCompatActivity {
                         Collections.sort(urlsList, (e1, e2) -> {
                             return Integer.compare(e1.position, e2.position);
                         });
+
                         barberShop.setImages(mappedURLs(urlsList));
                         uploadAd();
                     }
                 } else {
-                    Toast.makeText(EditBarberShopActivity.this, EditBarberShopActivity.this.getResources().getString(R.string.update_failed), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditBarberShopActivity.this, EditBarberShopActivity.this.getResources().getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                 }
             });
         }

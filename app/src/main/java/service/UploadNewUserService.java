@@ -14,15 +14,29 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.barberme.R;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import ui.SplashScreenActivity;
 import userData.User;
 
 public class UploadNewUserService extends Service {
 
+    final String geoApi = "http://open.mapquestapi.com/geocoding/v1/address?key=zdmIpWnC4qo7HygG9FDevXQUvQexxm3M&location=";
     User user;
     private static final int ID = 1;
     FirebaseMessaging messaging = FirebaseMessaging.getInstance();
@@ -41,7 +55,39 @@ public class UploadNewUserService extends Service {
        String birthday=intent.getStringExtra("birthday");
        String address=intent.getStringExtra("address");
 
-       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address, true);
+       String tempAddress = address;
+       tempAddress.replaceAll(" ", "+");
+       String getUrl = geoApi + tempAddress + ",Israel";
+       RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, getUrl, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("results");
+                            JSONObject jsonObject = jsonArray.getJSONObject(0);
+                            JSONArray jsonArray1 = jsonObject.getJSONArray("locations");
+                            JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+                            JSONObject jsonObject2 = jsonObject1.getJSONObject("latLng");
+                            Double lat = jsonObject2.getDouble("lat");
+                            Double lng = jsonObject2.getDouble("lng");
+                            user.setLat(lat);
+                            user.setLng(lng);
+                            FirebaseFirestore.getInstance().collection("users").document(user.getId())
+                                    .set(user, SetOptions.merge());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(request);
+        queue.start();
+
+       user=new User(uID,firstName,lastName,password,email,profilePicture,gender,birthday,address, true,0.0,0.0);
 
         startForeground(ID, createNotification());
         uploadNewUser(user);

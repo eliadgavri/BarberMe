@@ -8,9 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/barebrshop_picture"
-
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
         android:layout_marginVertical="20dp"
@@ -21,7 +20,7 @@
     <LinearLayout
         android:weightSum="2"
         android:layout_width="0dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:layout_toEndOf="@+id/barebrshop_picture"

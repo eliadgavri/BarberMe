@@ -12,4 +12,6 @@
     <color name="Black">#000</color>
     <color name="Gray">#7C7A7A</color>
     <color name="black_85">#D9000000</color>
+    <color name="Yellow_opacity_20">#33FFCE6A</color>
+    <color name="Yellow_opacity_60">#99FFCE6A</color>
 </resources>

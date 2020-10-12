@@ -14,4 +14,5 @@
     <color name="black_85">#D9000000</color>
     <color name="Yellow_opacity_20">#33FFCE6A</color>
     <color name="Yellow_opacity_60">#99FFCE6A</color>
+    <color name="Black_opacity_90">#E6000000</color>
 </resources>

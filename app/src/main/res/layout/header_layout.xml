@@ -9,7 +9,6 @@
 
     <LinearLayout
         android:layout_marginStart="20dp"
-        android:background="@drawable/top_bottom"
         android:padding="5dp"
         android:layout_marginTop="60dp"
         android:layout_width="match_parent"

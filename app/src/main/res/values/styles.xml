@@ -30,11 +30,13 @@
     </style>
 
     <style name="NavigationViewStyle">
+        <item name="fontFamily">@font/agency</item>
         <item name="android:textSize">50sp</item> <!-- menu item text size-->
         <item name="android:listPreferredItemHeightSmall">40dp</item><!-- menu item height-->
+        <item name="font">@font/agency</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:layout_marginTop">40dp</item>
-
-        <item name="fontFamily">@font/assistant_semi_bold</item>
+        <item name="preferenceStyle">@font/agency</item>
         <item name="android:textColorPrimary">@color/White</item>
         <item name="android:textColorSecondary">@color/YellowDark</item>
     </style>

@@ -10,4 +10,4 @@ Technologies: Firebase(FCM, Firestore, Storage), Questmap API(Geolocation servic
 
 ## Video:
 
-[![Barber's House](http://img.youtube.com/vi/zcn0aEwRcvI/1.jpg)](https://www.youtube.com/watch?v=zcn0aEwRcvI)
+[![Barber's House](http://img.youtube.com/vi/zcn0aEwRcvI/0.jpg)](https://www.youtube.com/watch?v=zcn0aEwRcvI)

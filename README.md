@@ -6,7 +6,7 @@ Developed using Java in an Android Studio enviroment.
 
 The main goal was to create clean UI that works smooth and gives the user good experience.
 
-Technologies: Firebase(FCM, Firestore, Storage), Questmap API(Geolocation service), foreground services, broadcasts, notifications/push notifications, material design, Fragments, preferences and much more.
+Technologies: Firebase(FCM, Firestore, Storage), Questmap API(Geolocation service), foreground services, broadcasts, notifications/push notifications, material design, Fragments, preferences, storage and much more.
 
 ## Video:
 

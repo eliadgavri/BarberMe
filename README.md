@@ -15,17 +15,10 @@ Technologies: Firebase(FCM, Firestore, Storage), Questmap API(Geolocation servic
 ## Screenshots:
 
 [![Barber's House](https://thumbs2.imgbox.com/e9/fd/xevaJa52_t.jpg)](https://imgbox.com/xevaJa52)
-
 [![Barber's House](https://thumbs2.imgbox.com/e2/a6/tMUcMX14_t.jpg)](https://imgbox.com/tMUcMX14)
-
 [![Barber's House](https://thumbs2.imgbox.com/0e/e9/dAWors6c_t.jpg)](https://imgbox.com/dAWors6c)
-
 [![Barber's House](https://thumbs2.imgbox.com/64/04/XUejUiGt_t.jpg)](https://imgbox.com/XUejUiGt)
-
 [![Barber's House](https://thumbs2.imgbox.com/51/e6/2M9ucJsM_t.jpg)](https://imgbox.com/2M9ucJsM)
-
 [![Barber's House](https://thumbs2.imgbox.com/35/df/9onvcSGb_t.jpg)](https://imgbox.com/9onvcSGb)
-
 [![Barber's House](https://thumbs2.imgbox.com/af/6c/rzA0E3tW_t.jpg)](https://imgbox.com/rzA0E3tW)
-
 [![Barber's House](https://thumbs2.imgbox.com/7e/29/Mg4ddPxk_t.jpg)](https://imgbox.com/Mg4ddPxk)
